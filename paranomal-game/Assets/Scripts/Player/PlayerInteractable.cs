@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteractable : MonoBehaviour
@@ -10,12 +8,14 @@ public class PlayerInteractable : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
     private PlayerUI playerUI;
+    private InputManager inputManager;
 
     // Start is called before the first frame update
     void Start()
     {
         playerCamera = GetComponent<FirstPersonController>().playerCamera;
         playerUI = GetComponent<PlayerUI>();
+        inputManager = GetComponent<InputManager>();
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class PlayerInteractable : MonoBehaviour
 
                 playerUI.UpdateText(interactable.promptMessage);
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if (inputManager.onFoot.Interact.triggered)
                 {
                     // Will get the Interactable function on the Component the Script is attached to.
                     interactable.BaseInteract();
