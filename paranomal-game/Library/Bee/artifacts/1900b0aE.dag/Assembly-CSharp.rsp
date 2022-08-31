@@ -359,6 +359,7 @@
 "Assets/Scripts/InputManager.cs"
 "Assets/Scripts/Interactable.cs"
 "Assets/Scripts/Interactables/CollectItem.cs"
+"Assets/Scripts/Interactables/PickUpDropItem.cs"
 "Assets/Scripts/Player/PlayerInteractable.cs"
 "Assets/Scripts/Player/PlayerUI.cs"
 -langversion:9.0
