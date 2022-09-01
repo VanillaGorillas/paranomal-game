@@ -911,8 +911,8 @@ MonoBehaviour:
   parentComponent: {fileID: 8765489994903951806}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
-  dropForwardForce: 10
-  dropUpwardForce: 5
+  dropForwardForce: 3
+  dropUpwardForce: 1.5
   equipped: 0
 --- !u!54 &222400032
 Rigidbody:
@@ -2298,8 +2298,8 @@ MonoBehaviour:
   parentComponent: {fileID: 8765489994903951806}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
-  dropForwardForce: 10
-  dropUpwardForce: 5
+  dropForwardForce: 3
+  dropUpwardForce: 1.5
   equipped: 0
 --- !u!54 &784237745
 Rigidbody:
@@ -5467,15 +5467,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6441844880946889353, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: -0.472
       objectReference: {fileID: 0}
     - target: {fileID: 6441844880946889353, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.41
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 6441844880946889353, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.2
+      value: 0.985
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441844880946889353, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441844880946889353, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441844880946889353, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
