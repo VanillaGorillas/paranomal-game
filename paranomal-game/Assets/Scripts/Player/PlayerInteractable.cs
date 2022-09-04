@@ -9,6 +9,7 @@ public class PlayerInteractable : MonoBehaviour
     private LayerMask layerMask;
     private PlayerUI playerUI;
     private InputManager inputManager;
+    private GameObject leftHand;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class PlayerInteractable : MonoBehaviour
         playerCamera = GetComponent<FirstPersonController>().playerCamera;
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
+        leftHand = GameObject.Find("LeftHand");
     }
 
     // Update is called once per frame
@@ -44,6 +46,16 @@ public class PlayerInteractable : MonoBehaviour
                     // Will get the Interactable function on the Component the Script is attached to.
                     interactable.BaseInteract();
                 }
+            }
+        }
+        else if(leftHand.transform.childCount == 1)
+        {   
+            // If GameObject Left hand has child it will run the Drop funtion in the PickUpDropItem Script
+            Interactable leftHandInteractable = leftHand.GetComponentInChildren<Interactable>();
+
+            if (inputManager.onFoot.Interact.triggered)
+            {
+                leftHandInteractable.BaseInteract();
             }
         }
     }
