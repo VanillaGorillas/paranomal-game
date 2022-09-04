@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637974843698023503
+      ticks: 637978773225303131
     m_Hash: 1145968564
   m_LockFileStatus:
     m_FilePath: D:/Projects Github/paranomal-game/paranomal-game/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637974843698023503
+      ticks: 637978773225303131
     m_Hash: 776181687
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
