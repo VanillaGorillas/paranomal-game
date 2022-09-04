@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 42378208}
   - component: {fileID: 42378207}
   - component: {fileID: 42378210}
+  - component: {fileID: 42378211}
   m_Layer: 6
   m_Name: InteractableTest
   m_TagString: Untagged
@@ -496,6 +497,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Collect circle
+--- !u!114 &42378211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42378205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42704662a724be6479709347a3912ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!43 &69712704
 Mesh:
   m_ObjectHideFlags: 0
@@ -3739,6 +3756,7 @@ GameObject:
   - component: {fileID: 1205087890}
   - component: {fileID: 1205087889}
   - component: {fileID: 1205087888}
+  - component: {fileID: 1205087893}
   m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
@@ -3825,6 +3843,18 @@ Transform:
   m_Father: {fileID: 841781652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1205087893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205087887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313012bac8c38024c936f9eab12b3034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1326660435
 Mesh:
   m_ObjectHideFlags: 0
