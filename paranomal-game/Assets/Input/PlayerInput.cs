@@ -35,15 +35,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DropItem"",
-                    ""type"": ""Button"",
-                    ""id"": ""8cf83510-7e7d-4e67-8562-fdee47d00699"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,28 +59,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a4bb08d4-10c3-4229-a7dd-5a216767f62f"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DropItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""495a25ec-18eb-419b-8b0e-ad9973efc2f6"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DropItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -99,7 +68,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // OnFoot
         m_OnFoot = asset.FindActionMap("OnFoot", throwIfNotFound: true);
         m_OnFoot_Interact = m_OnFoot.FindAction("Interact", throwIfNotFound: true);
-        m_OnFoot_DropItem = m_OnFoot.FindAction("DropItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -160,13 +128,11 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_OnFoot;
     private IOnFootActions m_OnFootActionsCallbackInterface;
     private readonly InputAction m_OnFoot_Interact;
-    private readonly InputAction m_OnFoot_DropItem;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
         public OnFootActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_OnFoot_Interact;
-        public InputAction @DropItem => m_Wrapper.m_OnFoot_DropItem;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -179,9 +145,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
-                @DropItem.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnDropItem;
-                @DropItem.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnDropItem;
-                @DropItem.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnDropItem;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -189,9 +152,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @DropItem.started += instance.OnDropItem;
-                @DropItem.performed += instance.OnDropItem;
-                @DropItem.canceled += instance.OnDropItem;
             }
         }
     }
@@ -199,6 +159,5 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IOnFootActions
     {
         void OnInteract(InputAction.CallbackContext context);
-        void OnDropItem(InputAction.CallbackContext context);
     }
 }
