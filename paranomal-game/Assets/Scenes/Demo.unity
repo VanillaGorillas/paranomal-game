@@ -914,8 +914,8 @@ MonoBehaviour:
   dropForwardForce: 3
   dropUpwardForce: 1.5
   equipped: 0
-  leftHandItem: 1
-  rightHandItem: 0
+  isLeftHandItem: 1
+  isRightHandItem: 0
 --- !u!54 &222400032
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1331,8 +1331,8 @@ MonoBehaviour:
   dropForwardForce: 5
   dropUpwardForce: 1
   equipped: 1
-  leftHandItem: 0
-  rightHandItem: 1
+  isLeftHandItem: 0
+  isRightHandItem: 1
 --- !u!65 &388349414
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2426,8 +2426,8 @@ MonoBehaviour:
   dropForwardForce: 3
   dropUpwardForce: 1.5
   equipped: 0
-  leftHandItem: 1
-  rightHandItem: 0
+  isLeftHandItem: 1
+  isRightHandItem: 0
 --- !u!54 &784237745
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3514,8 +3514,8 @@ MonoBehaviour:
   dropForwardForce: 5
   dropUpwardForce: 1
   equipped: 0
-  leftHandItem: 0
-  rightHandItem: 1
+  isLeftHandItem: 0
+  isRightHandItem: 1
 --- !u!43 &1121822312
 Mesh:
   m_ObjectHideFlags: 0
