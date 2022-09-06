@@ -12,8 +12,8 @@ public class PickUpDropItem : Interactable
     public bool isLeftHandItem; // Item or gameobject must be equipped to LeftHand GameObject
     public bool isRightHandItem; // Item or gameobject must be equipped to RightHand GameObject
 
-    public static bool rightHandSlot; // Used to check RightHand is filled
-    public static bool leftHandSlot; // Used to check LeftHand is filled
+    public static bool isRightHandSlotFull;
+    public static bool isLeftHandSlotFull; 
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +28,8 @@ public class PickUpDropItem : Interactable
         {
             rigidbody.isKinematic = true;
             collider.isTrigger = true;
-            rightHandSlot = isRightHandItem;
-            leftHandSlot = isLeftHandItem;
+            isRightHandSlotFull = isRightHandItem;
+            isLeftHandSlotFull = isLeftHandItem;
 
             // Sets child Component in center of parent
             transform.localPosition = Vector3.zero;
@@ -41,7 +41,7 @@ public class PickUpDropItem : Interactable
     {
         if (isRightHandItem)
         {
-            if (parentComponent.childCount == 0 && !rightHandSlot)
+            if (parentComponent.childCount == 0 && !isRightHandSlotFull)
             {
                 PickUp();
             }
@@ -52,7 +52,7 @@ public class PickUpDropItem : Interactable
         }
         else
         {
-            if (parentComponent.childCount == 0 && !leftHandSlot)
+            if (parentComponent.childCount == 0 && !isLeftHandSlotFull)
             {
                 PickUp();
             }
@@ -66,8 +66,8 @@ public class PickUpDropItem : Interactable
     private void PickUp()
     {
         equipped = true;
-        rightHandSlot = isRightHandItem;
-        leftHandSlot = isLeftHandItem;
+        isRightHandSlotFull = isRightHandItem;
+        isLeftHandSlotFull = isLeftHandItem;
 
         // Make object a child of the parent Component
         transform.SetParent(parentComponent);
@@ -86,11 +86,11 @@ public class PickUpDropItem : Interactable
 
         if (isRightHandItem)
         {
-            rightHandSlot = false;
+            isRightHandSlotFull = false;
         }
         else if (isLeftHandItem)
         {
-            leftHandSlot = false;
+            isLeftHandSlotFull = false;
         }
 
         // Parent set to null
