@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class PickUpDropItem : Interactable
 {
-    [SerializeField]
-    private new Rigidbody rigidbody;
-    [SerializeField]
-    private new BoxCollider collider;
-    [SerializeField]
-    private Transform player, parentComponent, fpsCamera, environment;
-    [SerializeField]
-    private float  dropForwardForce, dropUpwardForce;
-    [SerializeField]
-    private bool equipped;
-    public static bool slotfull;
+    [SerializeField] private new Rigidbody rigidbody;
+    [SerializeField] private new BoxCollider collider;
+    [SerializeField] private Transform player, parentComponent, fpsCamera, environment;  
+    [SerializeField] private float  dropForwardForce, dropUpwardForce;
+    [SerializeField] private bool equipped;
+
+    [Header("ItemHand")]
+    public bool isLeftHandItem; // Item or gameobject must be equipped to LeftHand GameObject
+    public bool isRightHandItem; // Item or gameobject must be equipped to RightHand GameObject
+
+    public static bool isRightHandSlotFull;
+    public static bool isLeftHandSlotFull; 
 
     // Start is called before the first frame update
     void Start()
@@ -27,26 +28,46 @@ public class PickUpDropItem : Interactable
         {
             rigidbody.isKinematic = true;
             collider.isTrigger = true;
-            slotfull = true;
+            isRightHandSlotFull = isRightHandItem;
+            isLeftHandSlotFull = isLeftHandItem;
+
+            // Sets child Component in center of parent
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.Euler(Vector3.zero);
         }
     }
 
     protected override void Interact()
     {
-        if (!equipped && !slotfull)
+        if (isRightHandItem)
         {
-            PickUp();
+            if (parentComponent.childCount == 0 && !isRightHandSlotFull)
+            {
+                PickUp();
+            }
+            else
+            {
+                Drop();
+            }
         }
-        else if (equipped && slotfull)
+        else
         {
-            Drop();
+            if (parentComponent.childCount == 0 && !isLeftHandSlotFull)
+            {
+                PickUp();
+            }
+            else
+            {
+                Drop();
+            }
         }
     }
 
     private void PickUp()
     {
         equipped = true;
-        slotfull = true;
+        isRightHandSlotFull = isRightHandItem;
+        isLeftHandSlotFull = isLeftHandItem;
 
         // Make object a child of the parent Component
         transform.SetParent(parentComponent);
@@ -62,7 +83,15 @@ public class PickUpDropItem : Interactable
     private void Drop()
     {
         equipped = false;
-        slotfull = false;
+
+        if (isRightHandItem)
+        {
+            isRightHandSlotFull = false;
+        }
+        else if (isLeftHandItem)
+        {
+            isLeftHandSlotFull = false;
+        }
 
         // Parent set to null
         transform.SetParent(environment);
