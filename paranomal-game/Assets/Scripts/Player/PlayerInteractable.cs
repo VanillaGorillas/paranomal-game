@@ -47,7 +47,7 @@ public class PlayerInteractable : MonoBehaviour
                 if (inputManager.onFoot.Interact.triggered)
                 {
                     // If LeftHand GameObject has Child it will Dropped when RightHand Child is Equipped
-                    if(leftHand.transform.childCount == 1 && interactable.GetComponent<PickUpDropItem>().rightHandItem && rightHand.transform.childCount == 0)
+                    if(leftHand.transform.childCount == 1 && interactable.GetComponent<PickUpDropItem>().isRightHandItem && rightHand.transform.childCount == 0)
                     {
                         leftHandInteractable.BaseInteract();
                     }

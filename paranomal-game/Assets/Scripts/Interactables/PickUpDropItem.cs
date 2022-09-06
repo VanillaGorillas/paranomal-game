@@ -9,8 +9,8 @@ public class PickUpDropItem : Interactable
     [SerializeField] private bool equipped;
 
     [Header("ItemHand")]
-    public bool leftHandItem;
-    public bool rightHandItem;
+    public bool isLeftHandItem; // Item or gameobject must be equipped to LeftHand GameObject
+    public bool isRightHandItem; // Item or gameobject must be equipped to RightHand GameObject
 
     public static bool rightHandSlot; // Used to check RightHand is filled
     public static bool leftHandSlot; // Used to check LeftHand is filled
@@ -28,8 +28,8 @@ public class PickUpDropItem : Interactable
         {
             rigidbody.isKinematic = true;
             collider.isTrigger = true;
-            rightHandSlot = rightHandItem;
-            leftHandSlot = leftHandItem;
+            rightHandSlot = isRightHandItem;
+            leftHandSlot = isLeftHandItem;
 
             // Sets child Component in center of parent
             transform.localPosition = Vector3.zero;
@@ -39,24 +39,24 @@ public class PickUpDropItem : Interactable
 
     protected override void Interact()
     {
-        if (rightHandItem)
+        if (isRightHandItem)
         {
             if (parentComponent.childCount == 0 && !rightHandSlot)
             {
                 PickUp();
             }
-            else if(equipped)
+            else
             {
                 Drop();
             }
         }
-        else if (leftHandItem)
+        else
         {
             if (parentComponent.childCount == 0 && !leftHandSlot)
             {
                 PickUp();
             }
-            else if (equipped)
+            else
             {
                 Drop();
             }
@@ -66,8 +66,8 @@ public class PickUpDropItem : Interactable
     private void PickUp()
     {
         equipped = true;
-        rightHandSlot = rightHandItem;
-        leftHandSlot = leftHandItem;
+        rightHandSlot = isRightHandItem;
+        leftHandSlot = isLeftHandItem;
 
         // Make object a child of the parent Component
         transform.SetParent(parentComponent);
@@ -84,11 +84,11 @@ public class PickUpDropItem : Interactable
     {
         equipped = false;
 
-        if (rightHandItem)
+        if (isRightHandItem)
         {
             rightHandSlot = false;
         }
-        else if (leftHandItem)
+        else if (isLeftHandItem)
         {
             leftHandSlot = false;
         }
