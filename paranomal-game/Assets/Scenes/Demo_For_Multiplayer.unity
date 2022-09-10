@@ -907,9 +907,9 @@ MonoBehaviour:
   promptMessage: pick item up
   rigidbody: {fileID: 222400032}
   collider: {fileID: 222400033}
-  player: {fileID: 0}
-  parentComponent: {fileID: 0}
-  fpsCamera: {fileID: 0}
+  player: {fileID: 2076970673}
+  parentComponent: {fileID: 690113619}
+  fpsCamera: {fileID: 2076970672}
   environment: {fileID: 841781652}
   dropForwardForce: 3
   dropUpwardForce: 1.5
@@ -1941,6 +1941,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &690113619 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4965359009453102321, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+  m_PrefabInstance: {fileID: 2076970671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,9 +2255,9 @@ MonoBehaviour:
   promptMessage: pick item up
   rigidbody: {fileID: 784237745}
   collider: {fileID: 784237746}
-  player: {fileID: 0}
-  parentComponent: {fileID: 0}
-  fpsCamera: {fileID: 0}
+  player: {fileID: 2076970673}
+  parentComponent: {fileID: 690113619}
+  fpsCamera: {fileID: 2076970672}
   environment: {fileID: 841781652}
   dropForwardForce: 3
   dropUpwardForce: 1.5
@@ -3327,9 +3332,9 @@ MonoBehaviour:
   promptMessage: Pick Weapon Up
   rigidbody: {fileID: 1102543672}
   collider: {fileID: 1102543669}
-  player: {fileID: 0}
-  parentComponent: {fileID: 0}
-  fpsCamera: {fileID: 0}
+  player: {fileID: 2076970673}
+  parentComponent: {fileID: 1222036587}
+  fpsCamera: {fileID: 2076970672}
   environment: {fileID: 841781652}
   dropForwardForce: 5
   dropUpwardForce: 1
@@ -3928,6 +3933,11 @@ Transform:
   m_Father: {fileID: 841781652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1222036587 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1882334887828567135, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+  m_PrefabInstance: {fileID: 2076970671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1326660435
 Mesh:
   m_ObjectHideFlags: 0
@@ -5284,6 +5294,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2129772163880414107, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.169
+      objectReference: {fileID: 0}
+    - target: {fileID: 2129772163880414107, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2129772163880414109, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+      propertyPath: environment
+      value: 
+      objectReference: {fileID: 841781652}
     - target: {fileID: 2335933397418453974, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
       propertyPath: m_Name
       value: MultiplayerFirstPersonController
@@ -5334,6 +5356,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+--- !u!4 &2076970672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2335933396127580485, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+  m_PrefabInstance: {fileID: 2076970671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2076970673 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2335933397418453978, guid: 018d90270c4e2b04fb9b5f9a619a4721, type: 3}
+  m_PrefabInstance: {fileID: 2076970671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2117137680
 Mesh:
   m_ObjectHideFlags: 0
