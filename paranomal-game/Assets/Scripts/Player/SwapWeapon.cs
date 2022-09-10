@@ -2,28 +2,28 @@ using UnityEngine;
 
 public class SwapWeapon : MonoBehaviour
 {
-    [SerializeField] private Transform primarayWeaponSlot, secondaryWeaponSlot, rightHand;
+    [SerializeField] private Transform primarayWeaponSlot, secondaryWeaponSlot, rightHand, leftHand;
     private Weapon weaponType;
 
     public void SwapToPrimary()
     {
-        if (rightHand.childCount != 0)
+        if (rightHand.childCount != 0 && leftHand.childCount == 0)
         {
             weaponType = rightHand.GetChild(0).GetComponent<Weapon>();
 
             if (!weaponType.primaryWeapon)
             {
                 Transform weaponInHand = rightHand.GetChild(0);
-                weaponInHand.SetParent(secondaryWeaponSlot);
-                weaponInHand.localPosition = Vector3.zero;
+                Swap(weaponInHand, secondaryWeaponSlot);
                 weaponInHand.localRotation = Quaternion.Euler(90, 0, 0); // Rotates gun downwards while on players side hip
+                weaponInHand.GetComponent<PickUpDropItem>().equipped = false;
 
                 if (primarayWeaponSlot.GetComponent<WeaponSlot>().isSlotFull)
                 {
                     Transform weapon = primarayWeaponSlot.GetChild(0);
-                    weapon.SetParent(rightHand);
-                    weapon.localPosition = Vector3.zero;
+                    Swap(weapon, rightHand);
                     weapon.localRotation = Quaternion.Euler(Vector3.zero);
+                    weapon.GetComponent<PickUpDropItem>().equipped = true;
                 }
                 else
                 {
@@ -31,12 +31,12 @@ public class SwapWeapon : MonoBehaviour
                 }
             }             
         }
-        else if (primarayWeaponSlot.childCount != 0)
+        else if (primarayWeaponSlot.childCount != 0 && leftHand.childCount == 0) // Moves ChildComponent in PrimaryWeapon GameObject to RightHand GameObject
         {
             Transform weapon = primarayWeaponSlot.GetChild(0);
-            weapon.SetParent(rightHand);
-            weapon.localPosition = Vector3.zero;
+            Swap(weapon, rightHand);
             weapon.localRotation = Quaternion.Euler(Vector3.zero);
+            weapon.GetComponent<PickUpDropItem>().equipped = true;
         }
 
     }
@@ -50,16 +50,16 @@ public class SwapWeapon : MonoBehaviour
             if (!weaponType.secondaryWeapon)
             {
                 Transform weaponInHand = rightHand.GetChild(0);
-                weaponInHand.SetParent(primarayWeaponSlot);
-                weaponInHand.localPosition = Vector3.zero;
+                Swap(weaponInHand, primarayWeaponSlot);
                 weaponInHand.localRotation = Quaternion.Euler(-90, 0, 0); // Rotates gun upwards while on players back
+                weaponInHand.GetComponent<PickUpDropItem>().equipped = false;
 
                 if (secondaryWeaponSlot.GetComponent<WeaponSlot>().isSlotFull)
                 {
                     Transform weapon = secondaryWeaponSlot.GetChild(0);
-                    weapon.SetParent(rightHand);
-                    weapon.localPosition = Vector3.zero;
+                    Swap(weapon, rightHand);
                     weapon.localRotation = Quaternion.Euler(Vector3.zero);
+                    weapon.GetComponent<PickUpDropItem>().equipped = true;
                 }
                 else
                 {
@@ -70,9 +70,16 @@ public class SwapWeapon : MonoBehaviour
         else if (secondaryWeaponSlot.childCount != 0)
         {
             Transform weapon = secondaryWeaponSlot.GetChild(0);
-            weapon.SetParent(rightHand);
-            weapon.localPosition = Vector3.zero;
+            Swap(weapon, rightHand);
             weapon.localRotation = Quaternion.Euler(Vector3.zero);
+            weapon.GetComponent<PickUpDropItem>().equipped = true;
         }
+    }
+
+    // Will take child component and move it to new parent component
+    private void Swap(Transform childComponent, Transform parentComponent)
+    {
+        childComponent.SetParent(parentComponent);
+        childComponent.localPosition = Vector3.zero;
     }
 }

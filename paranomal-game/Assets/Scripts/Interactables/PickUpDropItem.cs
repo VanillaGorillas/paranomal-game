@@ -6,7 +6,7 @@ public class PickUpDropItem : Interactable
     [SerializeField] private new BoxCollider collider;
     [SerializeField] private Transform player, parentComponent, fpsCamera, environment;  
     [SerializeField] private float  dropForwardForce, dropUpwardForce;
-    [SerializeField] private bool equipped;
+    public bool equipped;
 
     [Header("ItemHand")]
     public bool isLeftHandItem; // Item or gameobject must be equipped to LeftHand GameObject
@@ -57,10 +57,9 @@ public class PickUpDropItem : Interactable
             {
                 PutInSlot();
             }    
-            else
+            else if (equipped)
             {
                 Drop();
-
             }
         }
         else
@@ -79,6 +78,7 @@ public class PickUpDropItem : Interactable
     public void MakeRightHandEmpty()
     {
         isRightHandSlotFull = false;
+        equipped = false;
     }
 
     private void PickUp()
@@ -89,7 +89,7 @@ public class PickUpDropItem : Interactable
 
         // Make object a child of the parent Component
         transform.SetParent(parentComponent);
-        //transform.localPosition = Vector3.zero;
+
         ComponentChanges();
         
         transform.localRotation = Quaternion.Euler(Vector3.zero);
@@ -102,7 +102,6 @@ public class PickUpDropItem : Interactable
         if (isRightHandItem)
         {
             isRightHandSlotFull = false;
-
             
             if(transform.parent == parentComponent.transform)
             {
@@ -150,12 +149,14 @@ public class PickUpDropItem : Interactable
         }
     }
 
+    // Transforms gameobject position
     private void ComponentChanges()
     {
         transform.localPosition = Vector3.zero;
 
         if (isRightHandItem)
         { 
+            // Makes it so that PrimaryWeapon and SecondaryWeapon GameObjects Component WeaponSlot is true
             weaponComponent.weaponSlot.GetComponent<WeaponSlot>().isSlotFull = true;
         }
 

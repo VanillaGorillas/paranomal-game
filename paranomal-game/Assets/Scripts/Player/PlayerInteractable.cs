@@ -48,15 +48,14 @@ public class PlayerInteractable : MonoBehaviour
                 // When The E Key or Button West [Gamepad] is Pressed it will pick up the GameObjects
                 if (inputManager.onFoot.Interact.triggered)
                 {
-                    //// If LeftHand GameObject has Child it will Dropped when RightHand Child is Equipped
-                    //if(leftHand.transform.childCount == 1 && interactable.GetComponent<PickUpDropItem>().isRightHandItem && rightHand.transform.childCount == 0)
-                    //{
-                    //    leftHandInteractable.BaseInteract(); // These three lines must be changed so secondary weapon goes to primary
-                    //}
-                    //if (interactable.GetComponent<PickUpDropItem>().isLeftHandItem && rightHandInteractable.GetComponent<Weapon>().primaryWeapon)
-                    //{
-                    //    inputManager.onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
-                    //}
+                    if (rightHandInteractable != null)
+                    {
+                        // Makes primary weapon swap to secondary when picking up left hand items
+                        if (interactable.GetComponent<PickUpDropItem>().isLeftHandItem && rightHandInteractable.GetComponent<Weapon>().primaryWeapon)
+                        {
+                            swapWeapon.SwapToSecondary();
+                        }
+                    }
 
                     // Will get the Interactable function on the Component the Script is attached to.
                     interactable.BaseInteract();

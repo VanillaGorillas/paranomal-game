@@ -614,6 +614,7 @@ MonoBehaviour:
   primarayWeaponSlot: {fileID: 5377569204950287601}
   secondaryWeaponSlot: {fileID: 4490234017159746761}
   rightHand: {fileID: 545249896436228647}
+  leftHand: {fileID: 6441844880946889353}
 --- !u!1 &4459864850190357393
 GameObject:
   m_ObjectHideFlags: 0
