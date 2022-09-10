@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 388349414}
   - component: {fileID: 388349413}
   - component: {fileID: 388349412}
+  - component: {fileID: 9033435154892785307}
   m_Layer: 6
   m_Name: WeaponTwoTestEquipped
   m_TagString: Untagged
@@ -139,6 +140,21 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &9033435154892785307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388349410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a427419319ad1df48842c5d0fa463d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryWeapon: 1
+  secondaryWeapon: 0
+  weaponSlot: {fileID: 5377569204950287601}
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +371,7 @@ GameObject:
   - component: {fileID: 675202839}
   - component: {fileID: 8765489994903951815}
   - component: {fileID: 8765489994903951821}
+  - component: {fileID: 7799022434961253520}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Player
@@ -576,12 +593,27 @@ MonoBehaviour:
   _isGlobal: 0
   _disableOnDespawn: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
+  <PrefabId>k__BackingField: 1
   _scenePathHash: 2401511541
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 756813409171418087
   _sceneNetworkObjects:
   - {fileID: 8765489994903951821}
+--- !u!114 &7799022434961253520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864850019384750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0859bb0269edb2b448e638c2d9584a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primarayWeaponSlot: {fileID: 5377569204950287601}
+  secondaryWeaponSlot: {fileID: 4490234017159746761}
+  rightHand: {fileID: 545249896436228647}
 --- !u!1 &4459864850190357393
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +1009,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4459864851310106429}
+  - {fileID: 5377569204950287601}
+  - {fileID: 4490234017159746761}
   m_Father: {fileID: 4459864850019384738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1065,3 +1099,93 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!1 &5993372441380419358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4490234017159746761}
+  - component: {fileID: 1905621959798858076}
+  m_Layer: 0
+  m_Name: SecondaryWeaponSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4490234017159746761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993372441380419358}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.69, y: -0.98, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4459864851508666808}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1905621959798858076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993372441380419358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716c063b53b721e4a9feb563e3f79285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSlotFull: 0
+--- !u!1 &8207505496827747070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5377569204950287601}
+  - component: {fileID: 3742329972956135828}
+  m_Layer: 0
+  m_Name: PrimaryWeaponSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5377569204950287601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207505496827747070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.26, y: -0.37, z: -0.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4459864851508666808}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3742329972956135828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207505496827747070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716c063b53b721e4a9feb563e3f79285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSlotFull: 0

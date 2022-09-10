@@ -9,6 +9,7 @@ public class PlayerInteractable : MonoBehaviour
     private InputManager inputManager;
     private GameObject leftHand;
     private GameObject rightHand;
+    private SwapWeapon swapWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class PlayerInteractable : MonoBehaviour
         playerCamera = GetComponent<FirstPersonController>().playerCamera;
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
+        swapWeapon = GetComponent<SwapWeapon>();
         leftHand = GameObject.Find("LeftHand");
         rightHand = GameObject.Find("RightHand");
     }
@@ -46,11 +48,15 @@ public class PlayerInteractable : MonoBehaviour
                 // When The E Key or Button West [Gamepad] is Pressed it will pick up the GameObjects
                 if (inputManager.onFoot.Interact.triggered)
                 {
-                    // If LeftHand GameObject has Child it will Dropped when RightHand Child is Equipped
-                    if(leftHand.transform.childCount == 1 && interactable.GetComponent<PickUpDropItem>().isRightHandItem && rightHand.transform.childCount == 0)
-                    {
-                        leftHandInteractable.BaseInteract();
-                    }
+                    //// If LeftHand GameObject has Child it will Dropped when RightHand Child is Equipped
+                    //if(leftHand.transform.childCount == 1 && interactable.GetComponent<PickUpDropItem>().isRightHandItem && rightHand.transform.childCount == 0)
+                    //{
+                    //    leftHandInteractable.BaseInteract(); // These three lines must be changed so secondary weapon goes to primary
+                    //}
+                    //if (interactable.GetComponent<PickUpDropItem>().isLeftHandItem && rightHandInteractable.GetComponent<Weapon>().primaryWeapon)
+                    //{
+                    //    inputManager.onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
+                    //}
 
                     // Will get the Interactable function on the Component the Script is attached to.
                     interactable.BaseInteract();
