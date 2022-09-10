@@ -5507,10 +5507,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8765489994903951821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: <SceneId>k__BackingField
-      value: 10314413531801049645
+      value: 10314413533664348085
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8765489994903951821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!4 &8765489994903951805 stripped
 Transform:
