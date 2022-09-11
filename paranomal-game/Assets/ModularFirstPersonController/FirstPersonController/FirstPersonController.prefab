@@ -116,7 +116,7 @@ MonoBehaviour:
   rigidbody: {fileID: 388349412}
   collider: {fileID: 388349414}
   player: {fileID: 4459864850019384738}
-  parentComponent: {fileID: 545249896436228647}
+  parentGameObject: {fileID: 545249896436228647}
   fpsCamera: {fileID: 4459864851310106429}
   environment: {fileID: 0}
   dropForwardForce: 5

@@ -908,7 +908,7 @@ MonoBehaviour:
   rigidbody: {fileID: 222400032}
   collider: {fileID: 222400033}
   player: {fileID: 8765489994903951807}
-  parentComponent: {fileID: 8765489994903951806}
+  parentGameObject: {fileID: 8765489994903951806}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 3
@@ -1568,7 +1568,7 @@ MonoBehaviour:
   rigidbody: {fileID: 575461996}
   collider: {fileID: 575461997}
   player: {fileID: 8765489994903951807}
-  parentComponent: {fileID: 1390723038}
+  parentGameObject: {fileID: 1390723038}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2
@@ -2406,7 +2406,7 @@ MonoBehaviour:
   rigidbody: {fileID: 784237745}
   collider: {fileID: 784237746}
   player: {fileID: 8765489994903951807}
-  parentComponent: {fileID: 8765489994903951806}
+  parentGameObject: {fileID: 8765489994903951806}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 3
@@ -3486,7 +3486,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1102543672}
   collider: {fileID: 1102543669}
   player: {fileID: 8765489994903951807}
-  parentComponent: {fileID: 1390723038}
+  parentGameObject: {fileID: 1390723038}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 5
@@ -4997,7 +4997,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1836168186}
   collider: {fileID: 1836168187}
   player: {fileID: 8765489994903951807}
-  parentComponent: {fileID: 1390723038}
+  parentGameObject: {fileID: 1390723038}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2

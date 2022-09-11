@@ -2,10 +2,22 @@ using UnityEngine;
 
 public class PickUpDropItem : Interactable
 {
-    [SerializeField] private new Rigidbody rigidbody;
-    [SerializeField] private new BoxCollider collider;
-    [SerializeField] private Transform player, parentComponent, fpsCamera, environment;  
-    [SerializeField] private float  dropForwardForce, dropUpwardForce;
+    [SerializeField]
+    private new Rigidbody rigidbody;
+    [SerializeField]
+    private new BoxCollider collider;
+    [SerializeField]
+    private Transform player;
+    [SerializeField]
+    private Transform parentGameObject;
+    [SerializeField] 
+    private Transform fpsCamera;
+    [SerializeField] 
+    private Transform environment;
+    [SerializeField] 
+    private float  dropForwardForce;
+    [SerializeField]
+    private float dropUpwardForce;
     public bool equipped;
 
     [Header("ItemHand")]
@@ -49,26 +61,34 @@ public class PickUpDropItem : Interactable
     {
         if (isRightHandItem)
         {
-            if (parentComponent.childCount == 0 && !isRightHandSlotFull)
-            {
-                PickUp();
-            }
-            else if (!weaponComponent.weaponSlot.GetComponent<WeaponSlot>().isSlotFull && parentComponent.childCount == 1)
+            if(isLeftHandSlotFull && weaponComponent.primaryWeapon && !weaponComponent.weaponSlot.GetComponent<WeaponSlot>().isSlotFull)
             {
                 PutInSlot();
-            }    
-            else if (equipped)
+            }
+            else
             {
-                Drop();
+                // Will put gameobject in players hands
+                if (parentGameObject.childCount == 0 && !isRightHandSlotFull && !weaponComponent.weaponSlot.GetComponent<WeaponSlot>().isSlotFull)
+                {
+                    PickUp();
+                }
+                else if (!weaponComponent.weaponSlot.GetComponent<WeaponSlot>().isSlotFull) // Will put gameobject on players back or hip
+                {
+                    PutInSlot();
+                }
+                else if (equipped)
+                {
+                    Drop();
+                }
             }
         }
         else
         {
-            if (parentComponent.childCount == 0 && !isLeftHandSlotFull)
+            if (parentGameObject.childCount == 0 && !isLeftHandSlotFull)
             {
                 PickUp();
             }
-            else
+            else if (equipped)
             {
                 Drop();
             }
@@ -88,7 +108,7 @@ public class PickUpDropItem : Interactable
         isLeftHandSlotFull = isLeftHandItem;
 
         // Make object a child of the parent Component
-        transform.SetParent(parentComponent);
+        transform.SetParent(parentGameObject);
 
         ComponentChanges();
         
@@ -103,7 +123,7 @@ public class PickUpDropItem : Interactable
         {
             isRightHandSlotFull = false;
             
-            if(transform.parent == parentComponent.transform)
+            if(transform.parent == parentGameObject.transform)
             {
                 if (weaponComponent.primaryWeapon || weaponComponent.secondaryWeapon)
                 {

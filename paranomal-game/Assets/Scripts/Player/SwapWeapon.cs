@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class SwapWeapon : MonoBehaviour
 {
-    [SerializeField] private Transform primarayWeaponSlot, secondaryWeaponSlot, rightHand, leftHand;
+    
+    [SerializeField]
+    private Transform primarayWeaponSlot;
+    [SerializeField] 
+    private Transform secondaryWeaponSlot;
+    [SerializeField]
+    private Transform rightHand;
+    [SerializeField]
+    private Transform leftHand;
     private Weapon weaponType;
 
     public void SwapToPrimary()

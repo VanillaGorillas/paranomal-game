@@ -3,8 +3,10 @@ using UnityEngine;
 public class PlayerInteractable : MonoBehaviour
 {
     private Camera playerCamera;
-    [SerializeField] private float distance = 3f;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] 
+    private float distance = 3f;
+    [SerializeField] 
+    private LayerMask layerMask;
     private PlayerUI playerUI;
     private InputManager inputManager;
     private GameObject leftHand;
