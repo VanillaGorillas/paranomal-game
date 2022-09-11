@@ -3,12 +3,15 @@ using UnityEngine;
 public class PlayerInteractable : MonoBehaviour
 {
     private Camera playerCamera;
-    [SerializeField] private float distance = 3f;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] 
+    private float distance = 3f;
+    [SerializeField] 
+    private LayerMask layerMask;
     private PlayerUI playerUI;
     private InputManager inputManager;
     private GameObject leftHand;
     private GameObject rightHand;
+    private SwapWeapon swapWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,7 @@ public class PlayerInteractable : MonoBehaviour
         playerCamera = GetComponent<FirstPersonController>().playerCamera;
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
+        swapWeapon = GetComponent<SwapWeapon>();
         leftHand = GameObject.Find("LeftHand");
         rightHand = GameObject.Find("RightHand");
     }
@@ -46,10 +50,13 @@ public class PlayerInteractable : MonoBehaviour
                 // When The E Key or Button West [Gamepad] is Pressed it will pick up the GameObjects
                 if (inputManager.onFoot.Interact.triggered)
                 {
-                    // If LeftHand GameObject has Child it will Dropped when RightHand Child is Equipped
-                    if(leftHand.transform.childCount == 1 && interactable.GetComponent<PickUpDropItem>().isRightHandItem && rightHand.transform.childCount == 0)
+                    if (rightHandInteractable != null)
                     {
-                        leftHandInteractable.BaseInteract();
+                        // Makes primary weapon swap to secondary when picking up left hand items
+                        if (interactable.GetComponent<PickUpDropItem>().isLeftHandItem && rightHandInteractable.GetComponent<Weapon>().primaryWeapon)
+                        {
+                            swapWeapon.SwapToSecondary();
+                        }
                     }
 
                     // Will get the Interactable function on the Component the Script is attached to.
