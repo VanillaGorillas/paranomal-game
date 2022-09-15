@@ -370,7 +370,6 @@ GameObject:
   - component: {fileID: 675202832}
   - component: {fileID: 675202839}
   - component: {fileID: 8765489994903951815}
-  - component: {fileID: 8765489994903951821}
   - component: {fileID: 7799022434961253520}
   m_Layer: 0
   m_Name: FirstPersonController
@@ -572,33 +571,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &8765489994903951821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4459864850019384750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours: []
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _disableOnDespawn: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 1
-  _scenePathHash: 2401511541
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 756813409171418087
-  _sceneNetworkObjects:
-  - {fileID: 8765489994903951821}
 --- !u!114 &7799022434961253520
 MonoBehaviour:
   m_ObjectHideFlags: 0
