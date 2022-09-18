@@ -62,6 +62,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f4a0dc6-78bb-4ba5-876b-77d6523b013a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""e554a739-623b-47b7-81b0-f2e757165665"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,39 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""SecondaryWeaponSwap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9264796d-7234-4423-bcee-c273655c91c3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""012c1280-5c11-4e5b-92b2-ef9a01d51556"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14094b7a-f1db-4540-85d9-f37f9ccae60b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +215,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_DropItem = m_OnFoot.FindAction("DropItem", throwIfNotFound: true);
         m_OnFoot_PrimaryWeaponSwap = m_OnFoot.FindAction("PrimaryWeaponSwap", throwIfNotFound: true);
         m_OnFoot_SecondaryWeaponSwap = m_OnFoot.FindAction("SecondaryWeaponSwap", throwIfNotFound: true);
+        m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
+        m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +280,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_DropItem;
     private readonly InputAction m_OnFoot_PrimaryWeaponSwap;
     private readonly InputAction m_OnFoot_SecondaryWeaponSwap;
+    private readonly InputAction m_OnFoot_Shoot;
+    private readonly InputAction m_OnFoot_Reload;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -235,6 +290,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @DropItem => m_Wrapper.m_OnFoot_DropItem;
         public InputAction @PrimaryWeaponSwap => m_Wrapper.m_OnFoot_PrimaryWeaponSwap;
         public InputAction @SecondaryWeaponSwap => m_Wrapper.m_OnFoot_SecondaryWeaponSwap;
+        public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
+        public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +313,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SecondaryWeaponSwap.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSecondaryWeaponSwap;
                 @SecondaryWeaponSwap.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSecondaryWeaponSwap;
                 @SecondaryWeaponSwap.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSecondaryWeaponSwap;
+                @Shoot.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnShoot;
+                @Reload.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +335,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SecondaryWeaponSwap.started += instance.OnSecondaryWeaponSwap;
                 @SecondaryWeaponSwap.performed += instance.OnSecondaryWeaponSwap;
                 @SecondaryWeaponSwap.canceled += instance.OnSecondaryWeaponSwap;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -282,5 +351,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnDropItem(InputAction.CallbackContext context);
         void OnPrimaryWeaponSwap(InputAction.CallbackContext context);
         void OnSecondaryWeaponSwap(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
