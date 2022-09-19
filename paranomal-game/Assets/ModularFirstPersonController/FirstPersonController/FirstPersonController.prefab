@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 388349412}
   - component: {fileID: 9033435154892785307}
   m_Layer: 6
-  m_Name: WeaponTwoTestEquipped
+  m_Name: M4 Carbine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,11 +29,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388349410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.19, y: 0, z: 1.4}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4361878036186967893}
   m_Father: {fileID: 545249896436228647}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -155,6 +156,31 @@ MonoBehaviour:
   primaryWeapon: 1
   secondaryWeapon: 0
   weaponSlot: {fileID: 5377569204950287601}
+  allowedAutomaticFire: 0
+  allowedBurstFire: 0
+  allowedSingleShotFire: 0
+  allowedsoftPoint: 0
+  allowedAmrourPiercing: 0
+  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  muzzleVelocity: 910
+  upwardForce: 0
+  timeBetweenShooting: 0.1
+  spread: 0
+  reloadTime: 2
+  timeBetweenShots: 0.1
+  rateOfFire: 0
+  effectiveFiringRange: 500
+  magazineSize: 30
+  bulletsPerTap: 1
+  bulletsLeft: 0
+  readyToShoot: 0
+  reloading: 0
+  bulletsShot: 0
+  fpsCamera: {fileID: 4459864851310106426}
+  attackPoint: {fileID: 4361878036186967893}
+  ammunitionDisplay: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  allowInvoke: 1
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +397,7 @@ GameObject:
   - component: {fileID: 675202839}
   - component: {fileID: 8765489994903951815}
   - component: {fileID: 7799022434961253520}
+  - component: {fileID: 1366620551491023297}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Player
@@ -555,6 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9bad6c7365422438bb81798aced505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightHand: {fileID: 3040472445013012732}
 --- !u!114 &8765489994903951815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,6 +599,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  leftHand: {fileID: 2117664671321206649}
+  rightHand: {fileID: 3040472445013012732}
 --- !u!114 &7799022434961253520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +617,19 @@ MonoBehaviour:
   secondaryWeaponSlot: {fileID: 4490234017159746761}
   rightHand: {fileID: 545249896436228647}
   leftHand: {fileID: 6441844880946889353}
+--- !u!114 &1366620551491023297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864850019384750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b95e6b25f05f949a09479b51a55875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHand: {fileID: 3040472445013012732}
 --- !u!1 &4459864850190357393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1160,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSlotFull: 0
+--- !u!1 &6121671643476445919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4361878036186967893}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4361878036186967893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121671643476445919}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 388349411}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8207505496827747070
 GameObject:
   m_ObjectHideFlags: 0

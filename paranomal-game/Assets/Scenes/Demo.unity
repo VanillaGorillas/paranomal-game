@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -756,6 +756,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1838606100}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &186776044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186776045}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &186776045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186776044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1102543668}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &188194739
@@ -1531,7 +1562,7 @@ GameObject:
   - component: {fileID: 575461995}
   - component: {fileID: 575462000}
   m_Layer: 6
-  m_Name: SecondaryWeapon
+  m_Name: Glock 22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1548,7 +1579,8 @@ Transform:
   m_LocalPosition: {x: 1.8, y: 1.89, z: 5.21}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.4}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 964299907}
   m_Father: {fileID: 841781652}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1670,6 +1702,31 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
+  allowedAutomaticFire: 0
+  allowedBurstFire: 0
+  allowedSingleShotFire: 0
+  allowedsoftPoint: 0
+  allowedAmrourPiercing: 0
+  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  muzzleVelocity: 313
+  upwardForce: 0
+  timeBetweenShooting: 0.1
+  spread: 0
+  reloadTime: 2
+  timeBetweenShots: 0.1
+  rateOfFire: 0
+  effectiveFiringRange: 50
+  magazineSize: 15
+  bulletsPerTap: 1
+  bulletsLeft: 0
+  readyToShoot: 0
+  reloading: 0
+  bulletsShot: 0
+  fpsCamera: {fileID: 813667541}
+  attackPoint: {fileID: 964299907}
+  ammunitionDisplay: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  allowInvoke: 1
 --- !u!43 &623259082
 Mesh:
   m_ObjectHideFlags: 0
@@ -1834,6 +1891,37 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &644882837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 644882838}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &644882838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644882837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.592}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1836168183}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &647265268
 Mesh:
   m_ObjectHideFlags: 0
@@ -2493,6 +2581,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784237742}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!20 &813667541 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+  m_PrefabInstance: {fileID: 8765489994903951804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &841105799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,6 +2988,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &964299906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964299907}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &964299907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964299906}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.557}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 575461994}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &988193877
 GameObject:
   m_ObjectHideFlags: 0
@@ -3370,7 +3494,7 @@ GameObject:
   - component: {fileID: 1102543672}
   - component: {fileID: 1102543674}
   m_Layer: 6
-  m_Name: PrimaryWeapon
+  m_Name: Colt AR15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3387,7 +3511,8 @@ Transform:
   m_LocalPosition: {x: -2.62, y: 2.01, z: 4.49}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 186776045}
   m_Father: {fileID: 841781652}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3509,6 +3634,31 @@ MonoBehaviour:
   primaryWeapon: 1
   secondaryWeapon: 0
   weaponSlot: {fileID: 8765489994903951809}
+  allowedAutomaticFire: 0
+  allowedBurstFire: 0
+  allowedSingleShotFire: 0
+  allowedsoftPoint: 0
+  allowedAmrourPiercing: 0
+  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  muzzleVelocity: 1006
+  upwardForce: 0
+  timeBetweenShooting: 0.1
+  spread: 0
+  reloadTime: 2
+  timeBetweenShots: 0.1
+  rateOfFire: 0
+  effectiveFiringRange: 550
+  magazineSize: 30
+  bulletsPerTap: 1
+  bulletsLeft: 0
+  readyToShoot: 0
+  reloading: 0
+  bulletsShot: 0
+  fpsCamera: {fileID: 813667541}
+  attackPoint: {fileID: 186776045}
+  ammunitionDisplay: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  allowInvoke: 1
 --- !u!43 &1121822312
 Mesh:
   m_ObjectHideFlags: 0
@@ -4945,7 +5095,7 @@ GameObject:
   - component: {fileID: 1836168185}
   - component: {fileID: 1836168184}
   m_Layer: 6
-  m_Name: SecondaryWeaponTwo
+  m_Name: Sig Sauer P226
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4962,7 +5112,8 @@ Transform:
   m_LocalPosition: {x: 1.35, y: 1.89, z: 5.21}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.4}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 644882838}
   m_Father: {fileID: 841781652}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4981,6 +5132,31 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
+  allowedAutomaticFire: 0
+  allowedBurstFire: 0
+  allowedSingleShotFire: 0
+  allowedsoftPoint: 0
+  allowedAmrourPiercing: 0
+  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  muzzleVelocity: 350
+  upwardForce: 0
+  timeBetweenShooting: 0.1
+  spread: 0
+  reloadTime: 2
+  timeBetweenShots: 0.1
+  rateOfFire: 0.1
+  effectiveFiringRange: 50
+  magazineSize: 15
+  bulletsPerTap: 1
+  bulletsLeft: 0
+  readyToShoot: 0
+  reloading: 0
+  bulletsShot: 0
+  fpsCamera: {fileID: 813667541}
+  attackPoint: {fileID: 644882838}
+  ammunitionDisplay: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  allowInvoke: 1
 --- !u!114 &1836168185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5833,12 +6009,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstPersonController
       objectReference: {fileID: 0}
-    - target: {fileID: 8765489994903951821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: <SceneId>k__BackingField
-      value: 10314413531801049645
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8765489994903951821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!4 &8765489994903951805 stripped
 Transform:

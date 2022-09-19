@@ -3,13 +3,19 @@ using UnityEngine;
 public class PlayerInteractable : MonoBehaviour
 {
     private Camera playerCamera;
+
     [SerializeField] 
     private float distance = 3f;
+
     [SerializeField] 
     private LayerMask layerMask;
     private PlayerUI playerUI;
     private InputManager inputManager;
+
+    [SerializeField]
     private GameObject leftHand;
+
+    [SerializeField]
     private GameObject rightHand;
     private SwapWeapon swapWeapon;
 
@@ -20,8 +26,6 @@ public class PlayerInteractable : MonoBehaviour
         playerUI = GetComponent<PlayerUI>();
         inputManager = GetComponent<InputManager>();
         swapWeapon = GetComponent<SwapWeapon>();
-        leftHand = GameObject.Find("LeftHand");
-        rightHand = GameObject.Find("RightHand");
     }
 
     // Update is called once per frame
@@ -29,7 +33,7 @@ public class PlayerInteractable : MonoBehaviour
     {
         playerUI.UpdateText(string.Empty);
         Interactable leftHandInteractable = leftHand.GetComponentInChildren<Interactable>(); // Gets LeftHand GameObject
-        Interactable rightHandInteractable = rightHand.GetComponentInChildren<Interactable>(); // Gets RightHang GameObject
+        Interactable rightHandInteractable = rightHand.GetComponentInChildren<Interactable>(); // Gets RightHand GameObject
 
         // Creates ray at center of the camera
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
