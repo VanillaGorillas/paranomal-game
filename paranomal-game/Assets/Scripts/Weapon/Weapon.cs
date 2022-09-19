@@ -16,43 +16,43 @@ public class Weapon : MonoBehaviour
     public bool allowedsoftPoint; // Will be common bullet type for all guns besides shotguns
     public bool allowedAmrourPiercing;
 
-    //// Shotgun bullet will need rework to increase type down or up
-    //public bool allowedBirdShot; // More pellets for hitting target and effective range 10 feet
-    //public bool allowedBuckShot; // Penetrate through walls. Big pellets that will penetrate at at further rang
-    //public bool allowedSlugs; // Severly injure. High velcoity and penetration
-
-    //public bool allowed12Gauge; // Common shotgun bullet colour type is red
-    //public bool allowed16Gauge; // Colour type is black
-    //public bool allowed20Gauge; // Colour type is yellow
-
     // bullet
     [SerializeField]
     private GameObject bullet;
 
     [Header("Bullet Force")]
+
     // bullet force
     [SerializeField]
     private float muzzleVelocity; // velocity
+
     [SerializeField]
     private float upwardForce; // For gernades
 
     [Header("Statistics")]
+
     // Weapon statistics 
     [SerializeField]
     private float timeBetweenShooting;
+
     [SerializeField]
     private float spread;
+
     [SerializeField]
     private float reloadTime;
+
     [SerializeField]
     private float timeBetweenShots;
+
     [SerializeField]
     private float rateOfFire;
+
     [SerializeField]
     private float effectiveFiringRange;
 
     [SerializeField]
     private int magazineSize;
+
     [SerializeField]
     private int bulletsPerTap;
 
@@ -71,6 +71,7 @@ public class Weapon : MonoBehaviour
     [Header("Weapon UI")]
     // Graphics
     public TextMeshProUGUI ammunitionDisplay;
+
     [Header("Weapon Muzzle Flash")]
     public GameObject muzzleFlash;
 
@@ -82,12 +83,6 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
