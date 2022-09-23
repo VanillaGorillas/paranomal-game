@@ -47,8 +47,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float rateOfFire;
 
-    [SerializeField]
-    private float effectiveFiringRange;
+    public float effectiveFiringRange;
 
     [SerializeField]
     private int magazineSize;
@@ -74,7 +73,6 @@ public class Weapon : MonoBehaviour
 
     [Header("Weapon Muzzle Flash")]
     public GameObject muzzleFlash;
-
 
     // Bug fixing
     public bool allowInvoke = true;
@@ -183,4 +181,5 @@ public class Weapon : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
     }
+
 }

@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour
         onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
         onFoot.SecondaryWeaponSwap.performed += ctx => swapWeapon.SwapToSecondary();
 
-        if (rightHand.GetComponentInChildren<Weapon>() != null)
+        if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
             onFoot.Shoot.performed += ctx => weaponSystem.Shoot();
             onFoot.Reload.performed += ctx => weaponSystem.Reload();

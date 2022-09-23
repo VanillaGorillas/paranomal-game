@@ -18,7 +18,7 @@ public class WeaponSystem : MonoBehaviour
     public void Shoot()
     {
          // Shooting
-        if (rightHandWeapon.readyToShoot && !rightHandWeapon.reloading && rightHandWeapon.bulletsLeft > 0)
+        if (rightHandWeapon.readyToShoot && !rightHandWeapon.reloading && rightHandWeapon.bulletsLeft > 0 && rightHand.GetComponentInChildren<Weapon>() != null)
         {
             // Set bullets shot to 0
             rightHandWeapon.bulletsShot = 0;
@@ -29,6 +29,9 @@ public class WeaponSystem : MonoBehaviour
 
     public void Reload()
     {
-        rightHandWeapon.Reload();
+        if(rightHand.GetComponentInChildren<Weapon>() != null)
+        {
+            rightHandWeapon.Reload();
+        }
     }
 }
