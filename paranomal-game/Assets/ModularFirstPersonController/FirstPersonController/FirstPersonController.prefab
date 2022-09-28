@@ -164,10 +164,10 @@ MonoBehaviour:
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
   upwardForce: 0
-  timeBetweenShooting: 0.1
+  timeBetweenEachTriggerPull: 0
   spread: 0
   reloadTime: 2
-  timeBetweenShots: 0.1
+  timeBetweenBulletsLeavingBarrel: 0
   rateOfFire: 0
   effectiveFiringRange: 500
   magazineSize: 30

@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour
 
     // Weapon statistics 
     [SerializeField]
-    private float timeBetweenShooting;
+    private float timeBetweenEachTriggerPull;
 
     [SerializeField]
     private float spread;
@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
     private float reloadTime;
 
     [SerializeField]
-    private float timeBetweenShots;
+    private float timeBetweenBulletsLeavingBarrel;
 
     [SerializeField]
     private float rateOfFire;
@@ -146,18 +146,18 @@ public class Weapon : MonoBehaviour
         // Invoke resetShot function (if not already invoked)
         if (allowInvoke)
         {
-            Invoke("ResetShot", timeBetweenShooting);
+            Invoke("ResetShot", timeBetweenEachTriggerPull);
             allowInvoke = false; // Only want to Invoke once
         }
 
-        // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun
+        // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun // Burst fire
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
         {
-            Invoke("ShootPhysics", timeBetweenShots);
+            Invoke("ShootPhysics", timeBetweenBulletsLeavingBarrel);
         }
 
         // Might need to put destory gameobject here if not doing collision
-        Destroy(currentBullet, 3f);
+        //Destroy(currentBullet, 3f);
     }
 
     private void ResetShot()
