@@ -8,15 +8,20 @@ public class Weapon : MonoBehaviour
     public Transform  weaponSlot;
 
     [Header("Shooting Modes")]
-    public bool allowedAutomaticFire; // Will produce more recoil
+    public bool allowedFullAuto; // Will produce more recoil
     public bool allowedBurstFire; // Shots 2 or 3 bullets
-    public bool allowedSingleShotFire; // Player must cock gun for next bullet to go through
+    public bool allowedSemiAutomatic; // Player must cock gun for next bullet to go through
 
     [Header("Bullet Type")]
     public bool allowedsoftPoint; // Will be common bullet type for all guns besides shotguns
     public bool allowedAmrourPiercing;
 
-    // bullet
+    [Header("Shooting Mode on")]
+    public bool isFullAuto;
+    public bool isBurstFire;
+    public bool isSemiAutomatic;
+
+    // bullet // Will be using magazine later date code implemantation 
     [SerializeField]
     private GameObject bullet;
 
@@ -73,6 +78,8 @@ public class Weapon : MonoBehaviour
 
     [Header("Weapon Muzzle Flash")]
     public GameObject muzzleFlash;
+
+    // Do trigger held down bools
 
     // Bug fixing
     public bool allowInvoke = true;
@@ -157,7 +164,7 @@ public class Weapon : MonoBehaviour
         }
 
         // Might need to put destory gameobject here if not doing collision
-        //Destroy(currentBullet, 3f);
+        Destroy(currentBullet, 3f);
     }
 
     private void ResetShot()

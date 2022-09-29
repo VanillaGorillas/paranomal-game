@@ -1702,18 +1702,21 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
-  allowedAutomaticFire: 0
+  allowedFullAuto: 0
   allowedBurstFire: 0
-  allowedSingleShotFire: 0
+  allowedSemiAutomatic: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
+  isFullAuto: 0
+  isBurstFire: 0
+  isSemiAutomatic: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 313
   upwardForce: 0
-  timeBetweenEachTriggerPull: 0
+  timeBetweenEachTriggerPull: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0
+  timeBetweenBulletsLeavingBarrel: 0.1
   rateOfFire: 0
   effectiveFiringRange: 50
   magazineSize: 15
@@ -3634,18 +3637,21 @@ MonoBehaviour:
   primaryWeapon: 1
   secondaryWeapon: 0
   weaponSlot: {fileID: 8765489994903951809}
-  allowedAutomaticFire: 0
+  allowedFullAuto: 0
   allowedBurstFire: 0
-  allowedSingleShotFire: 0
+  allowedSemiAutomatic: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
+  isFullAuto: 0
+  isBurstFire: 0
+  isSemiAutomatic: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 1006
   upwardForce: 0
-  timeBetweenEachTriggerPull: 0
+  timeBetweenEachTriggerPull: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0
+  timeBetweenBulletsLeavingBarrel: 0.1
   rateOfFire: 0
   effectiveFiringRange: 550
   magazineSize: 30
@@ -5132,18 +5138,21 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
-  allowedAutomaticFire: 0
+  allowedFullAuto: 0
   allowedBurstFire: 0
-  allowedSingleShotFire: 0
+  allowedSemiAutomatic: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
+  isFullAuto: 0
+  isBurstFire: 0
+  isSemiAutomatic: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 350
   upwardForce: 0
-  timeBetweenEachTriggerPull: 0
+  timeBetweenEachTriggerPull: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0
+  timeBetweenBulletsLeavingBarrel: 0.1
   rateOfFire: 0.1
   effectiveFiringRange: 50
   magazineSize: 15
