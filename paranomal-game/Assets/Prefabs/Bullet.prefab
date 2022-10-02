@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7819607150756480731}
   - component: {fileID: -3321346734261303680}
   - component: {fileID: 7335993640325610588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487c1a877d003fc45aa942f8a5c89036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageDealt: 100
+  bulletBody: {fileID: 7819607150756480731}
+  bulletWeight: 0.0105
+  bulletLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!96 &7335993640325610588
 TrailRenderer:
   serializedVersion: 2
