@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameObject rightHand;
 
+    private bool triggerDown = false; // Used for when holding down mouse and is full auto on weapon
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,7 +26,16 @@ public class InputManager : MonoBehaviour
 
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
-            onFoot.Shoot.performed += ctx => weaponSystem.Shoot();
+            if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
+            {
+                
+                onFoot.Shoot.started += ctx => TriggerDown();
+                onFoot.Shoot.canceled += ctx => TriggerRelease();
+            }
+            else
+            {
+                onFoot.Shoot.performed += ctx => weaponSystem.Shoot();
+            }
             onFoot.Reload.performed += ctx => weaponSystem.Reload();
         }
     }
@@ -32,7 +43,20 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (triggerDown)
+        {
+            weaponSystem.Shoot();
+        }
+    }
 
+    private void TriggerDown()
+    {
+        triggerDown = true;
+    }
+
+    private void TriggerRelease()
+    {
+        triggerDown = false;
     }
 
     private void OnEnable()

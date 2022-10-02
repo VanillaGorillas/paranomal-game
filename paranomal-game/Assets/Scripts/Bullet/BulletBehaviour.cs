@@ -63,7 +63,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         ContactPoint contact = collision.GetContact(0);
 
-        if (contact.otherCollider) // Used to check if object collidered with another object // Current detects the gun object so attackpoint might need to move in future
+        if (contact.otherCollider && contact.otherCollider.gameObject.layer != 7) // Used to check if object collidered with another object // Current detects the gun object so attackpoint might need to move in future
         {
             collisionCount++;
             if (isArmourPiercing)
