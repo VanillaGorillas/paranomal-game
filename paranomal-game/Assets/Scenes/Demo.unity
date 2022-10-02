@@ -1702,21 +1702,18 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
-  allowedFullAuto: 0
+  allowedAutomaticFire: 0
   allowedBurstFire: 0
-  allowedSemiAutomatic: 0
+  allowedSingleShotFire: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
-  isFullAuto: 0
-  isBurstFire: 0
-  isSemiAutomatic: 0
-  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  bullet: {fileID: 9134478513145949271, guid: d05fd69a8ac8079409f691eb63ac6c3f, type: 3}
   muzzleVelocity: 313
   upwardForce: 0
-  timeBetweenEachTriggerPull: 0.1
+  timeBetweenShooting: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0.1
+  timeBetweenShots: 0.1
   rateOfFire: 0
   effectiveFiringRange: 50
   magazineSize: 15
@@ -3637,21 +3634,18 @@ MonoBehaviour:
   primaryWeapon: 1
   secondaryWeapon: 0
   weaponSlot: {fileID: 8765489994903951809}
-  allowedFullAuto: 0
+  allowedAutomaticFire: 0
   allowedBurstFire: 0
-  allowedSemiAutomatic: 0
+  allowedSingleShotFire: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
-  isFullAuto: 0
-  isBurstFire: 0
-  isSemiAutomatic: 0
-  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  bullet: {fileID: 3930647487463510722, guid: 48f6fbaf4d6cde548b05bdf69a9d7b93, type: 3}
   muzzleVelocity: 1006
   upwardForce: 0
-  timeBetweenEachTriggerPull: 0.1
+  timeBetweenShooting: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0.1
+  timeBetweenShots: 0.1
   rateOfFire: 0
   effectiveFiringRange: 550
   magazineSize: 30
@@ -5115,7 +5109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836168182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.35, y: 1.89, z: 5.21}
+  m_LocalPosition: {x: 1.34, y: 1.91, z: 5.21}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5138,21 +5132,18 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
-  allowedFullAuto: 0
+  allowedAutomaticFire: 0
   allowedBurstFire: 0
-  allowedSemiAutomatic: 0
+  allowedSingleShotFire: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
-  isFullAuto: 0
-  isBurstFire: 0
-  isSemiAutomatic: 0
-  bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
+  bullet: {fileID: 8744822132129637132, guid: d7ffda5c64be6ec4ebd34a67c7e38a83, type: 3}
   muzzleVelocity: 350
   upwardForce: 0
-  timeBetweenEachTriggerPull: 0.1
+  timeBetweenShooting: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0.1
+  timeBetweenShots: 0.1
   rateOfFire: 0.1
   effectiveFiringRange: 50
   magazineSize: 15
