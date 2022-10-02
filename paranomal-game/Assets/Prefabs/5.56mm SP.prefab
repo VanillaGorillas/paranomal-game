@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7819607150756480731}
   - component: {fileID: -3321346734261303680}
   - component: {fileID: 7335993640325610588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 5.56mm SP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
