@@ -16,6 +16,11 @@ public class Weapon : MonoBehaviour
     public bool allowedsoftPoint; // Will be common bullet type for all guns besides shotguns
     public bool allowedAmrourPiercing;
 
+    [Header("Shooting Mode on")]
+    public bool isFullAuto;
+    public bool isBurstFire;
+    public bool isSemiAutomatic;
+
     [Header("Recoil Stats")]
     public float verticalRecoil; // Y axis
     public float horizontalRecoil; // X axis

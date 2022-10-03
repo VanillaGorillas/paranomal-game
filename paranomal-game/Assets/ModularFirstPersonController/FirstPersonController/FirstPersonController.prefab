@@ -161,6 +161,9 @@ MonoBehaviour:
   allowedSingleShotFire: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
+  isFullAuto: 1
+  isBurstFire: 0
+  isSemiAutomatic: 0
   verticalRecoil: 4
   horizontalRecoil: 3
   gripStabilizer: 0
