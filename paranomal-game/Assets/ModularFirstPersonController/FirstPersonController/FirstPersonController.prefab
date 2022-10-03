@@ -161,9 +161,14 @@ MonoBehaviour:
   allowedSingleShotFire: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
+  verticalRecoil: 4
+  horizontalRecoil: 3
+  gripStabilizer: 0
+  recoilEnergy: 5
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
   upwardForce: 0
+  mass: 2
   timeBetweenShooting: 0.1
   spread: 0
   reloadTime: 2
@@ -1005,6 +1010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459864851508666808}
+  - component: {fileID: 7592070906087155488}
   m_Layer: 0
   m_Name: Joint
   m_TagString: Untagged
@@ -1030,6 +1036,20 @@ Transform:
   m_Father: {fileID: 4459864850019384738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7592070906087155488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864851508666809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566f6131c8d51e541921f282de2627da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  returnSpeed: 2
+  rightHand: {fileID: 3040472445013012732}
 --- !u!1 &4459864851551516604
 GameObject:
   m_ObjectHideFlags: 0

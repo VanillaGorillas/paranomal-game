@@ -4,18 +4,25 @@ public class PickUpDropItem : Interactable
 {
     [SerializeField]
     private new Rigidbody rigidbody;
+
     [SerializeField]
     private new BoxCollider collider;
+
     [SerializeField]
     private Transform player;
+
     [SerializeField]
     private Transform parentGameObject;
+
     [SerializeField] 
     private Transform fpsCamera;
+
     [SerializeField] 
     private Transform environment;
+
     [SerializeField] 
     private float  dropForwardForce;
+
     [SerializeField]
     private float dropUpwardForce;
     public bool equipped;

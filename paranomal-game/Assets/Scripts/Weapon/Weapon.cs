@@ -16,6 +16,13 @@ public class Weapon : MonoBehaviour
     public bool allowedsoftPoint; // Will be common bullet type for all guns besides shotguns
     public bool allowedAmrourPiercing;
 
+    [Header("Recoil Stats")]
+    public float verticalRecoil; // Y axis
+    public float horizontalRecoil; // X axis
+    public float gripStabilizer; // Will need to take in affect of grip attachment
+    public float recoilEnergy;
+
+    [Header("Bullt Types")]
     // bullet
     [SerializeField]
     private GameObject bullet;
@@ -28,6 +35,10 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     private float upwardForce; // For gernades
+
+    [Header("Weapon Mass")]
+    [SerializeField]
+    private float mass;
 
     [Header("Statistics")]
 
@@ -77,15 +88,22 @@ public class Weapon : MonoBehaviour
     // Bug fixing
     public bool allowInvoke = true;
 
+    private Recoil recoilScript;
+
     private void Awake()
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+
+        recoilScript = GameObject.Find("Joint").GetComponent<Recoil>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Make gun move around here function // Will probably need to create new functin to get weapon to sway smoothly
+        //transform.localRotation = Quaternion.Euler(new Vector3(Random.Range(-mass, mass), Random.Range(-mass, mass), 0));                   
+            
         // Set ammo display if it exists
         if (ammunitionDisplay != null)
         {
@@ -95,6 +113,8 @@ public class Weapon : MonoBehaviour
 
     public void ShootPhysics()
     {
+        recoilScript.RecoilFire();
+
         //GameObject bulletClone;
         readyToShoot = false;
 
@@ -157,7 +177,7 @@ public class Weapon : MonoBehaviour
         }
 
         // Might need to put destory gameobject here if not doing collision
-        Destroy(currentBullet, 3f);
+        //Destroy(currentBullet, 3f);
     }
 
     private void ResetShot()
