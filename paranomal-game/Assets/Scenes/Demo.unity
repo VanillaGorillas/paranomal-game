@@ -1026,6 +1026,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222400029}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &233390932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 675202839, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+  m_PrefabInstance: {fileID: 8765489994903951804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9bad6c7365422438bb81798aced505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &271115972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,7 +1573,7 @@ GameObject:
   - component: {fileID: 575461995}
   - component: {fileID: 575462000}
   m_Layer: 6
-  m_Name: Glock 22
+  m_Name: Glock 17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1714,6 +1725,7 @@ MonoBehaviour:
   horizontalRecoil: 0
   gripStabilizer: 0
   recoilEnergy: 0
+  recoilImpules: 0
   bullet: {fileID: 9134478513145949271, guid: d05fd69a8ac8079409f691eb63ac6c3f, type: 3}
   muzzleVelocity: 313
   upwardForce: 0
@@ -1735,6 +1747,11 @@ MonoBehaviour:
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
+  playerPrefebInputManger: {fileID: 233390932}
+  isFullAutoRecoilEnergy: 0
+  isFullAutoGripStabilizer: 0
+  isFullAutoVerticalRecoil: 0
+  isFullAutoHorizontalRecoil: 0
 --- !u!43 &623259082
 Mesh:
   m_ObjectHideFlags: 0
@@ -3502,7 +3519,7 @@ GameObject:
   - component: {fileID: 1102543672}
   - component: {fileID: 1102543674}
   m_Layer: 6
-  m_Name: Colt AR15
+  m_Name: Sig M400 VTAC AR15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3650,10 +3667,11 @@ MonoBehaviour:
   isFullAuto: 0
   isBurstFire: 0
   isSemiAutomatic: 0
-  verticalRecoil: 0
-  horizontalRecoil: 0
-  gripStabilizer: 0
-  recoilEnergy: 0
+  verticalRecoil: 3.4
+  horizontalRecoil: 1.7
+  gripStabilizer: 2.16
+  recoilEnergy: 9.09
+  recoilImpules: 7.86
   bullet: {fileID: 3930647487463510722, guid: 48f6fbaf4d6cde548b05bdf69a9d7b93, type: 3}
   muzzleVelocity: 1006
   upwardForce: 0
@@ -3675,6 +3693,11 @@ MonoBehaviour:
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
+  playerPrefebInputManger: {fileID: 233390932}
+  isFullAutoRecoilEnergy: 0
+  isFullAutoGripStabilizer: 0
+  isFullAutoVerticalRecoil: 0
+  isFullAutoHorizontalRecoil: 0
 --- !u!43 &1121822312
 Mesh:
   m_ObjectHideFlags: 0
@@ -5160,6 +5183,7 @@ MonoBehaviour:
   horizontalRecoil: 0
   gripStabilizer: 0
   recoilEnergy: 0
+  recoilImpules: 0
   bullet: {fileID: 8744822132129637132, guid: d7ffda5c64be6ec4ebd34a67c7e38a83, type: 3}
   muzzleVelocity: 350
   upwardForce: 0
@@ -5181,6 +5205,11 @@ MonoBehaviour:
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
+  playerPrefebInputManger: {fileID: 233390932}
+  isFullAutoRecoilEnergy: 0
+  isFullAutoGripStabilizer: 0
+  isFullAutoVerticalRecoil: 0
+  isFullAutoHorizontalRecoil: 0
 --- !u!114 &1836168185
 MonoBehaviour:
   m_ObjectHideFlags: 0

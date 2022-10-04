@@ -25,7 +25,8 @@ public class Weapon : MonoBehaviour
     public float verticalRecoil; // Y axis
     public float horizontalRecoil; // X axis
     public float gripStabilizer; // Will need to take in affect of grip attachment
-    public float recoilEnergy;
+    public float recoilEnergy; // This will affect the snappiness in Recoil Script
+    public float recoilImpules;
 
     [Header("Bullt Types")]
     // bullet
@@ -95,12 +96,32 @@ public class Weapon : MonoBehaviour
 
     private Recoil recoilScript;
 
+    [Header("Player Prefab")]
+    [SerializeField]
+    private InputManager playerPrefebInputManger;
+
+    // For when continuous holding down when shooting full auto
+    [HideInInspector]
+    public float isFullAutoRecoilEnergy;
+    [HideInInspector]
+    public float isFullAutoGripStabilizer;
+    [HideInInspector]
+    public float isFullAutoVerticalRecoil; // Will need to do more checks
+    [HideInInspector]
+    public float isFullAutoHorizontalRecoil; // need to do more checks
+
+
     private void Awake()
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
 
         recoilScript = GameObject.Find("Joint").GetComponent<Recoil>();
+
+        isFullAutoRecoilEnergy = recoilEnergy;
+        isFullAutoGripStabilizer = gripStabilizer;
+        isFullAutoVerticalRecoil = verticalRecoil;
+        isFullAutoHorizontalRecoil = horizontalRecoil;
     }
 
     // Update is called once per frame
@@ -181,6 +202,8 @@ public class Weapon : MonoBehaviour
             Invoke("ShootPhysics", timeBetweenShots);
         }
 
+        RecoilIncrease();
+
         // Might need to put destory gameobject here if not doing collision
         //Destroy(currentBullet, 3f);
     }
@@ -205,6 +228,24 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    private void RecoilIncrease()
+    {
+        if (isFullAuto && playerPrefebInputManger.GetComponent<InputManager>().triggerDown && bulletsLeft != 0)
+        {
+            isFullAutoRecoilEnergy += recoilImpules / 100;
+            isFullAutoGripStabilizer = isFullAutoGripStabilizer <= 0 ? 0f : isFullAutoGripStabilizer - recoilImpules / 100; // Will still go past zero for the first time but will be okay afterwards
+            //isFullAutoVerticalRecoil = isFullAutoVerticalRecoil > recoilEnergy ? recoilEnergy : isFullAutoVerticalRecoil + isFullAutoVerticalRecoil / recoilEnergy; // Must make this stop after a limit
+            //isFullAutoHorizontalRecoil = isFullAutoHorizontalRecoil > gripStabilizer ? gripStabilizer : isFullAutoHorizontalRecoil + isFullAutoHorizontalRecoil / gripStabilizer;
+        }
+        else
+        {
+            isFullAutoRecoilEnergy = recoilEnergy;
+            isFullAutoGripStabilizer = gripStabilizer;
+            isFullAutoVerticalRecoil = verticalRecoil;
+            isFullAutoHorizontalRecoil = horizontalRecoil;
+        }
     }
 
 }

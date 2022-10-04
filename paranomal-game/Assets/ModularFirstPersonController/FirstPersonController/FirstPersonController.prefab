@@ -164,10 +164,11 @@ MonoBehaviour:
   isFullAuto: 1
   isBurstFire: 0
   isSemiAutomatic: 0
-  verticalRecoil: 4
-  horizontalRecoil: 3
-  gripStabilizer: 0
-  recoilEnergy: 5
+  verticalRecoil: 2.92
+  horizontalRecoil: 1.46
+  gripStabilizer: 1.99
+  recoilEnergy: 9.22
+  recoilImpules: 7.34
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
   upwardForce: 0
@@ -189,6 +190,11 @@ MonoBehaviour:
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
+  playerPrefebInputManger: {fileID: 675202839}
+  isFullAutoRecoilEnergy: 0
+  isFullAutoGripStabilizer: 0
+  isFullAutoVerticalRecoil: 0
+  isFullAutoHorizontalRecoil: 0
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHand: {fileID: 3040472445013012732}
+  triggerDown: 0
 --- !u!114 &8765489994903951815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,8 +1058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566f6131c8d51e541921f282de2627da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnSpeed: 2
   rightHand: {fileID: 3040472445013012732}
+  playerPrefebInputManger: {fileID: 675202839}
 --- !u!1 &4459864851551516604
 GameObject:
   m_ObjectHideFlags: 0
