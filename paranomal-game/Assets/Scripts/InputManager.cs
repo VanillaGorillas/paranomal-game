@@ -7,10 +7,9 @@ public class InputManager : MonoBehaviour
 
     private SwapWeapon swapWeapon;
     private WeaponSystem weaponSystem;
+
     [SerializeField]
     private GameObject rightHand;
-
-    public bool triggerDown = false; // Used for when holding down mouse and is full auto on weapon
 
     // Start is called before the first frame update
     void Awake()
@@ -28,9 +27,11 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Must look here as it gives me null when not weapon and pressing to fire
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
-            if (rightHand.GetComponentInChildren<Weapon>().isFullAuto) // Need to fix this badly 
+            //Debug.Log("yes");
+            if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
             {
                 onFoot.Shoot.started += ctx => weaponSystem.FullAutoShoot();
                 onFoot.Shoot.canceled += ctx => weaponSystem.CancelShooting();

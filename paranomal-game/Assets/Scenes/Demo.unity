@@ -1721,8 +1721,8 @@ MonoBehaviour:
   isFullAuto: 0
   isBurstFire: 0
   isSemiAutomatic: 0
-  verticalRecoil: 0
-  horizontalRecoil: 0
+  verticalRecoil: 3
+  horizontalRecoil: 2
   gripStabilizer: 0
   recoilEnergy: 0
   recoilImpules: 0
@@ -3680,7 +3680,7 @@ MonoBehaviour:
   spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
-  rateOfFire: 0
+  rateOfFire: 800
   effectiveFiringRange: 550
   magazineSize: 30
   bulletsPerTap: 1

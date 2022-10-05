@@ -5,7 +5,7 @@ public class Weapon : MonoBehaviour
 {
     public bool primaryWeapon;
     public bool secondaryWeapon;
-    public Transform  weaponSlot;
+    public Transform weaponSlot;
 
     [Header("Shooting Modes")]
     public bool allowedAutomaticFire; // Will produce more recoil
@@ -24,8 +24,8 @@ public class Weapon : MonoBehaviour
     [Header("Recoil Stats")]
     public float verticalRecoil; // Y axis
     public float horizontalRecoil; // X axis
-    public float gripStabilizer; // Will need to take in affect of grip attachment
-    public float recoilEnergy; // This will affect the snappiness in Recoil Script
+    public float gripStabilizer; // Will need to take in affect of grip attachment // This is affect the aim wrong
+    public float recoilEnergy; // This will affect the snappiness in Recoil Script // This is affect the aim wrong
     public float recoilImpules;
 
     [Header("Bullt Types")]
@@ -129,7 +129,12 @@ public class Weapon : MonoBehaviour
     {
         // Make gun move around here function // Will probably need to create new functin to get weapon to sway smoothly
         //transform.localRotation = Quaternion.Euler(new Vector3(Random.Range(-mass, mass), Random.Range(-mass, mass), 0));                   
-            
+
+        if (!playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && playerPrefebInputManger.GetComponent<WeaponSystem>() != null)
+        {
+            ResestRecoil();
+        }
+
         // Set ammo display if it exists
         if (ammunitionDisplay != null)
         {
@@ -232,20 +237,21 @@ public class Weapon : MonoBehaviour
 
     private void RecoilIncrease()
     {
-        if (isFullAuto && playerPrefebInputManger.GetComponent<InputManager>().triggerDown && bulletsLeft != 0)
+        if (isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && bulletsLeft != 0)
         {
             isFullAutoRecoilEnergy += recoilImpules / 100;
             isFullAutoGripStabilizer = isFullAutoGripStabilizer <= 0 ? 0f : isFullAutoGripStabilizer - recoilImpules / 100; // Will still go past zero for the first time but will be okay afterwards
-            //isFullAutoVerticalRecoil = isFullAutoVerticalRecoil > recoilEnergy ? recoilEnergy : isFullAutoVerticalRecoil + isFullAutoVerticalRecoil / recoilEnergy; // Must make this stop after a limit
-            //isFullAutoHorizontalRecoil = isFullAutoHorizontalRecoil > gripStabilizer ? gripStabilizer : isFullAutoHorizontalRecoil + isFullAutoHorizontalRecoil / gripStabilizer;
+            isFullAutoVerticalRecoil += ((rateOfFire / 60) / magazineSize) / 100;
+            isFullAutoHorizontalRecoil += ((rateOfFire / 60) / magazineSize) / 100;
         }
-        else
-        {
-            isFullAutoRecoilEnergy = recoilEnergy;
-            isFullAutoGripStabilizer = gripStabilizer;
-            isFullAutoVerticalRecoil = verticalRecoil;
-            isFullAutoHorizontalRecoil = horizontalRecoil;
-        }
+    }
+
+    private void ResestRecoil()
+    {
+        isFullAutoRecoilEnergy = recoilEnergy;
+        isFullAutoGripStabilizer = gripStabilizer;
+        isFullAutoVerticalRecoil = verticalRecoil;
+        isFullAutoHorizontalRecoil = horizontalRecoil;
     }
 
 }

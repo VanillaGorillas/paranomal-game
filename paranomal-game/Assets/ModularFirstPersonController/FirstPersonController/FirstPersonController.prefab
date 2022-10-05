@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388349410}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
-  rateOfFire: 0
+  rateOfFire: 950
   effectiveFiringRange: 500
   magazineSize: 30
   bulletsPerTap: 1
@@ -597,7 +597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHand: {fileID: 3040472445013012732}
-  triggerDown: 0
 --- !u!114 &8765489994903951815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,6 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHand: {fileID: 3040472445013012732}
+  triggerDown: 0
 --- !u!1 &4459864850190357393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHand: {fileID: 3040472445013012732}
   playerPrefebInputManger: {fileID: 675202839}
+  cameraTransform: {fileID: 4459864851310106424}
 --- !u!1 &4459864851551516604
 GameObject:
   m_ObjectHideFlags: 0
