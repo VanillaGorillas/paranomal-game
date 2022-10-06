@@ -7,7 +7,7 @@ public class Recoil : MonoBehaviour
     private Vector3 targetRotation;
 
     // Settings
-    private float snappiness = 0f; // This is fucking up the crosshair // How quick the gun goes to new location
+    private float snappiness = 0f; // How quick the gun goes to new location
 
     // The lower the return speed the more it will move upwards
     private float returnSpeed = 0f; // Will also be affective by other stuff // Will be affected by grip of player
@@ -22,9 +22,6 @@ public class Recoil : MonoBehaviour
 
     [SerializeField]
     private GameObject cameraTransform;
-
-
-    // Maybe do something with fixed update to get thing to zero or something with camera 
 
     // Update is called once per frame
     void Update()
@@ -43,19 +40,11 @@ public class Recoil : MonoBehaviour
                 returnSpeed = weapon.gripStabilizer;
             }
         }
-
-        // Still need to add restriction for going to far up
-        // JOINT THING
+ 
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
-        //GameObject cam = GameObject.Find("PlayerCamera");
-        //Debug.Log(cam.transform.eulerAngles + " ion"); // Yes this
-        ////Debug.Log(currentRotation + " current");
-        //Debug.Log(targetRotation + " target");
         
         transform.localRotation = Quaternion.Euler(currentRotation);
-        //GameObject reticle = GameObject.Find("Reticle");
-        //reticle.transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
     public void RecoilFire()
@@ -64,34 +53,23 @@ public class Recoil : MonoBehaviour
         // weapon.horizontalRecoil will move the weapon along the sides of the Y axis
         if(weapon.isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown) // Posible don't use     
         {
-            //Debug.Log(weapon.isFullAutoRecoilEnergy + " energy");
-            //Debug.Log(weapon.isFullAutoGripStabilizer + " Grip");
-            //Debug.Log(weapon.isFullAutoVerticalRecoil + " Vertical");
-            //Debug.Log(weapon.isFullAutoHorizontalRecoil + " Horizontal");
+            // Y axis max 17 and -17 So player doesn't spin around
+            float fullAutoHorizontalRecoil = weapon.isFullAutoHorizontalRecoil > 17f ? 17f :  weapon.isFullAutoHorizontalRecoil;
 
-
-
-            // This will not actually fuck
-            //float fullAutoVerticalRecoil = Mathf.Round(cameraTransform.transform.localEulerAngles.x) == 310f ? 0f : weapon.isFullAutoVerticalRecoil;
-            // Clamp pitch between lookAngle
-            //Debug.Log(Mathf.Round(cameraTransform.transform.localEulerAngles.x) + " cam");
-            //Debug.Log(Mathf.Round(transform.localEulerAngles.x) + " local");
-            ////if(Mathf.Round(cameraTransform.transform.eulerAngles.x) >= 50f || Mathf.Round(cameraTransform.transform.eulerAngles.x) >= 310f)
-            //float cameraAngle = Mathf.Round(cameraTransform.transform.localEulerAngles.x);
-            ////if (cameraAngle >= 310f && cameraAngle <= 360f || cameraAngle >= 0f && cameraAngle <= 50f)
-            //if (cameraAngle == 310f || cameraAngle <= 310f && cameraAngle > 50f)
-            //{
-            //    Debug.Log("yes");
-            //}
-            //float fullAutoVerticalRecoil = Mathf.Clamp(weapon.isFullAutoVerticalRecoil, -maxLookAngleRecoil, maxLookAngleRecoil);
-            // Y axis max 17 and -17
-            float fullAutoHorizontalRecoil = weapon.isFullAutoHorizontalRecoil > 17f ? 17f : weapon.isFullAutoHorizontalRecoil;
-            
-            targetRotation += new Vector3(-weapon.isFullAutoVerticalRecoil, Random.Range(-fullAutoHorizontalRecoil, fullAutoHorizontalRecoil), 0);
+            targetRotation += new Vector3(-CheckVerticalRecoil(weapon.isFullAutoVerticalRecoil), Random.Range(-fullAutoHorizontalRecoil, fullAutoHorizontalRecoil), 0);
         }
         else
         {
-            targetRotation += new Vector3(-weapon.verticalRecoil, Random.Range(-weapon.horizontalRecoil, weapon.horizontalRecoil), 0);
+            // This is when gun is semi-auto or shot once
+            targetRotation += new Vector3(-CheckVerticalRecoil(weapon.verticalRecoil), Random.Range(-weapon.horizontalRecoil, weapon.horizontalRecoil), 0);
         }
+    }
+
+    // Used for restricting the recoil from going past the max camera angle look
+    private float CheckVerticalRecoil(float verticalRecoil)
+    {
+        var maxAxisX = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x + UnityEditor.TransformUtils.GetInspectorRotation(cameraTransform.transform).x;
+
+        return maxAxisX < -playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle ? 0f : verticalRecoil;
     }
 }

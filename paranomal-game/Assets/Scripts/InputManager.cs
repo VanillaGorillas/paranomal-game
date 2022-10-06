@@ -27,10 +27,8 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Must look here as it gives me null when not weapon and pressing to fire
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
-            //Debug.Log("yes");
             if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
             {
                 onFoot.Shoot.started += ctx => weaponSystem.FullAutoShoot();

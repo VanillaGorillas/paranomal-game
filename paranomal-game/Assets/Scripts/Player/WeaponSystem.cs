@@ -16,7 +16,7 @@ public class WeaponSystem : MonoBehaviour
         {
             rightHandWeapon = rightHand.GetComponentInChildren<Weapon>(); // Gets RightHand GameObject
 
-            if (triggerDown && rightHandWeapon.isFullAuto) // Gets called even though shouldn't be allowed to
+            if (triggerDown && rightHandWeapon.isFullAuto)
             {
                 Shoot();
             }

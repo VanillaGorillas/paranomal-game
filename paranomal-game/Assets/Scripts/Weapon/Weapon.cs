@@ -24,8 +24,8 @@ public class Weapon : MonoBehaviour
     [Header("Recoil Stats")]
     public float verticalRecoil; // Y axis
     public float horizontalRecoil; // X axis
-    public float gripStabilizer; // Will need to take in affect of grip attachment // This is affect the aim wrong
-    public float recoilEnergy; // This will affect the snappiness in Recoil Script // This is affect the aim wrong
+    public float gripStabilizer; // Will need to take in affect of grip attachment 
+    public float recoilEnergy; // This will affect the snappiness in Recoil Script 
     public float recoilImpules;
 
     [Header("Bullt Types")]
@@ -126,9 +126,7 @@ public class Weapon : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        // Make gun move around here function // Will probably need to create new functin to get weapon to sway smoothly
-        //transform.localRotation = Quaternion.Euler(new Vector3(Random.Range(-mass, mass), Random.Range(-mass, mass), 0));                   
+    {                  
 
         if (!playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && playerPrefebInputManger.GetComponent<WeaponSystem>() != null)
         {
@@ -242,7 +240,7 @@ public class Weapon : MonoBehaviour
             isFullAutoRecoilEnergy += recoilImpules / 100;
             isFullAutoGripStabilizer = isFullAutoGripStabilizer <= 0 ? 0f : isFullAutoGripStabilizer - recoilImpules / 100; // Will still go past zero for the first time but will be okay afterwards
             isFullAutoVerticalRecoil += ((rateOfFire / 60) / magazineSize) / 100;
-            isFullAutoHorizontalRecoil += ((rateOfFire / 60) / magazineSize) / 100;
+            isFullAutoHorizontalRecoil += ((rateOfFire / 60) / magazineSize) / recoilEnergy;
         }
     }
 
