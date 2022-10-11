@@ -22,11 +22,18 @@ public class Weapon : MonoBehaviour
     public bool isSemiAutomatic;
 
     [Header("Recoil Stats")]
-    public float verticalRecoil; // Y axis
-    public float horizontalRecoil; // X axis
-    public float gripStabilizer; // Will need to take in affect of grip attachment 
     public float recoilEnergy; // This will affect the snappiness in Recoil Script 
     public float recoilImpules;
+
+    [Header("Hip Recoil Stats")]
+    public float verticalRecoil; // Y axis
+    public float horizontalRecoil; // X axis
+    public float hipGrip; // Will need to take in affect of grip attachment 
+
+    [Header("Aim Down Sight Recoil Stats")]
+    public float downSightVerticalRecoil;
+    public float downSightHorizontalRecoil;
+    public float downSightGrip;
 
     [Header("Bullt Types")]
     // bullet
@@ -104,7 +111,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public float isFullAutoRecoilEnergy;
     [HideInInspector]
-    public float isFullAutoGripStabilizer;
+    public float isFullAutoGrip;
     [HideInInspector]
     public float isFullAutoVerticalRecoil; // Will need to do more checks
     [HideInInspector]
@@ -119,7 +126,7 @@ public class Weapon : MonoBehaviour
         recoilScript = GameObject.Find("Joint").GetComponent<Recoil>();
 
         isFullAutoRecoilEnergy = recoilEnergy;
-        isFullAutoGripStabilizer = gripStabilizer;
+        isFullAutoGrip = hipGrip;
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
     }
@@ -237,19 +244,25 @@ public class Weapon : MonoBehaviour
     {
         if (isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && bulletsLeft != 0)
         {
-            isFullAutoRecoilEnergy += recoilImpules / 100;
-            isFullAutoGripStabilizer = isFullAutoGripStabilizer <= 0 ? 0f : isFullAutoGripStabilizer - recoilImpules / 100; // Will still go past zero for the first time but will be okay afterwards
-            isFullAutoVerticalRecoil += ((rateOfFire / 60) / magazineSize) / 100;
-            isFullAutoHorizontalRecoil += ((rateOfFire / 60) / magazineSize) / recoilEnergy;
+            // For change with down sight and hip // Valus will change in each part of the different code 
+            FullAutoHipFire();
         }
     }
 
     private void ResestRecoil()
     {
         isFullAutoRecoilEnergy = recoilEnergy;
-        isFullAutoGripStabilizer = gripStabilizer;
+        isFullAutoGrip = hipGrip;
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
     }
 
+    private void FullAutoHipFire()
+    {
+        isFullAutoRecoilEnergy += recoilImpules / 100;
+        // Once the grips has gone pass the check it will be half so to give the player some control over the gun
+        isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;
+        isFullAutoVerticalRecoil += ((rateOfFire / 60) / magazineSize) / recoilEnergy;
+        isFullAutoHorizontalRecoil += ((rateOfFire / 60) / magazineSize) / recoilEnergy;
+    }
 }

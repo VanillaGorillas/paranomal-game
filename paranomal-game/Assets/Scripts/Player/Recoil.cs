@@ -32,12 +32,12 @@ public class Recoil : MonoBehaviour
             if(weapon.isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && weapon.bulletsLeft > 0)
             {
                 snappiness = weapon.isFullAutoRecoilEnergy;
-                returnSpeed = weapon.isFullAutoGripStabilizer;
+                returnSpeed = weapon.isFullAutoGrip;
             } 
             else
             {
                 snappiness = weapon.recoilEnergy;
-                returnSpeed = weapon.gripStabilizer;
+                returnSpeed = weapon.hipGrip;
             }
         }
  

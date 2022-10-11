@@ -164,22 +164,25 @@ MonoBehaviour:
   isFullAuto: 1
   isBurstFire: 0
   isSemiAutomatic: 0
-  verticalRecoil: 2.92
-  horizontalRecoil: 1.46
-  gripStabilizer: 1.99
-  recoilEnergy: 9.22
-  recoilImpules: 7.34
+  recoilEnergy: 8.113
+  recoilImpules: 6.883
+  verticalRecoil: 2.778
+  horizontalRecoil: 1.389
+  hipGrip: 1.623
+  downSightVerticalRecoil: 0
+  downSightHorizontalRecoil: 0
+  downSightGrip: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
   upwardForce: 0
-  mass: 2
+  mass: 2.92
   timeBetweenShooting: 0.1
   spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
   rateOfFire: 950
   effectiveFiringRange: 500
-  magazineSize: 30
+  magazineSize: 100
   bulletsPerTap: 1
   bulletsLeft: 0
   readyToShoot: 0
@@ -192,7 +195,7 @@ MonoBehaviour:
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 675202839}
   isFullAutoRecoilEnergy: 0
-  isFullAutoGripStabilizer: 0
+  isFullAutoGrip: 0
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
 --- !u!1 &1051659961813219035
