@@ -259,10 +259,11 @@ public class Weapon : MonoBehaviour
 
     private void FullAutoHipFire()
     {
-        isFullAutoRecoilEnergy += recoilImpules / 100;
+        isFullAutoRecoilEnergy += recoilImpules / 100;   
         // Once the grips has gone pass the check it will be half so to give the player some control over the gun
-        isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;
-        isFullAutoVerticalRecoil += ((rateOfFire / 60) / magazineSize) / recoilEnergy;
-        isFullAutoHorizontalRecoil += ((rateOfFire / 60) / magazineSize) / recoilEnergy;
+        isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;  
+        isFullAutoVerticalRecoil += rateOfFire / 60 / (recoilImpules * muzzleVelocity);
+        isFullAutoHorizontalRecoil += ((rateOfFire / 60) * recoilImpules) / muzzleVelocity / verticalRecoil;
+        Debug.Log(isFullAutoVerticalRecoil + " test");
     }
 }

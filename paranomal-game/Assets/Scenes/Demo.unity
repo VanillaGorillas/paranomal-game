@@ -1721,14 +1721,14 @@ MonoBehaviour:
   isFullAuto: 0
   isBurstFire: 0
   isSemiAutomatic: 0
-  recoilEnergy: 0
-  recoilImpules: 0
-  verticalRecoil: 3
-  horizontalRecoil: 2
-  hipGrip: 0
+  recoilEnergy: 6.1
+  recoilImpules: 3.32
+  verticalRecoil: 1.394
+  horizontalRecoil: 0.697
+  hipGrip: 1.952
   downSightVerticalRecoil: 0
   downSightHorizontalRecoil: 0
-  downSightGrip: 0
+  downSightGrip: 2.44
   bullet: {fileID: 9134478513145949271, guid: d05fd69a8ac8079409f691eb63ac6c3f, type: 3}
   muzzleVelocity: 313
   upwardForce: 0
@@ -5185,14 +5185,14 @@ MonoBehaviour:
   isFullAuto: 0
   isBurstFire: 0
   isSemiAutomatic: 0
-  recoilEnergy: 9.09
-  recoilImpules: 7.86
-  verticalRecoil: 2.67
-  horizontalRecoil: 134
-  hipGrip: 0
+  recoilEnergy: 4.529
+  recoilImpules: 2.887
+  verticalRecoil: 1.11
+  horizontalRecoil: 0.555
+  hipGrip: 0.985
   downSightVerticalRecoil: 0
   downSightHorizontalRecoil: 0
-  downSightGrip: 0
+  downSightGrip: 1.812
   bullet: {fileID: 8744822132129637132, guid: d7ffda5c64be6ec4ebd34a67c7e38a83, type: 3}
   muzzleVelocity: 350
   upwardForce: 0
