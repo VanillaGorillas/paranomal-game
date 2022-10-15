@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
     private float muzzleVelocity; // velocity
 
     [SerializeField]
-    private float upwardForce; // For gernades
+    private float upwardForceGernades; // For gernades
 
     [Header("Weapon Mass")]
     [SerializeField]

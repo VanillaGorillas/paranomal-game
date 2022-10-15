@@ -174,7 +174,7 @@ MonoBehaviour:
   downSightGrip: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
-  upwardForce: 0
+  upwardForceGernades: 0
   mass: 2.92
   timeBetweenShooting: 0.1
   spread: 0
