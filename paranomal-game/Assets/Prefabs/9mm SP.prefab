@@ -241,4 +241,4 @@ MonoBehaviour:
   isArmourPiercing: 0
   isSoftPoint: 1
   bulletBody: {fileID: 3484965901773759690}
-  projectileWeight: 0.0071
+  projectileWeight: 0.00745

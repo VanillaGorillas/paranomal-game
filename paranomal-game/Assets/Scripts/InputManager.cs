@@ -7,10 +7,9 @@ public class InputManager : MonoBehaviour
 
     private SwapWeapon swapWeapon;
     private WeaponSystem weaponSystem;
+
     [SerializeField]
     private GameObject rightHand;
-
-    private bool triggerDown = false; // Used for when holding down mouse and is full auto on weapon
 
     // Start is called before the first frame update
     void Awake()
@@ -23,14 +22,17 @@ public class InputManager : MonoBehaviour
 
         onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
         onFoot.SecondaryWeaponSwap.performed += ctx => swapWeapon.SwapToSecondary();
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
             if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
             {
-                
-                onFoot.Shoot.started += ctx => TriggerDown();
-                onFoot.Shoot.canceled += ctx => TriggerRelease();
+                onFoot.Shoot.started += ctx => weaponSystem.FullAutoShoot();
+                onFoot.Shoot.canceled += ctx => weaponSystem.CancelShooting();
             }
             else
             {
@@ -38,25 +40,6 @@ public class InputManager : MonoBehaviour
             }
             onFoot.Reload.performed += ctx => weaponSystem.Reload();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (triggerDown)
-        {
-            weaponSystem.Shoot();
-        }
-    }
-
-    private void TriggerDown()
-    {
-        triggerDown = true;
-    }
-
-    private void TriggerRelease()
-    {
-        triggerDown = false;
     }
 
     private void OnEnable()

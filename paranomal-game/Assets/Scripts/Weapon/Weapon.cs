@@ -5,12 +5,12 @@ public class Weapon : MonoBehaviour
 {
     public bool primaryWeapon;
     public bool secondaryWeapon;
-    public Transform  weaponSlot;
+    public Transform weaponSlot;
 
     [Header("Shooting Modes")]
-    public bool allowedFullAuto; // Will produce more recoil
+    public bool allowedAutomaticFire; // Will produce more recoil
     public bool allowedBurstFire; // Shots 2 or 3 bullets
-    public bool allowedSemiAutomatic; // Player must cock gun for next bullet to go through
+    public bool allowedSingleShotFire; // Player must cock gun for next bullet to go through
 
     [Header("Bullet Type")]
     public bool allowedsoftPoint; // Will be common bullet type for all guns besides shotguns
@@ -21,7 +21,22 @@ public class Weapon : MonoBehaviour
     public bool isBurstFire;
     public bool isSemiAutomatic;
 
-    // bullet // Will be using magazine later date code implemantation 
+    [Header("Recoil Stats")]
+    public float recoilEnergy; // This will affect the snappiness in Recoil Script 
+    public float recoilImpules;
+
+    [Header("Hip Recoil Stats")]
+    public float verticalRecoil; // Y axis
+    public float horizontalRecoil; // X axis
+    public float hipGrip; // Will need to take in affect of grip attachment 
+
+    [Header("Aim Down Sight Recoil Stats")]
+    public float downSightVerticalRecoil;
+    public float downSightHorizontalRecoil;
+    public float downSightGrip;
+
+    [Header("Bullt Types")]
+    // bullet
     [SerializeField]
     private GameObject bullet;
 
@@ -32,13 +47,17 @@ public class Weapon : MonoBehaviour
     private float muzzleVelocity; // velocity
 
     [SerializeField]
-    private float upwardForce; // For gernades
+    private float upwardForceGernades; // For gernades
+
+    [Header("Weapon Mass")]
+    [SerializeField]
+    private float mass;
 
     [Header("Statistics")]
 
     // Weapon statistics 
     [SerializeField]
-    private float timeBetweenEachTriggerPull;
+    private float timeBetweenShooting;
 
     [SerializeField]
     private float spread;
@@ -47,7 +66,7 @@ public class Weapon : MonoBehaviour
     private float reloadTime;
 
     [SerializeField]
-    private float timeBetweenBulletsLeavingBarrel;
+    private float timeBetweenShots;
 
     [SerializeField]
     private float rateOfFire;
@@ -79,20 +98,48 @@ public class Weapon : MonoBehaviour
     [Header("Weapon Muzzle Flash")]
     public GameObject muzzleFlash;
 
-    // Do trigger held down bools
-
     // Bug fixing
     public bool allowInvoke = true;
+
+    private Recoil recoilScript;
+
+    [Header("Player Prefab")]
+    [SerializeField]
+    private InputManager playerPrefebInputManger;
+
+    // For when continuous holding down when shooting full auto
+    [HideInInspector]
+    public float isFullAutoRecoilEnergy;
+    [HideInInspector]
+    public float isFullAutoGrip;
+    [HideInInspector]
+    public float isFullAutoVerticalRecoil; // Will need to do more checks
+    [HideInInspector]
+    public float isFullAutoHorizontalRecoil; // need to do more checks
+
 
     private void Awake()
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+
+        recoilScript = GameObject.Find("Joint").GetComponent<Recoil>();
+
+        isFullAutoRecoilEnergy = recoilEnergy;
+        isFullAutoGrip = hipGrip;
+        isFullAutoVerticalRecoil = verticalRecoil;
+        isFullAutoHorizontalRecoil = horizontalRecoil;
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {                  
+
+        if (!playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && playerPrefebInputManger.GetComponent<WeaponSystem>() != null)
+        {
+            ResestRecoil();
+        }
+
         // Set ammo display if it exists
         if (ammunitionDisplay != null)
         {
@@ -102,6 +149,8 @@ public class Weapon : MonoBehaviour
 
     public void ShootPhysics()
     {
+        recoilScript.RecoilFire();
+
         //GameObject bulletClone;
         readyToShoot = false;
 
@@ -153,18 +202,20 @@ public class Weapon : MonoBehaviour
         // Invoke resetShot function (if not already invoked)
         if (allowInvoke)
         {
-            Invoke("ResetShot", timeBetweenEachTriggerPull);
+            Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false; // Only want to Invoke once
         }
 
-        // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun // Burst fire
+        // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
         {
-            Invoke("ShootPhysics", timeBetweenBulletsLeavingBarrel);
+            Invoke("ShootPhysics", timeBetweenShots);
         }
 
+        RecoilIncrease();
+
         // Might need to put destory gameobject here if not doing collision
-        Destroy(currentBullet, 3f);
+        //Destroy(currentBullet, 3f);
     }
 
     private void ResetShot()
@@ -189,4 +240,30 @@ public class Weapon : MonoBehaviour
         reloading = false;
     }
 
+    private void RecoilIncrease()
+    {
+        if (isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && bulletsLeft != 0)
+        {
+            // For change with down sight and hip // Valus will change in each part of the different code 
+            FullAutoHipFire();
+        }
+    }
+
+    private void ResestRecoil()
+    {
+        isFullAutoRecoilEnergy = recoilEnergy;
+        isFullAutoGrip = hipGrip;
+        isFullAutoVerticalRecoil = verticalRecoil;
+        isFullAutoHorizontalRecoil = horizontalRecoil;
+    }
+
+    private void FullAutoHipFire()
+    {
+        isFullAutoRecoilEnergy += recoilImpules / 100;   
+        // Once the grips has gone pass the check it will be half so to give the player some control over the gun
+        isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;  
+        isFullAutoVerticalRecoil += rateOfFire / 60 / (recoilImpules * muzzleVelocity);
+        isFullAutoHorizontalRecoil += ((rateOfFire / 60) * recoilImpules) / muzzleVelocity / verticalRecoil;
+        Debug.Log(isFullAutoVerticalRecoil + " test");
+    }
 }

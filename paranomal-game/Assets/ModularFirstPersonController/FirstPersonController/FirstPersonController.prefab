@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388349410}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -156,24 +156,33 @@ MonoBehaviour:
   primaryWeapon: 1
   secondaryWeapon: 0
   weaponSlot: {fileID: 5377569204950287601}
-  allowedFullAuto: 0
+  allowedAutomaticFire: 0
   allowedBurstFire: 0
-  allowedSemiAutomatic: 0
+  allowedSingleShotFire: 0
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
   isFullAuto: 1
   isBurstFire: 0
   isSemiAutomatic: 0
+  recoilEnergy: 8.113
+  recoilImpules: 6.883
+  verticalRecoil: 2.778
+  horizontalRecoil: 1.389
+  hipGrip: 1.623
+  downSightVerticalRecoil: 0
+  downSightHorizontalRecoil: 0
+  downSightGrip: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
-  upwardForce: 0
-  timeBetweenEachTriggerPull: 0.1
+  upwardForceGernades: 0
+  mass: 2.92
+  timeBetweenShooting: 0.1
   spread: 0
   reloadTime: 2
-  timeBetweenBulletsLeavingBarrel: 0.1
-  rateOfFire: 0
+  timeBetweenShots: 0.1
+  rateOfFire: 950
   effectiveFiringRange: 500
-  magazineSize: 30
+  magazineSize: 100
   bulletsPerTap: 1
   bulletsLeft: 0
   readyToShoot: 0
@@ -184,6 +193,11 @@ MonoBehaviour:
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
+  playerPrefebInputManger: {fileID: 675202839}
+  isFullAutoRecoilEnergy: 0
+  isFullAutoGrip: 0
+  isFullAutoVerticalRecoil: 0
+  isFullAutoHorizontalRecoil: 0
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHand: {fileID: 3040472445013012732}
+  triggerDown: 0
 --- !u!1 &4459864850190357393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459864851508666808}
+  - component: {fileID: 7592070906087155488}
   m_Layer: 0
   m_Name: Joint
   m_TagString: Untagged
@@ -1033,6 +1049,21 @@ Transform:
   m_Father: {fileID: 4459864850019384738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7592070906087155488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864851508666809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566f6131c8d51e541921f282de2627da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHand: {fileID: 3040472445013012732}
+  playerPrefebInputManger: {fileID: 675202839}
+  cameraTransform: {fileID: 4459864851310106424}
 --- !u!1 &4459864851551516604
 GameObject:
   m_ObjectHideFlags: 0
