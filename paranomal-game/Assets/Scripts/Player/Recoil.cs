@@ -3,8 +3,8 @@ using UnityEngine;
 public class Recoil : MonoBehaviour
 {
     // Rotations
-    private Vector3 currentRotation;
-    private Vector3 targetRotation;
+    private Vector3 currentRotation; // The current rotation of the Player/Camera
+    private Vector3 targetRotation; // The next rotation of the Player/Camera when there is recoil
 
     // Settings
     private float snappiness = 0f; // How quick the gun goes to new location
@@ -51,7 +51,7 @@ public class Recoil : MonoBehaviour
     {
         // weapon.verticalRecoil will move the weapon upwards on the X axis with the negative sign
         // weapon.horizontalRecoil will move the weapon along the sides of the Y axis
-        if(weapon.isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown) // Posible don't use     
+        if(weapon.isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown)     
         {
             // Y axis max 17 and -17 So player doesn't spin around
             float fullAutoHorizontalRecoil = weapon.isFullAutoHorizontalRecoil > 17f ? 17f :  weapon.isFullAutoHorizontalRecoil;
