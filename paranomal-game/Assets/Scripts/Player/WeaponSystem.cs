@@ -5,6 +5,7 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField]
     private GameObject rightHand;
     private Weapon rightHandWeapon;
+    private WeaponFiringMode weaponFiringMode;
 
     [HideInInspector]
     public bool triggerDown = false; // Used for when holding down mouse and is full auto on weapon
@@ -15,6 +16,7 @@ public class WeaponSystem : MonoBehaviour
         if (rightHand.transform.childCount != 0)
         {
             rightHandWeapon = rightHand.GetComponentInChildren<Weapon>(); // Gets RightHand GameObject
+            weaponFiringMode = rightHand.GetComponentInChildren<WeaponFiringMode>();
 
             if (triggerDown && rightHandWeapon.isFullAuto)
             {
@@ -50,5 +52,14 @@ public class WeaponSystem : MonoBehaviour
     public void CancelShooting()
     {
         triggerDown = false;
+    }
+
+    public void ChangingFiringMode()
+    {
+        // When we have our own personal player controller we would need to take into factor of if the player is sprinting
+        if (!rightHandWeapon.reloading && !rightHandWeapon.triggerPressed) 
+        {
+            weaponFiringMode.SelectFiringMode();
+        }
     }
 }

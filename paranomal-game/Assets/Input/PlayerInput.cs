@@ -80,13 +80,22 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectFiringMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""b072d7ca-265b-4eb0-b13f-b2c64fda2f35"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""b9496146-5da0-48c9-afeb-b3afcb28d255"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -108,7 +117,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a4bb08d4-10c3-4229-a7dd-5a216767f62f"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -203,6 +212,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e71f5321-9b4e-4964-8954-cd60c35169c9"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectFiringMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +237,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_SecondaryWeaponSwap = m_OnFoot.FindAction("SecondaryWeaponSwap", throwIfNotFound: true);
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
+        m_OnFoot_SelectFiringMode = m_OnFoot.FindAction("SelectFiringMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -282,6 +303,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_SecondaryWeaponSwap;
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Reload;
+    private readonly InputAction m_OnFoot_SelectFiringMode;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -292,6 +314,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @SecondaryWeaponSwap => m_Wrapper.m_OnFoot_SecondaryWeaponSwap;
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
+        public InputAction @SelectFiringMode => m_Wrapper.m_OnFoot_SelectFiringMode;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -319,6 +342,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Reload.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @SelectFiringMode.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSelectFiringMode;
+                @SelectFiringMode.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSelectFiringMode;
+                @SelectFiringMode.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSelectFiringMode;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -341,6 +367,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @SelectFiringMode.started += instance.OnSelectFiringMode;
+                @SelectFiringMode.performed += instance.OnSelectFiringMode;
+                @SelectFiringMode.canceled += instance.OnSelectFiringMode;
             }
         }
     }
@@ -353,5 +382,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnSecondaryWeaponSwap(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnSelectFiringMode(InputAction.CallbackContext context);
     }
 }
