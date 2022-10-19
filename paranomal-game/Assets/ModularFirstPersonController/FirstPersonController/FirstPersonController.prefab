@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 9033435154892785307}
+  switchingModes: 0
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class WeaponSystem : MonoBehaviour
             rightHandWeapon = rightHand.GetComponentInChildren<Weapon>(); // Gets RightHand GameObject
             weaponFiringMode = rightHand.GetComponentInChildren<WeaponFiringMode>();
 
-            if (triggerDown && rightHandWeapon.isFullAuto)
+            if (triggerDown && rightHandWeapon.isFullAuto && !weaponFiringMode.switchingModes)
             {
                 Shoot();
             }
@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
     public void Shoot()
     {
          // Shooting
-        if (rightHandWeapon.readyToShoot && !rightHandWeapon.reloading && rightHandWeapon.bulletsLeft > 0 && rightHand.GetComponentInChildren<Weapon>() != null)
+        if (rightHandWeapon.readyToShoot && !rightHandWeapon.reloading && rightHandWeapon.bulletsLeft > 0 && rightHand.GetComponentInChildren<Weapon>() != null && !weaponFiringMode.switchingModes)
         {
             // Set bullets shot to 0
             rightHandWeapon.bulletsShot = 0;
@@ -38,7 +38,7 @@ public class WeaponSystem : MonoBehaviour
 
     public void Reload()
     {
-        if(rightHand.GetComponentInChildren<Weapon>() != null)
+        if(rightHand.GetComponentInChildren<Weapon>() != null && !weaponFiringMode.switchingModes)
         {
             rightHandWeapon.Reload();
         }
@@ -57,7 +57,7 @@ public class WeaponSystem : MonoBehaviour
     public void ChangingFiringMode()
     {
         // When we have our own personal player controller we would need to take into factor of if the player is sprinting
-        if (!rightHandWeapon.reloading && !rightHandWeapon.triggerPressed) 
+        if (!rightHandWeapon.reloading && !rightHandWeapon.triggerPressed && !weaponFiringMode.switchingModes && rightHand.GetComponentInChildren<Weapon>() != null) 
         {
             weaponFiringMode.SelectFiringMode();
         }

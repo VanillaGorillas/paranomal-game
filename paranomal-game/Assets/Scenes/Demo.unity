@@ -873,6 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 116100327}
+  switchingModes: 0
 --- !u!1 &167484302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,6 +1984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 575462000}
+  switchingModes: 0
 --- !u!43 &623259082
 Mesh:
   m_ObjectHideFlags: 0
@@ -3948,6 +3950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 1102543674}
+  switchingModes: 0
 --- !u!43 &1121822312
 Mesh:
   m_ObjectHideFlags: 0
@@ -5612,6 +5615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 1836168184}
+  switchingModes: 0
 --- !u!43 &1836424292
 Mesh:
   m_ObjectHideFlags: 0

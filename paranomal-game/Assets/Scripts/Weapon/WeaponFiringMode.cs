@@ -5,6 +5,9 @@ public class WeaponFiringMode : MonoBehaviour
     [SerializeField]
     private Weapon weapon;
 
+    [HideInInspector]
+    public bool switchingModes; // Used to make sure shooting can't happen 
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +26,8 @@ public class WeaponFiringMode : MonoBehaviour
         // Semi-auto, Burst and Full-auto
         if(weapon.allowedSingleShotFire && weapon.allowedBurstFire && weapon.allowedAutomaticFire)
         {
+            SwitchingNotAllowed();
+
             if (weapon.isFullAuto)
             {
                 weapon.isSemiAutomatic = true;
@@ -41,6 +46,8 @@ public class WeaponFiringMode : MonoBehaviour
         }
         else if (weapon.allowedSingleShotFire && weapon.allowedBurstFire && !weapon.allowedAutomaticFire) // Semi-auto and Burst
         {
+            SwitchingNotAllowed();
+
             if (weapon.isBurstFire)
             {
                 weapon.isSemiAutomatic = true;
@@ -54,6 +61,8 @@ public class WeaponFiringMode : MonoBehaviour
         }
         else if (weapon.allowedSingleShotFire && !weapon.allowedBurstFire && weapon.allowedAutomaticFire) // Semi-auto and Full-auto
         {
+            SwitchingNotAllowed();
+
             if (weapon.isFullAuto)
             {
                 weapon.isSemiAutomatic = true;
@@ -67,6 +76,8 @@ public class WeaponFiringMode : MonoBehaviour
         }
 
         CheckForBurst();
+
+        Invoke(nameof(SwitchingAllowed), 1f);
     }
 
     private void CheckForBurst()
@@ -79,5 +90,15 @@ public class WeaponFiringMode : MonoBehaviour
         {
             weapon.bulletsPerTap = 1;
         }
+    }
+
+    private void SwitchingNotAllowed()
+    {
+        switchingModes = true;
+    }
+
+    private void SwitchingAllowed()
+    {
+        switchingModes = false;
     }
 }

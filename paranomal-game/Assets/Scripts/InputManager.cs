@@ -23,18 +23,12 @@ public class InputManager : MonoBehaviour
         onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
         onFoot.SecondaryWeaponSwap.performed += ctx => swapWeapon.SwapToSecondary();
 
-        // Do check for sprinting
-        if (CheckChild())
-        {
-            onFoot.SelectFiringMode.performed += ctx => weaponSystem.ChangingFiringMode();
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
-        if (CheckChild())
+        if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
             if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
             {
@@ -46,6 +40,7 @@ public class InputManager : MonoBehaviour
                 onFoot.Shoot.performed += ctx => weaponSystem.Shoot();
             }
             onFoot.Reload.performed += ctx => weaponSystem.Reload();
+            onFoot.SelectFiringMode.performed += ctx => weaponSystem.ChangingFiringMode();
         }
     }
 
@@ -57,10 +52,5 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         onFoot.Disable();
-    }
-
-    private bool CheckChild()
-    {
-        return rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0;
     }
 }
