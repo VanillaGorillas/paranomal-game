@@ -5457,7 +5457,7 @@ MonoBehaviour:
   secondaryWeapon: 1
   weaponSlot: {fileID: 8765489994903951808}
   allowedAutomaticFire: 0
-  allowedBurstFire: 0
+  allowedBurstFire: 1
   allowedSingleShotFire: 1
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0

@@ -48,31 +48,15 @@ public class WeaponFiringMode : MonoBehaviour
         {
             SwitchingNotAllowed();
 
-            if (weapon.isBurstFire)
-            {
-                weapon.isSemiAutomatic = true;
-                weapon.isBurstFire = false;
-            }
-            else
-            {
-                weapon.isSemiAutomatic = false;
-                weapon.isBurstFire = true;
-            }
+            weapon.isSemiAutomatic = !weapon.isSemiAutomatic;
+            weapon.isBurstFire = !weapon.isBurstFire;
         }
         else if (weapon.allowedSingleShotFire && !weapon.allowedBurstFire && weapon.allowedAutomaticFire) // Semi-auto and Full-auto
         {
             SwitchingNotAllowed();
 
-            if (weapon.isFullAuto)
-            {
-                weapon.isSemiAutomatic = true;
-                weapon.isFullAuto = false;
-            }
-            else
-            {
-                weapon.isSemiAutomatic = false;
-                weapon.isFullAuto = true;
-            }
+            weapon.isFullAuto = !weapon.isFullAuto;
+            weapon.isSemiAutomatic = !weapon.isSemiAutomatic;
         }
 
         CheckForBurst();
@@ -82,14 +66,7 @@ public class WeaponFiringMode : MonoBehaviour
 
     private void CheckForBurst()
     {
-        if (weapon.isBurstFire)
-        {
-            weapon.bulletsPerTap = 3;
-        }
-        else
-        {
-            weapon.bulletsPerTap = 1;
-        }
+        weapon.bulletsPerTap = weapon.isBurstFire ? 3 : 1;
     }
 
     private void SwitchingNotAllowed()

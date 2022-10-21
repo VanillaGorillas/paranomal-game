@@ -76,12 +76,10 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private int magazineSize;
 
-    //[SerializeField]
     public int bulletsPerTap;
 
     [Header("Weapon System Checks")]
     public int bulletsLeft;
-    // Bools
     public bool readyToShoot;
     public bool reloading;
     public int bulletsShot;
