@@ -76,15 +76,15 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private int magazineSize;
 
-    [SerializeField]
-    private int bulletsPerTap;
+    public int bulletsPerTap;
 
     [Header("Weapon System Checks")]
     public int bulletsLeft;
-    // Bools
     public bool readyToShoot;
     public bool reloading;
     public int bulletsShot;
+    [HideInInspector]
+    public bool triggerPressed; // When player is shooting or shot
 
     [Header("Aim Reference")]
     // Reference
@@ -151,7 +151,7 @@ public class Weapon : MonoBehaviour
     {
         recoilScript.RecoilFire();
 
-        //GameObject bulletClone;
+        triggerPressed = true;
         readyToShoot = false;
 
         // Find the exact hit position using a raycast
@@ -207,7 +207,7 @@ public class Weapon : MonoBehaviour
         }
 
         // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun
-        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+        if (isBurstFire && bulletsShot < bulletsPerTap && bulletsLeft > 0) // Make burst mode
         {
             Invoke("ShootPhysics", timeBetweenShots);
         }
@@ -223,6 +223,7 @@ public class Weapon : MonoBehaviour
         // Allow shooting and invoking again
         readyToShoot = true;
         allowInvoke = true;
+        triggerPressed = false;
     }
 
     public void Reload()

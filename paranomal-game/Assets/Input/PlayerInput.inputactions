@@ -58,13 +58,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectFiringMode",
+                    "type": "Button",
+                    "id": "b072d7ca-265b-4eb0-b13f-b2c64fda2f35",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "b9496146-5da0-48c9-afeb-b3afcb28d255",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -86,7 +95,7 @@
                 {
                     "name": "",
                     "id": "a4bb08d4-10c3-4229-a7dd-5a216767f62f",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -179,6 +188,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e71f5321-9b4e-4964-8954-cd60c35169c9",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectFiringMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

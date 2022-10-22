@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
 
         onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
         onFoot.SecondaryWeaponSwap.performed += ctx => swapWeapon.SwapToSecondary();
+
     }
 
     // Update is called once per frame
@@ -39,6 +40,7 @@ public class InputManager : MonoBehaviour
                 onFoot.Shoot.performed += ctx => weaponSystem.Shoot();
             }
             onFoot.Reload.performed += ctx => weaponSystem.Reload();
+            onFoot.SelectFiringMode.performed += ctx => weaponSystem.ChangingFiringMode();
         }
     }
 

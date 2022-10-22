@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 388349413}
   - component: {fileID: 388349412}
   - component: {fileID: 9033435154892785307}
+  - component: {fileID: 1504762416081321617}
   m_Layer: 6
   m_Name: M4 Carbine
   m_TagString: Untagged
@@ -156,12 +157,12 @@ MonoBehaviour:
   primaryWeapon: 1
   secondaryWeapon: 0
   weaponSlot: {fileID: 5377569204950287601}
-  allowedAutomaticFire: 0
-  allowedBurstFire: 0
-  allowedSingleShotFire: 0
+  allowedAutomaticFire: 1
+  allowedBurstFire: 1
+  allowedSingleShotFire: 1
   allowedsoftPoint: 0
   allowedAmrourPiercing: 0
-  isFullAuto: 1
+  isFullAuto: 0
   isBurstFire: 0
   isSemiAutomatic: 0
   recoilEnergy: 8.113
@@ -182,12 +183,13 @@ MonoBehaviour:
   timeBetweenShots: 0.1
   rateOfFire: 950
   effectiveFiringRange: 500
-  magazineSize: 100
+  magazineSize: 30
   bulletsPerTap: 1
   bulletsLeft: 0
   readyToShoot: 0
   reloading: 0
   bulletsShot: 0
+  triggerPressed: 0
   fpsCamera: {fileID: 4459864851310106426}
   attackPoint: {fileID: 4361878036186967893}
   ammunitionDisplay: {fileID: 0}
@@ -198,6 +200,20 @@ MonoBehaviour:
   isFullAutoGrip: 0
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
+--- !u!114 &1504762416081321617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388349410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56153409cb2bcc44922a36e43412f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 9033435154892785307}
+  switchingModes: 0
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
