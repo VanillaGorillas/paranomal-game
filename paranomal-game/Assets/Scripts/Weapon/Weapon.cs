@@ -107,6 +107,20 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private InputManager playerPrefebInputManger;
 
+    // Might remove some
+    [Header("Weapon Sway Stats")]
+    private float rotationXMovement = 1f; // For now values will be hard typed 
+    private float rotationYMovement = 1.5f; // Same ^
+    private float smoothRotation = 0.2f;
+    private int counter = 0;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    private Quaternion rotationX;
+    private Quaternion rotationY;
+
+    [SerializeField] private float handleAffect; // Will be used to increase when running or debuffs
+
+
     // For when continuous holding down when shooting full auto
     [HideInInspector]
     public float isFullAutoRecoilEnergy;
@@ -117,6 +131,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public float isFullAutoHorizontalRecoil; // need to do more checks
 
+    [SerializeField] private LineRenderer lineRenderer; // For testing purposes
 
     private void Awake()
     {
@@ -129,6 +144,29 @@ public class Weapon : MonoBehaviour
         isFullAutoGrip = hipGrip;
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
+
+        if(lineRenderer != null)
+        {
+            WeaponMove();
+        }
+    }
+
+    private void WeaponMove() // Still work on
+    {
+        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0, 0, 0));
+
+        Vector3 endPosition;
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            endPosition = hit.point;
+        }
+        else
+        {
+            endPosition = ray.GetPoint(10);
+        }
+
+        lineRenderer.SetPosition(1, endPosition);
     }
 
     // Update is called once per frame
@@ -144,6 +182,12 @@ public class Weapon : MonoBehaviour
         if (ammunitionDisplay != null)
         {
             ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+        }
+
+        // Probably have to use animation
+        if (transform.parent == GameObject.Find("RightHand").transform) // Not working look into // Probably have here
+        {
+            WeaponSway();
         }
     }
 
@@ -202,14 +246,14 @@ public class Weapon : MonoBehaviour
         // Invoke resetShot function (if not already invoked)
         if (allowInvoke)
         {
-            Invoke("ResetShot", timeBetweenShooting);
+            Invoke(nameof(ResetShot), timeBetweenShooting);
             allowInvoke = false; // Only want to Invoke once
         }
 
         // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun
         if (isBurstFire && bulletsShot < bulletsPerTap && bulletsLeft > 0) // Make burst mode
         {
-            Invoke("ShootPhysics", timeBetweenShots);
+            Invoke(nameof(ShootPhysics), timeBetweenShots);
         }
 
         RecoilIncrease();
@@ -266,5 +310,60 @@ public class Weapon : MonoBehaviour
         isFullAutoVerticalRecoil += rateOfFire / 60 / (recoilImpules * muzzleVelocity);
         isFullAutoHorizontalRecoil += ((rateOfFire / 60) * recoilImpules) / muzzleVelocity / verticalRecoil;
         Debug.Log(isFullAutoVerticalRecoil + " test");
+    }
+
+    private void WeaponSway() // Must make move in clockwise rotation
+    {
+        //rotationX = ReturnRandom(rotationX);
+        //rotationY = ReturnRandom(rotationY);
+
+        //rotationX = RotationCheck(rotationX, previousRotationX);
+        //rotationY = RotationCheck(rotationY, previousRotationY);
+
+        //if (previousRotationXMovement == rotationXMovement && previousRotationYMovement == rotationYMovement)
+        //if (counter == 0)
+        //{
+        //    endPosition = Vector3.Lerp(endPosition, new Vector3(-rotationXMovement, -rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
+        //}
+        //else if (counter == 1)
+        //{
+        //    endPosition = Vector3.Lerp(endPosition, new Vector3(rotationXMovement, -rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
+        //}
+        //else if (counter == 2)
+        //{
+        //    endPosition = Vector3.Lerp(endPosition, new Vector3(0, 0, 0f), smoothRotation * Time.fixedDeltaTime);
+        //}
+        //else if (counter == 3)
+        //{
+        //    endPosition = Vector3.Lerp(endPosition, new Vector3(-rotationXMovement, rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
+        //}
+        //else if (counter == 4)
+        //{
+        //    endPosition = Vector3.Lerp(endPosition, new Vector3(rotationXMovement, rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
+        //}
+        //else
+        //{
+        //    endPosition = Vector3.Lerp(endPosition, new Vector3(0, 0, 0f), smoothRotation * Time.fixedDeltaTime);
+        //}
+
+        //Debug.Log(counter);
+
+        endPosition = Vector3.Lerp(endPosition, new Vector3(Random.Range(-15f, 15f), Random.Range(-15f, 15f) , 0f), 1f * Time.fixedDeltaTime);
+        startPosition = Vector3.Slerp(startPosition, endPosition, smoothRotation * Time.fixedDeltaTime);
+
+        transform.localRotation = Quaternion.Euler(startPosition);
+
+        //CheckRotation();
+        //rotationX = Quaternion.AngleAxis(-rotationXMovement, Vector3.right);
+        //rotationY = Quaternion.AngleAxis(-rotationYMovement, Vector3.up
+
+        //transform.localRotation = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(Random.Range(-20f, 20f), Random.Range(-50f, 50f), 0f), 0.1f * Time.deltaTime);
+
+        // targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+        // currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
+
+        //transform.localRotation = Quaternion.Euler(currentRotation);
+
+        //transform.localRotation = Quaternion.Lerp(Random.Range(-20f, 20f), Random.Range(-20f, 20f), 0f);
     }
 }

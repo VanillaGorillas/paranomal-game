@@ -753,10 +753,12 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
+  handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
+  lineRenderer: {fileID: 0}
 --- !u!114 &116100328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,10 +1969,12 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
+  handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
+  lineRenderer: {fileID: 0}
 --- !u!114 &575462001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3933,10 +3937,12 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
+  handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
+  lineRenderer: {fileID: 0}
 --- !u!114 &1102543675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5495,10 +5501,12 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
+  handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
+  lineRenderer: {fileID: 0}
 --- !u!114 &1836168185
 MonoBehaviour:
   m_ObjectHideFlags: 0
