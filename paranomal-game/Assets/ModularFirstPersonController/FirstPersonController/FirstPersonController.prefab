@@ -427,8 +427,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5106fd5c0cdda9044bb001224cc0c661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 0
+  maxAmount: 0
+  smoothAmount: 0
+  rotationAmount: 0
+  maxRotationAmount: 0
+  smoothRotation: 0
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 1
   smooth: 8
-  swayMultiplier: 2
+  swayMultiplier: 4
 --- !u!1 &4459864850019384750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,7 +1311,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 6}
+  - {x: 0, y: 0, z: 50}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

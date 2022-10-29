@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class Weapon : MonoBehaviour
 {
@@ -109,17 +110,21 @@ public class Weapon : MonoBehaviour
 
     // Might remove some
     [Header("Weapon Sway Stats")]
-    private float rotationXMovement = 1f; // For now values will be hard typed 
-    private float rotationYMovement = 1.5f; // Same ^
-    private float smoothRotation = 0.2f;
-    private int counter = 0;
+    private float smoothRotation = 2f; // later put in inspector
+    private float weaponRotationSpeed = 1f; // later put in inspector
+
+    private float currentRotationX = 10f; // later put in inspector
+    private float currentRotationY = 15f; // later put in inspector
+    private float previousRotationX;
+    private float previousRotationY;
+    private float maxRotationX;
+    private float maxRotationY;
+
     private Vector3 startPosition;
     private Vector3 endPosition;
-    private Quaternion rotationX;
-    private Quaternion rotationY;
 
-    [SerializeField] private float handleAffect; // Will be used to increase when running or debuffs
-
+    [SerializeField]
+    private float handleAffect; // Will be used to increase when running or debuffs
 
     // For when continuous holding down when shooting full auto
     [HideInInspector]
@@ -131,6 +136,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public float isFullAutoHorizontalRecoil; // need to do more checks
 
+    [Header("Testing")]
     [SerializeField] private LineRenderer lineRenderer; // For testing purposes
 
     private void Awake()
@@ -145,7 +151,11 @@ public class Weapon : MonoBehaviour
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
 
-        if(lineRenderer != null)
+        maxRotationX = currentRotationX;
+        maxRotationY = currentRotationY;
+
+
+        if (lineRenderer != null)
         {
             WeaponMove();
         }
@@ -153,7 +163,7 @@ public class Weapon : MonoBehaviour
 
     private void WeaponMove() // Still work on
     {
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0, 0, 0));
+        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));       
 
         Vector3 endPosition;
 
@@ -163,10 +173,20 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            endPosition = ray.GetPoint(10);
+            endPosition = ray.GetPoint(75);
         }
 
-        lineRenderer.SetPosition(1, endPosition);
+        Vector3 direction = endPosition - attackPoint.position;
+
+        lineRenderer.SetPosition(1, direction);
+    }
+
+    private void FixedUpdate()
+    {
+        if (transform.parent == GameObject.Find("RightHand").transform)
+        {
+            //WeaponSway();
+        }
     }
 
     // Update is called once per frame
@@ -184,11 +204,16 @@ public class Weapon : MonoBehaviour
             ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         }
 
-        // Probably have to use animation
-        if (transform.parent == GameObject.Find("RightHand").transform) // Not working look into // Probably have here
+        if (transform.parent == GameObject.Find("RightHand").transform) // Might remove
         {
-            WeaponSway();
+            transform.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
         }
+
+        //if (lineRenderer != null)
+        //{
+        //    WeaponMove();
+        //}
     }
 
     public void ShootPhysics()
@@ -198,21 +223,31 @@ public class Weapon : MonoBehaviour
         triggerPressed = true;
         readyToShoot = false;
 
+        // Rotation need to be smaller // Need to work on this a lot more
+        float inspectorRotationX = UnityEditor.TransformUtils.GetInspectorRotation(transform).x;
+        float inspectorRotationY = UnityEditor.TransformUtils.GetInspectorRotation(transform).y;
+        float inspectorRotationZ = UnityEditor.TransformUtils.GetInspectorRotation(transform).z; // Still work on
+
+        // Debug.Log(inspectorRotationZ + " Z");
+
         // Find the exact hit position using a raycast
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray throught the middle of screen
-        RaycastHit hit;
+        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of screen
 
         // Check if ray hits something
         Vector3 targetPoint;
         //Must create bullet come out of weapon MAYBE
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
             targetPoint = hit.point;
+            //inspectorRotationX /= hit.point.x;
+            //inspectorRotationY /= hit.point.y;
         }
         else
         {
             targetPoint = ray.GetPoint(75); // A point far away from the player
         }
+
+       
 
         // Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
@@ -222,16 +257,22 @@ public class Weapon : MonoBehaviour
         float y = Random.Range(-spread, spread);
 
         // Calculate new direction with spread
+        //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
+
+        // Look at recoil and see if can do like that but without moving screen
+        // This not working when really close or if it far away
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
+        //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x + inspectorRotationY, y + inspectorRotationX, 0 ); // Add spread to last direction
 
         // Instatiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
 
         // Rotate bullet to shoot direction
-        currentBullet.transform.forward = directionWithSpread.normalized;
+        currentBullet.transform.forward = directionWithSpread.normalized;     
 
         // Add force to bullet 
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * muzzleVelocity, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * muzzleVelocity, ForceMode.Impulse);
+        //currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * muzzleVelocity, ForceMode.Impulse);
         //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse); // For bouncing grenades
 
         // Instantiate muzzle flash, if you have one
@@ -309,61 +350,46 @@ public class Weapon : MonoBehaviour
         isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;  
         isFullAutoVerticalRecoil += rateOfFire / 60 / (recoilImpules * muzzleVelocity);
         isFullAutoHorizontalRecoil += ((rateOfFire / 60) * recoilImpules) / muzzleVelocity / verticalRecoil;
-        Debug.Log(isFullAutoVerticalRecoil + " test");
     }
 
-    private void WeaponSway() // Must make move in clockwise rotation
+    private void WeaponSway() // Must get this to move around more away from middle of screen
     {
-        //rotationX = ReturnRandom(rotationX);
-        //rotationY = ReturnRandom(rotationY);
+        RotationChange();
 
-        //rotationX = RotationCheck(rotationX, previousRotationX);
-        //rotationY = RotationCheck(rotationY, previousRotationY);
-
-        //if (previousRotationXMovement == rotationXMovement && previousRotationYMovement == rotationYMovement)
-        //if (counter == 0)
-        //{
-        //    endPosition = Vector3.Lerp(endPosition, new Vector3(-rotationXMovement, -rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
-        //}
-        //else if (counter == 1)
-        //{
-        //    endPosition = Vector3.Lerp(endPosition, new Vector3(rotationXMovement, -rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
-        //}
-        //else if (counter == 2)
-        //{
-        //    endPosition = Vector3.Lerp(endPosition, new Vector3(0, 0, 0f), smoothRotation * Time.fixedDeltaTime);
-        //}
-        //else if (counter == 3)
-        //{
-        //    endPosition = Vector3.Lerp(endPosition, new Vector3(-rotationXMovement, rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
-        //}
-        //else if (counter == 4)
-        //{
-        //    endPosition = Vector3.Lerp(endPosition, new Vector3(rotationXMovement, rotationYMovement, 0f), smoothRotation * Time.fixedDeltaTime);
-        //}
-        //else
-        //{
-        //    endPosition = Vector3.Lerp(endPosition, new Vector3(0, 0, 0f), smoothRotation * Time.fixedDeltaTime);
-        //}
-
-        //Debug.Log(counter);
-
-        endPosition = Vector3.Lerp(endPosition, new Vector3(Random.Range(-15f, 15f), Random.Range(-15f, 15f) , 0f), 1f * Time.fixedDeltaTime);
+        endPosition = Vector3.Lerp(endPosition, Vector3.zero, weaponRotationSpeed * Time.fixedDeltaTime);
         startPosition = Vector3.Slerp(startPosition, endPosition, smoothRotation * Time.fixedDeltaTime);
 
         transform.localRotation = Quaternion.Euler(startPosition);
+    }
 
-        //CheckRotation();
-        //rotationX = Quaternion.AngleAxis(-rotationXMovement, Vector3.right);
-        //rotationY = Quaternion.AngleAxis(-rotationYMovement, Vector3.up
+    private void RotationChange()
+    {
+        currentRotationX = CheckRotationState(currentRotationX, previousRotationX, maxRotationX);
+        currentRotationY = CheckRotationState(currentRotationY, previousRotationY, maxRotationY);
 
-        //transform.localRotation = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(Random.Range(-20f, 20f), Random.Range(-50f, 50f), 0f), 0.1f * Time.deltaTime);
+        previousRotationX = currentRotationX;
+        previousRotationY = currentRotationY;
+        
+        endPosition = Vector3.Lerp(endPosition, new Vector3(currentRotationX, currentRotationY , 0f), weaponRotationSpeed * Time.fixedDeltaTime);
+    }
 
-        // targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
-        // currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
+    private float CheckRotationState(float currentRotation, float previousRotation, float maxRotation)
+    {
+        currentRotation = Random.Range(-currentRotation, currentRotation);
 
-        //transform.localRotation = Quaternion.Euler(currentRotation);
-
-        //transform.localRotation = Quaternion.Lerp(Random.Range(-20f, 20f), Random.Range(-20f, 20f), 0f);
+        // Might need to play around more with this to get something good and smooth
+        if (currentRotation >= previousRotation - 1 && currentRotation <= previousRotation + 1)
+        {
+            if (previousRotation < 0f)
+            {
+                currentRotation = Random.Range(1, maxRotation - 1);
+            }
+            else
+            {
+                currentRotation = Random.Range(-maxRotation + 1, -1);
+            }
+        }
+     
+        return currentRotation;
     }
 }

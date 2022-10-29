@@ -2,77 +2,94 @@ using UnityEngine;
 
 public class WeaponSway : MonoBehaviour
 {
-    [Header("Sway Setting")]
+    [Header("Sway Position")]
+    [SerializeField]
+    private float amount;
+
+    [SerializeField]
+    private float maxAmount;
+
+    [SerializeField]
+    private float smoothAmount;
+
+    [Header("Sway Rotation")]
+    [SerializeField]
+    private float rotationAmount; 
+    
+    [SerializeField]
+    private float maxRotationAmount;
+    
+    [SerializeField]
+    private float smoothRotation;
+
+    [Space]
+    public bool rotationX;
+    public bool rotationY;
+    public bool rotationZ;
+
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    private float inputX;
+    private float inputY;
 
     [SerializeField]
     private float smooth;
 
-    [SerializeField] 
+    [SerializeField]
     private float swayMultiplier;
 
-    private void Sway()
+    private void Start()
     {
-        //rotationX = ReturnRandom(rotationX);
-        //rotationY = ReturnRandom(rotationY);
-
-        //rotationX = RotationCheck(rotationX, previousRotationX);
-        //rotationY = RotationCheck(rotationY, previousRotationY);
-
-
-        //endPosition = Vector3.Lerp(endPosition, new Vector3(rotationX, rotationY, 0f), 0.2f * Time.fixedDeltaTime);
-        //startPosition = Vector3.Slerp(startPosition, endPosition, 0.2f * Time.fixedDeltaTime);
-
-        //transform.localRotation = Quaternion.Euler(startPosition);
-
-        //previousRotationX = rotationX;
-        //previousRotationY = rotationY;
-
-        //transform.localRotation = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(Random.Range(-20f, 20f), Random.Range(-50f, 50f), 0f), 0.1f * Time.deltaTime);
-
-        // targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
-        // currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
-
-        //transform.localRotation = Quaternion.Euler(currentRotation);
-
-        //transform.localRotation = Quaternion.Lerp(Random.Range(-20f, 20f), Random.Range(-20f, 20f), 0f);
-    }
-
-    private float ReturnRandom(float rotation)
-    {
-        return Random.Range(-rotation, rotation);
-    }
-
-    private float RotationCheck(float current, float previous) // not work
-    {
-        float newRotation = current;
-
-        if (current != previous)
-        {
-            newRotation = ReturnRandom(current);
-        } 
-
-        if (newRotation < previous)
-        {
-            //newRotation = Random.Range();
-        }
-    
-        return newRotation;
+        initialPosition = transform.localPosition;
+        initialRotation = transform.localRotation;
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() // Needs to be smoother
     {
         // get mouse input
-        float mouseX = -Input.GetAxisRaw("Mouse X") * swayMultiplier;
-        float mouseY = -Input.GetAxisRaw("Mouse Y") * swayMultiplier;
+        float mousex = Input.GetAxisRaw("Mouse X") * swayMultiplier;
+        float mousey = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
 
         // calculate target rotation
-        Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
-        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
+        Quaternion rotationx = Quaternion.AngleAxis(mousey, Vector3.right);
+        Quaternion rotationz = Quaternion.AngleAxis(mousex, Vector3.forward);
 
-        Quaternion targetRotation = rotationX * rotationY;
+        Quaternion targetrotation = rotationx * rotationz;
 
         // rotate
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smooth * Time.deltaTime);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetrotation, smooth * Time.deltaTime);
+
+        //CalculateSway();
+
+        //MoveSway();
+        //TiltSway();
+    }
+
+    private void CalculateSway()
+    {
+        inputX = -Input.GetAxis("Mouse X");
+        inputY = -Input.GetAxis("Mouse Y");
+    }
+
+    private void MoveSway()
+    {
+        float moveX = Mathf.Clamp(inputX * amount, -maxAmount, maxAmount);
+        float moveY = Mathf.Clamp(inputY * amount, -maxAmount, maxAmount);
+
+        Vector3 finalPosition = new Vector3(moveX, moveY, 0);
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, finalPosition + initialPosition, Time.deltaTime * smoothAmount);
+    }
+
+    private void TiltSway()
+    {
+        float tiltY = Mathf.Clamp(inputX * rotationAmount, -maxRotationAmount, maxRotationAmount);
+        float tiltX = Mathf.Clamp(inputY * rotationAmount, -maxRotationAmount, maxRotationAmount);
+
+        Quaternion finalRotation = Quaternion.Euler(new Vector3(rotationX ? -tiltX : 0f, rotationY ? tiltY : 0f, rotationZ ? tiltY : 0f));
+
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation * initialRotation, Time.deltaTime * smoothRotation);
     }
 }
