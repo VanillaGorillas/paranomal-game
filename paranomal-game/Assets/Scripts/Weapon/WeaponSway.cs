@@ -48,23 +48,10 @@ public class WeaponSway : MonoBehaviour
     // Update is called once per frame
     void Update() // Needs to be smoother
     {
-        // get mouse input
-        float mousex = Input.GetAxisRaw("Mouse X") * swayMultiplier;
-        float mousey = Input.GetAxisRaw("Mouse Y") * swayMultiplier;
+        CalculateSway();
 
-        // calculate target rotation
-        Quaternion rotationx = Quaternion.AngleAxis(mousey, Vector3.right);
-        Quaternion rotationz = Quaternion.AngleAxis(mousex, Vector3.forward);
-
-        Quaternion targetrotation = rotationx * rotationz;
-
-        // rotate
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetrotation, smooth * Time.deltaTime);
-
-        //CalculateSway();
-
-        //MoveSway();
-        //TiltSway();
+        MoveSway();
+        TiltSway();
     }
 
     private void CalculateSway()

@@ -123,6 +123,8 @@ public class Weapon : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 endPosition;
 
+    private Transform attackPointAdjust;
+
     [SerializeField]
     private float handleAffect; // Will be used to increase when running or debuffs
 
@@ -185,7 +187,7 @@ public class Weapon : MonoBehaviour
     {
         if (transform.parent == GameObject.Find("RightHand").transform)
         {
-            //WeaponSway();
+            WeaponSway();
         }
     }
 
@@ -206,8 +208,74 @@ public class Weapon : MonoBehaviour
 
         if (transform.parent == GameObject.Find("RightHand").transform) // Might remove
         {
-            transform.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //transform.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+
+            //attackPoint.TransformDirection(0.5f, 0.5f, 0f);
+
+            //Vector3 lookAtPosition = fpsCamera.ViewportToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, fpsCamera.nearClipPlane));
+
+            //transform.LookAt(lookAtPosition);
+            //transform.LookAt(fpsCamera.transform.forward);
+
+            //attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //attackPoint.LookAt(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //attackPoint.TransformPoint(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //transform.TransformPoint(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //attackPoint.TransformPoint(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+
+
+
+            // Failed
+            ////transform.TransformDirection(fpsCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f)));
+            ////attackPoint.TransformDirection(fpsCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //transform.TransformDirection(fpsCamera.ScreenToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //attackPoint.TransformDirection(fpsCamera.ScreenToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+
+
+            //Find the exact hit position using a raycast
+            //Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of screen
+
+            ////Check if ray hits something
+            //Vector3 targetPoint;
+            ////Must create bullet come out of weapon MAYBE
+            //if (Physics.Raycast(ray, out RaycastHit hit))
+            //{
+            //    attackPoint.LookAt(hit.point);
+            //    //targetPoint = hit.point;
+            //    //targetPoint = hit.transform.position - attackPoint.position;
+            //    //Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+            //    //attackPoint.TransformDirection(targetPoint);
+            //    //transform.TransformDirection(targetPoint);
+            //    //attackPoint.TransformDirection(targetPoint);
+
+            //    //transform.TransformPoint(directionWithoutSpread);
+            //    //attackPoint.TransformPoint(directionWithoutSpread);
+            //}
+            //else
+            //{
+            //    attackPoint.LookAt(ray.GetPoint(75));
+            //    //targetPoint = ray.GetPoint(75); // A point far away from the player
+            //    //targetPoint = attackPoint.transform.forward;
+            //    //targetPoint = new Vector3(0.5f, 0.5f, 0f);
+            //    //attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
+            //}
+
+            //Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+            //Vector3 newDirection = Vector3.RotateTowards(attackPoint.transform.forward, targetPoint, muzzleVelocity * Time.deltaTime, 0.0f);
+
+            //attackPoint.transform.forward = newDirection;
+
+            //attackPoint.transform.forward = directionWithoutSpread.normalized;
+
+            //float yes = Vector3.Distance(targetPoint, attackPoint.position);
+            //Debug.Log(yes);
+            ////attackPoint.TransformDirection(ray.GetPoint(yes));
+            ////attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(directionWithoutSpread.normalized));
+            //attackPoint.LookAt(ray.GetPoint(yes));
+
+
         }
 
         //if (lineRenderer != null)
@@ -218,7 +286,12 @@ public class Weapon : MonoBehaviour
 
     public void ShootPhysics()
     {
+        RightHandDistanceCheck();
         recoilScript.RecoilFire();
+        //Vector3 aimSpot = fpsCamera.transform.position;
+
+        //aimSpot += fpsCamera.transform.forward * 50.0f;
+        //transform.LookAt(aimSpot);
 
         triggerPressed = true;
         readyToShoot = false;
@@ -239,8 +312,6 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             targetPoint = hit.point;
-            //inspectorRotationX /= hit.point.x;
-            //inspectorRotationY /= hit.point.y;
         }
         else
         {
@@ -251,6 +322,7 @@ public class Weapon : MonoBehaviour
 
         // Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+        //Vector3 directionWithoutSpread = targetPoint - transform.position;
 
         // Calculate spread
         float x = Random.Range(-spread, spread);
@@ -259,6 +331,13 @@ public class Weapon : MonoBehaviour
         // Calculate new direction with spread
         //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
 
+        //Debug.Log(inspectorRotationX + " start");
+        //Debug.Log(inspectorRotationY + " start");
+        //inspectorRotationX /= 2;
+        //inspectorRotationY /= 2;
+        //Debug.Log(inspectorRotationX + " end");
+        //Debug.Log(inspectorRotationY + " end");
+
         // Look at recoil and see if can do like that but without moving screen
         // This not working when really close or if it far away
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
@@ -266,12 +345,19 @@ public class Weapon : MonoBehaviour
 
         // Instatiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        
 
         // Rotate bullet to shoot direction
-        currentBullet.transform.forward = directionWithSpread.normalized;     
+        //currentBullet.transform.forward = directionWithSpread.normalized;
 
-        // Add force to bullet 
-        currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * muzzleVelocity, ForceMode.Impulse);
+
+        //Debug.Log(attackPointAdjust + " adj");
+        //Debug.Log(attackPoint + " point");
+
+        // Add force to bullet  // Can be attackPoint or transform
+        currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);
+        
+        //currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread * muzzleVelocity, ForceMode.Impulse);
         //currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * muzzleVelocity, ForceMode.Impulse);
         //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse); // For bouncing grenades
 
@@ -391,5 +477,25 @@ public class Weapon : MonoBehaviour
         }
      
         return currentRotation;
+    }
+
+    private void RightHandDistanceCheck()
+    {
+        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of screen
+
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(75); 
+        }
+
+        Vector3 directionWithoutSpread = targetPoint - GameObject.Find("RightHand").transform.position;
+
+        GameObject.Find("RightHand").transform.forward = directionWithoutSpread.normalized;
     }
 }

@@ -174,7 +174,7 @@ MonoBehaviour:
   downSightHorizontalRecoil: 0
   downSightGrip: 0
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
-  muzzleVelocity: 910
+  muzzleVelocity: 2
   upwardForceGernades: 0
   mass: 2.92
   timeBetweenShooting: 0.1
@@ -428,12 +428,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 0
-  maxAmount: 0
-  smoothAmount: 0
-  rotationAmount: 0
-  maxRotationAmount: 0
-  smoothRotation: 0
-  rotationX: 0
+  maxAmount: 0.06
+  smoothAmount: 6
+  rotationAmount: 4
+  maxRotationAmount: 6
+  smoothRotation: 12
+  rotationX: 1
   rotationY: 0
   rotationZ: 1
   smooth: 8
