@@ -759,9 +759,6 @@ MonoBehaviour:
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
   lineRenderer: {fileID: 0}
-  bobFrequency: 10
-  bobSharpness: 10
-  defaultBobAmount: 0.05
 --- !u!114 &116100328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1978,9 +1975,6 @@ MonoBehaviour:
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
   lineRenderer: {fileID: 0}
-  bobFrequency: 10
-  bobSharpness: 10
-  defaultBobAmount: 0.05
 --- !u!114 &575462001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3949,9 +3943,6 @@ MonoBehaviour:
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
   lineRenderer: {fileID: 0}
-  bobFrequency: 10
-  bobSharpness: 10
-  defaultBobAmount: 0.05
 --- !u!114 &1102543675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5516,9 +5507,6 @@ MonoBehaviour:
   isFullAutoVerticalRecoil: 0
   isFullAutoHorizontalRecoil: 0
   lineRenderer: {fileID: 0}
-  bobFrequency: 10
-  bobSharpness: 10
-  defaultBobAmount: 0.05
 --- !u!114 &1836168185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6333,46 +6321,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 388349411, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 388349411, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 388349413, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: equipped
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 388349413, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: environment
       value: 
       objectReference: {fileID: 841781652}
-    - target: {fileID: 2021052839, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2021052839, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_Positions.Array.data[1].z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 545249896436228647, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 545249896436228647, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 545249896436228647, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3040472445013012732, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6420,26 +6372,6 @@ PrefabInstance:
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
-      objectReference: {fileID: 0}
-    - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8392724478608800821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 8392724478608800821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.161
-      objectReference: {fileID: 0}
-    - target: {fileID: 8392724478608800821, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 9033435154892785307, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      propertyPath: aimPoint
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}

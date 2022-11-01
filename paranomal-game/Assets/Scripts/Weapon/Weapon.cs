@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
 public class Weapon : MonoBehaviour
 {
@@ -138,16 +137,6 @@ public class Weapon : MonoBehaviour
 
     [Header("For Testing Weapon")]
     [SerializeField] private LineRenderer lineRenderer; // For testing purposes
-    public float bobFrequency = 1f;
-    public float bobSharpness = 1f;
-    public float defaultBobAmount = 0.05f;
-
-    private float weaponBobFactor = 0.05f;
-    Vector3 weaponBobPosition;
-    Vector3 weaponMainPosition;
-    Vector3 lastCharacterPosition;
-    Vector3 targetRotation;
-    Vector3 currentRotation;
 
     private void Awake()
     {
@@ -197,13 +186,6 @@ public class Weapon : MonoBehaviour
         if (transform.parent == GameObject.Find("RightHand").transform)
         {
             WeaponSway();
-            //UpdateWeaponBob();
-            //transform.localRotation = Quaternion.Slerp(Quaternion.Euler(weaponBobPosition), transform.localRotation, 1f * Time.fixedDeltaTime);
-
-            //targetRotation = Vector3.Lerp(weaponBobPosition, Vector3.zero, 1 * Time.deltaTime);
-            //currentRotation = Vector3.Slerp(currentRotation, targetRotation, 4 * Time.deltaTime);
-
-            //transform.localRotation = Quaternion.Euler(currentRotation);
         }
     }
 
@@ -236,16 +218,12 @@ public class Weapon : MonoBehaviour
         // Calculate new direction with spread
         //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
 
-
         // Instatiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         
-        // Rotate bullet to shoot direction
-        //currentBullet.transform.forward = directionWithSpread.normalized;
 
         // Add force to bullet  // Can be attackPoint or transform
-        currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);
-        
+        currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);        
         //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse); // For bouncing grenades
 
         // Instantiate muzzle flash, if you have one
@@ -351,41 +329,18 @@ public class Weapon : MonoBehaviour
         currentRotation = Random.Range(-currentRotation, currentRotation);
 
         // Might need to play around more with this to get something good and smooth
-        if (currentRotation >= previousRotation - 1 && currentRotation <= previousRotation + 1)
+        if (currentRotation >= previousRotation - 0.5f && currentRotation <= previousRotation + 0.5f)
         {
             if (previousRotation < 0f)
             {
-                currentRotation = Random.Range(1, maxRotation - 1);
+                currentRotation = Random.Range(0.5f, maxRotation - 1);
             }
             else
             {
-                currentRotation = Random.Range(-maxRotation + 1, -1);
+                currentRotation = Random.Range(-maxRotation + 1, -0.5f);
             }
         }
      
         return currentRotation;
-    }
-
-    private void UpdateWeaponBob()
-    {
-        //Vector3 playerCharacterVelocity = (inputManager.transform.position - lastCharacterPosition) / Time.deltaTime;
-
-        float movementFactor = 0f;
-
-        movementFactor = Mathf.Clamp01(2f / 2f * 2f);
-
-        weaponBobFactor = Mathf.Lerp(2f, movementFactor, bobSharpness * weaponBobFactor);
-
-        float bobAmount = 0.05f;
-        float frequency = bobFrequency;
-        float hBobValue = Mathf.Sin(Time.time * frequency) * bobAmount * weaponBobFactor;
-        float vBobValue = ((Mathf.Sin(Time.time * frequency * 2f) * 0.5f) + 0.5f) * bobAmount * weaponBobFactor;
-
-        weaponBobPosition.x = hBobValue * 10;
-        weaponBobPosition.y = Mathf.Abs(vBobValue) * 15;
-        Debug.Log(hBobValue);
-        Debug.Log(vBobValue);
-
-        //transform.localPosition = new Vector3(weaponBobPosition.x * 500, weaponBobPosition.y * 500, 0f);
     }
 }
