@@ -123,8 +123,6 @@ public class Weapon : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 endPosition;
 
-    private Transform attackPointAdjust;
-
     [SerializeField]
     private float handleAffect; // Will be used to increase when running or debuffs
 
@@ -138,8 +136,18 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public float isFullAutoHorizontalRecoil; // need to do more checks
 
-    [Header("Testing")]
+    [Header("For Testing Weapon")]
     [SerializeField] private LineRenderer lineRenderer; // For testing purposes
+    public float bobFrequency = 1f;
+    public float bobSharpness = 1f;
+    public float defaultBobAmount = 0.05f;
+
+    private float weaponBobFactor = 0.05f;
+    Vector3 weaponBobPosition;
+    Vector3 weaponMainPosition;
+    Vector3 lastCharacterPosition;
+    Vector3 targetRotation;
+    Vector3 currentRotation;
 
     private void Awake()
     {
@@ -156,6 +164,7 @@ public class Weapon : MonoBehaviour
         maxRotationX = currentRotationX;
         maxRotationY = currentRotationY;
 
+        //GameObject.Find("RightHand").transform.forward = fpsCamera.WorldToScreenPoint(new Vector3(0.5f, 0.5f, 0));
 
         if (lineRenderer != null)
         {
@@ -163,7 +172,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void WeaponMove() // Still work on
+    private void WeaponMove() // For lineRenderer. Testing purpose
     {
         Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));       
 
@@ -188,13 +197,19 @@ public class Weapon : MonoBehaviour
         if (transform.parent == GameObject.Find("RightHand").transform)
         {
             WeaponSway();
+            //UpdateWeaponBob();
+            //transform.localRotation = Quaternion.Slerp(Quaternion.Euler(weaponBobPosition), transform.localRotation, 1f * Time.fixedDeltaTime);
+
+            //targetRotation = Vector3.Lerp(weaponBobPosition, Vector3.zero, 1 * Time.deltaTime);
+            //currentRotation = Vector3.Slerp(currentRotation, targetRotation, 4 * Time.deltaTime);
+
+            //transform.localRotation = Quaternion.Euler(currentRotation);
         }
     }
 
     // Update is called once per frame
     void Update()
-    {                  
-
+    {
         if (!playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && playerPrefebInputManger.GetComponent<WeaponSystem>() != null)
         {
             ResestRecoil();
@@ -205,124 +220,14 @@ public class Weapon : MonoBehaviour
         {
             ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         }
-
-        if (transform.parent == GameObject.Find("RightHand").transform) // Might remove
-        {
-            //transform.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-
-            //attackPoint.TransformDirection(0.5f, 0.5f, 0f);
-
-            //Vector3 lookAtPosition = fpsCamera.ViewportToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, fpsCamera.nearClipPlane));
-
-            //transform.LookAt(lookAtPosition);
-            //transform.LookAt(fpsCamera.transform.forward);
-
-            //attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //attackPoint.LookAt(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //attackPoint.TransformPoint(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //transform.TransformPoint(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //attackPoint.TransformPoint(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-
-
-
-            // Failed
-            ////transform.TransformDirection(fpsCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f)));
-            ////attackPoint.TransformDirection(fpsCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //transform.TransformDirection(fpsCamera.ScreenToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //attackPoint.TransformDirection(fpsCamera.ScreenToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-
-
-            //Find the exact hit position using a raycast
-            //Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of screen
-
-            ////Check if ray hits something
-            //Vector3 targetPoint;
-            ////Must create bullet come out of weapon MAYBE
-            //if (Physics.Raycast(ray, out RaycastHit hit))
-            //{
-            //    attackPoint.LookAt(hit.point);
-            //    //targetPoint = hit.point;
-            //    //targetPoint = hit.transform.position - attackPoint.position;
-            //    //Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-            //    //attackPoint.TransformDirection(targetPoint);
-            //    //transform.TransformDirection(targetPoint);
-            //    //attackPoint.TransformDirection(targetPoint);
-
-            //    //transform.TransformPoint(directionWithoutSpread);
-            //    //attackPoint.TransformPoint(directionWithoutSpread);
-            //}
-            //else
-            //{
-            //    attackPoint.LookAt(ray.GetPoint(75));
-            //    //targetPoint = ray.GetPoint(75); // A point far away from the player
-            //    //targetPoint = attackPoint.transform.forward;
-            //    //targetPoint = new Vector3(0.5f, 0.5f, 0f);
-            //    //attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)));
-            //}
-
-            //Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-
-            //Vector3 newDirection = Vector3.RotateTowards(attackPoint.transform.forward, targetPoint, muzzleVelocity * Time.deltaTime, 0.0f);
-
-            //attackPoint.transform.forward = newDirection;
-
-            //attackPoint.transform.forward = directionWithoutSpread.normalized;
-
-            //float yes = Vector3.Distance(targetPoint, attackPoint.position);
-            //Debug.Log(yes);
-            ////attackPoint.TransformDirection(ray.GetPoint(yes));
-            ////attackPoint.TransformDirection(fpsCamera.ViewportToWorldPoint(directionWithoutSpread.normalized));
-            //attackPoint.LookAt(ray.GetPoint(yes));
-
-
-        }
-
-        //if (lineRenderer != null)
-        //{
-        //    WeaponMove();
-        //}
     }
 
     public void ShootPhysics()
     {
-        RightHandDistanceCheck();
         recoilScript.RecoilFire();
-        //Vector3 aimSpot = fpsCamera.transform.position;
-
-        //aimSpot += fpsCamera.transform.forward * 50.0f;
-        //transform.LookAt(aimSpot);
 
         triggerPressed = true;
         readyToShoot = false;
-
-        // Rotation need to be smaller // Need to work on this a lot more
-        float inspectorRotationX = UnityEditor.TransformUtils.GetInspectorRotation(transform).x;
-        float inspectorRotationY = UnityEditor.TransformUtils.GetInspectorRotation(transform).y;
-        float inspectorRotationZ = UnityEditor.TransformUtils.GetInspectorRotation(transform).z; // Still work on
-
-        // Debug.Log(inspectorRotationZ + " Z");
-
-        // Find the exact hit position using a raycast
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of screen
-
-        // Check if ray hits something
-        Vector3 targetPoint;
-        //Must create bullet come out of weapon MAYBE
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(75); // A point far away from the player
-        }
-
-       
-
-        // Calculate direction from attackPoint to targetPoint
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-        //Vector3 directionWithoutSpread = targetPoint - transform.position;
 
         // Calculate spread
         float x = Random.Range(-spread, spread);
@@ -331,34 +236,16 @@ public class Weapon : MonoBehaviour
         // Calculate new direction with spread
         //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
 
-        //Debug.Log(inspectorRotationX + " start");
-        //Debug.Log(inspectorRotationY + " start");
-        //inspectorRotationX /= 2;
-        //inspectorRotationY /= 2;
-        //Debug.Log(inspectorRotationX + " end");
-        //Debug.Log(inspectorRotationY + " end");
-
-        // Look at recoil and see if can do like that but without moving screen
-        // This not working when really close or if it far away
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
-        //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x + inspectorRotationY, y + inspectorRotationX, 0 ); // Add spread to last direction
 
         // Instatiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         
-
         // Rotate bullet to shoot direction
         //currentBullet.transform.forward = directionWithSpread.normalized;
-
-
-        //Debug.Log(attackPointAdjust + " adj");
-        //Debug.Log(attackPoint + " point");
 
         // Add force to bullet  // Can be attackPoint or transform
         currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);
         
-        //currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread * muzzleVelocity, ForceMode.Impulse);
-        //currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * muzzleVelocity, ForceMode.Impulse);
         //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse); // For bouncing grenades
 
         // Instantiate muzzle flash, if you have one
@@ -385,7 +272,7 @@ public class Weapon : MonoBehaviour
 
         RecoilIncrease();
 
-        // Might need to put destory gameobject here if not doing collision
+        //Might need to put destory gameobject here if not doing collision
         //Destroy(currentBullet, 3f);
     }
 
@@ -479,23 +366,26 @@ public class Weapon : MonoBehaviour
         return currentRotation;
     }
 
-    private void RightHandDistanceCheck()
+    private void UpdateWeaponBob()
     {
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of screen
+        //Vector3 playerCharacterVelocity = (inputManager.transform.position - lastCharacterPosition) / Time.deltaTime;
 
-        Vector3 targetPoint;
+        float movementFactor = 0f;
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(75); 
-        }
+        movementFactor = Mathf.Clamp01(2f / 2f * 2f);
 
-        Vector3 directionWithoutSpread = targetPoint - GameObject.Find("RightHand").transform.position;
+        weaponBobFactor = Mathf.Lerp(2f, movementFactor, bobSharpness * weaponBobFactor);
 
-        GameObject.Find("RightHand").transform.forward = directionWithoutSpread.normalized;
+        float bobAmount = 0.05f;
+        float frequency = bobFrequency;
+        float hBobValue = Mathf.Sin(Time.time * frequency) * bobAmount * weaponBobFactor;
+        float vBobValue = ((Mathf.Sin(Time.time * frequency * 2f) * 0.5f) + 0.5f) * bobAmount * weaponBobFactor;
+
+        weaponBobPosition.x = hBobValue * 10;
+        weaponBobPosition.y = Mathf.Abs(vBobValue) * 15;
+        Debug.Log(hBobValue);
+        Debug.Log(vBobValue);
+
+        //transform.localPosition = new Vector3(weaponBobPosition.x * 500, weaponBobPosition.y * 500, 0f);
     }
 }
