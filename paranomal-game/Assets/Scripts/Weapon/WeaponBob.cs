@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class WeaponBob : MonoBehaviour
 {
-    public float swayAmountA;
-    public float swayAmountB;
-    public float swayScale;
-    public float swayLerpSpeed;
+    public float swayAmountA; // increases distance of sway
+    public float swayAmountB; // increases distance of sway
+    //public float swayScale;
+    public float swayLerpSpeed; // This affects how far they go apart more
 
-    public float swayTime;
-    public Vector3 swayPosition;
+    private float swayTime;
+    private Vector3 swayPosition;
 
     // Update is called once per frame
     void Update()
     {
-        if(transform.childCount == 1)
+        if(transform.childCount == 1 && GetComponent<PickUpDropItem>().equipped)
         {
             CalculateWeaponSway();
         }
@@ -26,7 +26,8 @@ public class WeaponBob : MonoBehaviour
 
     private void CalculateWeaponSway()
     {
-        Vector3 targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB) / swayScale;
+        //Vector3 targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB) / swayScale;
+        Vector3 targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB);
 
         swayPosition = Vector3.Lerp(swayPosition, targetPosition, Time.smoothDeltaTime * swayLerpSpeed);
         swayTime += Time.deltaTime;
@@ -36,6 +37,6 @@ public class WeaponBob : MonoBehaviour
             swayTime = 0;
         }
 
-        transform.localPosition = swayPosition;
+        transform.localRotation = Quaternion.Euler(swayPosition);
     }
 }

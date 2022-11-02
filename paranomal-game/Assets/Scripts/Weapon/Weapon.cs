@@ -118,6 +118,7 @@ public class Weapon : MonoBehaviour
     private float previousRotationY;
     private float maxRotationX;
     private float maxRotationY;
+    public float swayTime;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -185,7 +186,12 @@ public class Weapon : MonoBehaviour
     {
         if (transform.parent == GameObject.Find("RightHand").transform)
         {
-            WeaponSway();
+
+            //WeaponSway();
+
+            // Try to get attack point to do check instead
+            //Debug.Log(swayTime);
+            
         }
     }
 
@@ -202,6 +208,7 @@ public class Weapon : MonoBehaviour
         {
             ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         }
+
     }
 
     public void ShootPhysics()
@@ -305,12 +312,22 @@ public class Weapon : MonoBehaviour
 
     private void WeaponSway() // Must get this to move around more away from middle of screen
     {
-        RotationChange();
+        if (swayTime < 1f) // Needs some work or remove
+        {
+            RotationChange();
+        }
 
-        endPosition = Vector3.Lerp(endPosition, Vector3.zero, weaponRotationSpeed * Time.fixedDeltaTime);
-        startPosition = Vector3.Slerp(startPosition, endPosition, smoothRotation * Time.fixedDeltaTime);
+        endPosition = Vector3.Lerp(endPosition, Vector3.zero, weaponRotationSpeed * Time.smoothDeltaTime); // smoothdeltetime
+        startPosition = Vector3.Slerp(startPosition, endPosition, smoothRotation * Time.smoothDeltaTime);
 
         transform.localRotation = Quaternion.Euler(startPosition);
+
+        swayTime += Time.deltaTime;
+
+        if (swayTime > 2f)
+        {
+            swayTime = 0;
+        }
     }
 
     private void RotationChange()
@@ -329,15 +346,15 @@ public class Weapon : MonoBehaviour
         currentRotation = Random.Range(-currentRotation, currentRotation);
 
         // Might need to play around more with this to get something good and smooth
-        if (currentRotation >= previousRotation - 0.5f && currentRotation <= previousRotation + 0.5f)
+        if (currentRotation >= previousRotation - 2f && currentRotation <= previousRotation + 2f)
         {
             if (previousRotation < 0f)
             {
-                currentRotation = Random.Range(0.5f, maxRotation - 1);
+                currentRotation = Random.Range(2f, maxRotation - 1);
             }
             else
             {
-                currentRotation = Random.Range(-maxRotation + 1, -0.5f);
+                currentRotation = Random.Range(-maxRotation + 1, -2f);
             }
         }
      

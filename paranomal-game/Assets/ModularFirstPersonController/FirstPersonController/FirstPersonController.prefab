@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 388349412}
   - component: {fileID: 9033435154892785307}
   - component: {fileID: 1504762416081321617}
+  - component: {fileID: 7359897061581815131}
   m_Layer: 6
   m_Name: M4 Carbine
   m_TagString: Untagged
@@ -196,6 +197,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 675202839}
+  swayTime: 0
   handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
@@ -216,6 +218,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 9033435154892785307}
   switchingModes: 0
+--- !u!114 &7359897061581815131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388349410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayAmountA: 2
+  swayAmountB: 2
+  swayLerpSpeed: 1
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +409,6 @@ GameObject:
   m_Component:
   - component: {fileID: 545249896436228647}
   - component: {fileID: 8978645918321096045}
-  - component: {fileID: 3404237410007498582}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -439,24 +455,6 @@ MonoBehaviour:
   rotationZ: 1
   smooth: 8
   swayMultiplier: 4
---- !u!114 &3404237410007498582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3040472445013012732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmountA: 1
-  swayAmountB: 1
-  swayScale: 400
-  swayLerpSpeed: 2
-  swayTime: 0
-  swayPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &3995968987769816849
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,15 +479,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3995968987769816849}
-  m_LocalRotation: {x: -0.0090283835, y: -0.017296853, z: 0.017296854, w: 0.9996601}
-  m_LocalPosition: {x: 0.172, y: -0.15400004, z: 0.563}
+  m_LocalRotation: {x: -0.00007615199, y: -0.008726132, z: 0.008726225, w: 0.9999238}
+  m_LocalPosition: {x: 0.172, y: -0.166, z: 0.563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 545249896436228647}
   m_Father: {fileID: 4459864851310106429}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -1, y: -2, z: 2}
+  m_LocalEulerAnglesHint: {x: 0, y: -1, z: 1}
 --- !u!114 &2170290328897283674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,7 +495,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3995968987769816849}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49eb62c6b2a36f14282a7179f77565ed, type: 3}
   m_Name: 
