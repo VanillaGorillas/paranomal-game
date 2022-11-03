@@ -777,7 +777,7 @@ MonoBehaviour:
   rigidbody: {fileID: 116100329}
   collider: {fileID: 116100330}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 1390723038}
+  parentGameObject: {fileID: 0}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2
@@ -1846,7 +1846,7 @@ MonoBehaviour:
   rigidbody: {fileID: 575461996}
   collider: {fileID: 575461997}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 1390723038}
+  parentGameObject: {fileID: 0}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2
@@ -3910,7 +3910,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1102543672}
   collider: {fileID: 1102543669}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 1390723038}
+  parentGameObject: {fileID: 0}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 5
@@ -4764,11 +4764,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &1390723038 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 545249896436228647, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-  m_PrefabInstance: {fileID: 8765489994903951804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1483835289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5576,7 +5571,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1836168186}
   collider: {fileID: 1836168187}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 1390723038}
+  parentGameObject: {fileID: 0}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2

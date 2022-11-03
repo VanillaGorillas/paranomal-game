@@ -4,7 +4,6 @@ public class WeaponBob : MonoBehaviour
 {
     public float swayAmountA; // increases distance of sway
     public float swayAmountB; // increases distance of sway
-    //public float swayScale;
     public float swayLerpSpeed; // This affects how far they go apart more
 
     private float swayTime;
@@ -26,7 +25,6 @@ public class WeaponBob : MonoBehaviour
 
     private void CalculateWeaponSway()
     {
-        //Vector3 targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB) / swayScale;
         Vector3 targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB);
 
         swayPosition = Vector3.Lerp(swayPosition, targetPosition, Time.smoothDeltaTime * swayLerpSpeed);
