@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class WeaponBob : MonoBehaviour
 {
-    public float swayAmountA; // increases distance of sway
-    public float swayAmountB; // increases distance of sway
+    // Both increase different giving the values added
+    public float swayAmountA; // Increase vertical sway
+    public float swayAmountB; // Increases horizontal sway
     public float swayLerpSpeed; // This affects how far they go apart more
 
     private float swayTime;

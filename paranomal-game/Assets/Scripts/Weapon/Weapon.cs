@@ -107,22 +107,6 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private InputManager playerPrefebInputManger;
 
-    // Might remove some
-    [Header("Weapon Sway Stats")]
-    private float smoothRotation = 2f; // later put in inspector
-    private float weaponRotationSpeed = 1f; // later put in inspector
-
-    private float currentRotationX = 10f; // later put in inspector
-    private float currentRotationY = 15f; // later put in inspector
-    private float previousRotationX;
-    private float previousRotationY;
-    private float maxRotationX;
-    private float maxRotationY;
-    public float swayTime;
-
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-
     [SerializeField]
     private float handleAffect; // Will be used to increase when running or debuffs
 
@@ -151,11 +135,6 @@ public class Weapon : MonoBehaviour
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
 
-        maxRotationX = currentRotationX;
-        maxRotationY = currentRotationY;
-
-        //GameObject.Find("RightHand").transform.forward = fpsCamera.WorldToScreenPoint(new Vector3(0.5f, 0.5f, 0));
-
         if (lineRenderer != null)
         {
             WeaponMove();
@@ -180,19 +159,6 @@ public class Weapon : MonoBehaviour
         Vector3 direction = endPosition - attackPoint.position;
 
         lineRenderer.SetPosition(1, direction);
-    }
-
-    private void FixedUpdate()
-    {
-        if (transform.parent == GameObject.Find("RightHand").transform)
-        {
-
-            //WeaponSway();
-
-            // Try to get attack point to do check instead
-            //Debug.Log(swayTime);
-            
-        }
     }
 
     // Update is called once per frame
@@ -308,56 +274,5 @@ public class Weapon : MonoBehaviour
         isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;  
         isFullAutoVerticalRecoil += rateOfFire / 60 / (recoilImpules * muzzleVelocity);
         isFullAutoHorizontalRecoil += ((rateOfFire / 60) * recoilImpules) / muzzleVelocity / verticalRecoil;
-    }
-
-    private void WeaponSway() // Must get this to move around more away from middle of screen
-    {
-        if (swayTime < 1f) // Needs some work or remove
-        {
-            RotationChange();
-        }
-
-        endPosition = Vector3.Lerp(endPosition, Vector3.zero, weaponRotationSpeed * Time.smoothDeltaTime); // smoothdeltetime
-        startPosition = Vector3.Slerp(startPosition, endPosition, smoothRotation * Time.smoothDeltaTime);
-
-        transform.localRotation = Quaternion.Euler(startPosition);
-
-        swayTime += Time.deltaTime;
-
-        if (swayTime > 2f)
-        {
-            swayTime = 0;
-        }
-    }
-
-    private void RotationChange()
-    {
-        currentRotationX = CheckRotationState(currentRotationX, previousRotationX, maxRotationX);
-        currentRotationY = CheckRotationState(currentRotationY, previousRotationY, maxRotationY);
-
-        previousRotationX = currentRotationX;
-        previousRotationY = currentRotationY;
-        
-        endPosition = Vector3.Lerp(endPosition, new Vector3(currentRotationX, currentRotationY , 0f), weaponRotationSpeed * Time.fixedDeltaTime);
-    }
-
-    private float CheckRotationState(float currentRotation, float previousRotation, float maxRotation)
-    {
-        currentRotation = Random.Range(-currentRotation, currentRotation);
-
-        // Might need to play around more with this to get something good and smooth
-        if (currentRotation >= previousRotation - 2f && currentRotation <= previousRotation + 2f)
-        {
-            if (previousRotation < 0f)
-            {
-                currentRotation = Random.Range(2f, maxRotation - 1);
-            }
-            else
-            {
-                currentRotation = Random.Range(-maxRotation + 1, -2f);
-            }
-        }
-     
-        return currentRotation;
     }
 }

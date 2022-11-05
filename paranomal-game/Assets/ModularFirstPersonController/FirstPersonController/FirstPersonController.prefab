@@ -197,7 +197,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 675202839}
-  swayTime: 0
   handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
@@ -230,9 +229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swayAmountA: 0.5
-  swayAmountB: 0.5
-  swayLerpSpeed: 2
+  swayAmountA: 1
+  swayAmountB: 2
+  swayLerpSpeed: 4
 --- !u!1 &1051659961813219035
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +408,6 @@ GameObject:
   m_Component:
   - component: {fileID: 545249896436228647}
   - component: {fileID: 8978645918321096045}
-  - component: {fileID: 830074596433099722}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -456,19 +454,6 @@ MonoBehaviour:
   rotationZ: 1
   smooth: 8
   swayMultiplier: 4
---- !u!114 &830074596433099722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3040472445013012732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49eb62c6b2a36f14282a7179f77565ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 4459864851310106426}
 --- !u!1 &4459864850019384750
 GameObject:
   m_ObjectHideFlags: 0

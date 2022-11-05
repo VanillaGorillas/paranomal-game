@@ -754,7 +754,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
-  swayTime: 0
   handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
@@ -1987,7 +1986,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
-  swayTime: 0
   handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
@@ -3972,7 +3970,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
-  swayTime: 0
   handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
@@ -5548,7 +5545,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
   playerPrefebInputManger: {fileID: 233390932}
-  swayTime: 0
   handleAffect: 0
   isFullAutoRecoilEnergy: 0
   isFullAutoGrip: 0
