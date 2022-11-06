@@ -45,8 +45,7 @@ public class WeaponSway : MonoBehaviour
         initialRotation = transform.localRotation;
     }
 
-    // Update is called once per frame
-    void Update() // Needs to be smoother
+    void Update() 
     {
         CalculateSway();
 

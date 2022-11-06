@@ -10,7 +10,6 @@ public class WeaponBob : MonoBehaviour
     private float swayTime;
     private Vector3 swayPosition;
 
-    // Update is called once per frame
     void Update()
     {
         if(transform.childCount == 1 && GetComponent<PickUpDropItem>().equipped)

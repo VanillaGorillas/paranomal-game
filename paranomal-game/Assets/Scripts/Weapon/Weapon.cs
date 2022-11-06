@@ -59,8 +59,6 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float timeBetweenShooting;
 
-    [SerializeField]
-    private float spread;
 
     [SerializeField]
     private float reloadTime;
@@ -141,7 +139,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void WeaponMove() // For lineRenderer. Testing purpose
+    // For lineRenderer. Testing purpose
+    private void WeaponMove() 
     {
         Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));       
 
@@ -161,7 +160,6 @@ public class Weapon : MonoBehaviour
         lineRenderer.SetPosition(1, direction);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && playerPrefebInputManger.GetComponent<WeaponSystem>() != null)
@@ -184,20 +182,11 @@ public class Weapon : MonoBehaviour
         triggerPressed = true;
         readyToShoot = false;
 
-        // Calculate spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        // Calculate new direction with spread
-        //Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
-
         // Instatiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         
-
         // Add force to bullet  // Can be attackPoint or transform
         currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);        
-        //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse); // For bouncing grenades
 
         // Instantiate muzzle flash, if you have one
         if (muzzleFlash != null)

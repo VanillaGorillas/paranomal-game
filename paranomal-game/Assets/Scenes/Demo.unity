@@ -736,7 +736,6 @@ MonoBehaviour:
   upwardForceGernades: 0
   mass: 3.5
   timeBetweenShooting: 0.1
-  spread: 1
   reloadTime: 2
   timeBetweenShots: 0.1
   rateOfFire: 600
@@ -776,7 +775,7 @@ MonoBehaviour:
   rigidbody: {fileID: 116100329}
   collider: {fileID: 116100330}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 0}
+  parentGameObject: {fileID: 2137305552}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2
@@ -1845,7 +1844,7 @@ MonoBehaviour:
   rigidbody: {fileID: 575461996}
   collider: {fileID: 575461997}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 0}
+  parentGameObject: {fileID: 2137305552}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2
@@ -1968,7 +1967,6 @@ MonoBehaviour:
   upwardForceGernades: 0
   mass: 0
   timeBetweenShooting: 0.1
-  spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
   rateOfFire: 0
@@ -3908,7 +3906,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1102543672}
   collider: {fileID: 1102543669}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 0}
+  parentGameObject: {fileID: 2137305552}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 5
@@ -3952,7 +3950,6 @@ MonoBehaviour:
   upwardForceGernades: 0
   mass: 0
   timeBetweenShooting: 0.1
-  spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
   rateOfFire: 800
@@ -5527,7 +5524,6 @@ MonoBehaviour:
   upwardForceGernades: 0
   mass: 0
   timeBetweenShooting: 0.1
-  spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
   rateOfFire: 0.1
@@ -5567,7 +5563,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1836168186}
   collider: {fileID: 1836168187}
   player: {fileID: 8765489994903951807}
-  parentGameObject: {fileID: 0}
+  parentGameObject: {fileID: 2137305552}
   fpsCamera: {fileID: 8765489994903951805}
   environment: {fileID: 841781652}
   dropForwardForce: 2
@@ -6373,6 +6369,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &2137305552 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 545249896436228647, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+  m_PrefabInstance: {fileID: 8765489994903951804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8765489994903951804
 PrefabInstance:
   m_ObjectHideFlags: 0

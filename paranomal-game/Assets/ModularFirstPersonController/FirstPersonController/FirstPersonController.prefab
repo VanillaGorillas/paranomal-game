@@ -179,7 +179,6 @@ MonoBehaviour:
   upwardForceGernades: 0
   mass: 2.92
   timeBetweenShooting: 0.1
-  spread: 0
   reloadTime: 2
   timeBetweenShots: 0.1
   rateOfFire: 950
