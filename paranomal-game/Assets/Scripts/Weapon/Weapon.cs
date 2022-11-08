@@ -59,8 +59,6 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float timeBetweenShooting;
 
-    [SerializeField]
-    private float spread;
 
     [SerializeField]
     private float reloadTime;
@@ -107,6 +105,9 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private InputManager playerPrefebInputManger;
 
+    [SerializeField]
+    private float handleAffect; // Will be used to increase when running or debuffs
+
     // For when continuous holding down when shooting full auto
     [HideInInspector]
     public float isFullAutoRecoilEnergy;
@@ -117,6 +118,8 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public float isFullAutoHorizontalRecoil; // need to do more checks
 
+    [Header("For Testing Weapon")]
+    [SerializeField] private LineRenderer lineRenderer; // For testing purposes
 
     private void Awake()
     {
@@ -129,12 +132,36 @@ public class Weapon : MonoBehaviour
         isFullAutoGrip = hipGrip;
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
+
+        if (lineRenderer != null)
+        {
+            WeaponMove();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {                  
+    // For lineRenderer. Testing purpose
+    private void WeaponMove() 
+    {
+        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));       
 
+        Vector3 endPosition;
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            endPosition = hit.point;
+        }
+        else
+        {
+            endPosition = ray.GetPoint(75);
+        }
+
+        Vector3 direction = endPosition - attackPoint.position;
+
+        lineRenderer.SetPosition(1, direction);
+    }
+
+    void Update()
+    {
         if (!playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && playerPrefebInputManger.GetComponent<WeaponSystem>() != null)
         {
             ResestRecoil();
@@ -145,6 +172,7 @@ public class Weapon : MonoBehaviour
         {
             ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         }
+
     }
 
     public void ShootPhysics()
@@ -154,41 +182,11 @@ public class Weapon : MonoBehaviour
         triggerPressed = true;
         readyToShoot = false;
 
-        // Find the exact hit position using a raycast
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray throught the middle of screen
-        RaycastHit hit;
-
-        // Check if ray hits something
-        Vector3 targetPoint;
-        //Must create bullet come out of weapon MAYBE
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(75); // A point far away from the player
-        }
-
-        // Calculate direction from attackPoint to targetPoint
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-
-        // Calculate spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        // Calculate new direction with spread
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); // Add spread to last direction
-
         // Instatiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-
-        // Rotate bullet to shoot direction
-        currentBullet.transform.forward = directionWithSpread.normalized;
-
-        // Add force to bullet 
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * muzzleVelocity, ForceMode.Impulse);
-        //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCamera.transform.up * upwardForce, ForceMode.Impulse); // For bouncing grenades
+        
+        // Add force to bullet  // Can be attackPoint or transform
+        currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);        
 
         // Instantiate muzzle flash, if you have one
         if (muzzleFlash != null)
@@ -202,19 +200,19 @@ public class Weapon : MonoBehaviour
         // Invoke resetShot function (if not already invoked)
         if (allowInvoke)
         {
-            Invoke("ResetShot", timeBetweenShooting);
+            Invoke(nameof(ResetShot), timeBetweenShooting);
             allowInvoke = false; // Only want to Invoke once
         }
 
         // if more than one bulletsPerTap make sure to repeat shoot function // For shotgun
         if (isBurstFire && bulletsShot < bulletsPerTap && bulletsLeft > 0) // Make burst mode
         {
-            Invoke("ShootPhysics", timeBetweenShots);
+            Invoke(nameof(ShootPhysics), timeBetweenShots);
         }
 
         RecoilIncrease();
 
-        // Might need to put destory gameobject here if not doing collision
+        //Might need to put destory gameobject here if not doing collision
         //Destroy(currentBullet, 3f);
     }
 
@@ -265,6 +263,5 @@ public class Weapon : MonoBehaviour
         isFullAutoGrip = isFullAutoGrip <= hipGrip / 2.5f ? hipGrip / 2.5f : isFullAutoGrip - mass / recoilEnergy / 5;  
         isFullAutoVerticalRecoil += rateOfFire / 60 / (recoilImpules * muzzleVelocity);
         isFullAutoHorizontalRecoil += ((rateOfFire / 60) * recoilImpules) / muzzleVelocity / verticalRecoil;
-        Debug.Log(isFullAutoVerticalRecoil + " test");
     }
 }
