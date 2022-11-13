@@ -68,8 +68,12 @@ public class Recoil : MonoBehaviour
     // Used for restricting the recoil from going past the max camera angle look
     private float CheckVerticalRecoil(float verticalRecoil)
     {
-        var maxAxisX = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x + UnityEditor.TransformUtils.GetInspectorRotation(cameraTransform.transform).x;
+        // TODO: Replace the "UnityEditor.TransformUtils.GetInspectorRotation" with its proper counter part
 
-        return maxAxisX < -playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle ? 0f : verticalRecoil;
+        // var maxAxisX = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x + UnityEditor.TransformUtils.GetInspectorRotation(cameraTransform.transform).x;
+
+        // return maxAxisX < -playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle ? 0f : verticalRecoil;
+
+        return 0;
     }
 }
