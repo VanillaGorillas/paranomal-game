@@ -29,11 +29,22 @@ public class BulletBehaviour : MonoBehaviour
     [SerializeField]
     private float projectileWeight; // Weight of bullet might need to be more since bullet weight is low
 
+    [Header("Bullet Penetration")]
+    //public float penetrationAmount;
+    private GameObject attackPoint;
+    private Vector3? endPoint;
+    private Vector3? penetrationPoint;
+    private Vector3? impactPoint;
+    //public Vector3 startPoint; 
+
+    private float weaponMuzzleVelocity;
+
 
     private void Awake()
     {
         rightHand = GameObject.Find("RightHand"); // Gets RightHand gameobject on every Instantiate of bullet made
-        startRangeOfBulletDrop = rightHand.GetComponentInChildren<Weapon>().effectiveFiringRange;
+        startRangeOfBulletDrop = rightHand.GetComponentInChildren<Weapon>().effectiveFiringRange; 
+
         lastPosition = transform.position;
 
         if (isArmourPiercing) // Gives off ricochet affect to do damage when hitting again or time is ended
@@ -48,6 +59,7 @@ public class BulletBehaviour : MonoBehaviour
         distanceTravled += Vector3.Distance(lastPosition, transform.position); // Gets the distanced covered from attack point to point on map per frame
         lastPosition = transform.position;
 
+
         if (distanceTravled > startRangeOfBulletDrop || hitObjectCollision)
         {
             bulletBody.useGravity = true;
@@ -57,6 +69,8 @@ public class BulletBehaviour : MonoBehaviour
             damageDealt = damageDealt < 0 ? 0f : damageDealt;
         }
 
+        //Penetration();
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -65,14 +79,63 @@ public class BulletBehaviour : MonoBehaviour
 
         if (contact.otherCollider && contact.otherCollider.gameObject.layer != 7) // Used to check if object collidered with another object // Current detects the gun object so attackpoint might need to move in future
         {
-            collisionCount++;
-            if (isArmourPiercing)
+            if (isArmourPiercing && contact.otherCollider.gameObject.layer == 8)
             {
-                hitObjectCollision = true;
+                Penetration();
+                //Destroy(gameObject);
             }
-            
-            Destroy(gameObject, collisionCount == 2 ? 0f : timeBulletGetsDestoryed);
-            Debug.Log("hit");
+            else
+            {
+                collisionCount++;
+                if (isArmourPiercing)
+                {
+                    hitObjectCollision = true;
+                }
+
+                Destroy(gameObject, collisionCount == 2 ? 0f : timeBulletGetsDestoryed);
+                Debug.Log("hit");
+            }
+            //collisionCount++;
+            //if (isArmourPiercing)
+            //{
+            //    hitObjectCollision = true;
+            //}
+
+            //Destroy(gameObject, collisionCount == 2 ? 0f : timeBulletGetsDestoryed);
+            //Debug.Log("hit");
         }
+    }
+
+    // Should use this to get bulletpenetration script on weapon
+    private void Penetration()
+    {
+        // Destory object make new one after certain amount and then decrease distance and damage 
+        //Vector3 currentDirection = (transform.position - startPoint).normalized;
+        //Debug.Log(currentDirection + " test");
+        ////Instantiate(gameObject, currentDirection + Vector3.forward, Quaternion.identity);// This bad
+        //Destroy(gameObject);
+        //float travledDistance = Vector3.Distance(startPoint, transform.position);
+
+        rightHand.GetComponentInChildren<BulletPenetration>().UpdatePenetration();
+
+        endPoint = rightHand.GetComponentInChildren<BulletPenetration>().endPoint;
+        penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint; // This is correct value to use
+
+        weaponMuzzleVelocity = rightHand.GetComponentInChildren<Weapon>().muzzleVelocity;
+        transform.position = penetrationPoint.Value + transform.forward * weaponMuzzleVelocity;
+        //Destroy(gameObject);
+
+        //transform.position = (Vector3)(endPoint + transform.forward * weaponMuzzleVelocity);
+        // GameObject currentBullet = Instantiate(gameObject, penetrationPoint.Value, Quaternion.identity);
+        //currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);
+        //gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
+
+        Debug.Log(penetrationPoint + " end");
+
+    }
+
+    private void VelocityReduction()
+    {
+
     }
 }

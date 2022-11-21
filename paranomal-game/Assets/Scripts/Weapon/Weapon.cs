@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour
 
     // bullet force
     [SerializeField]
-    private float muzzleVelocity; // velocity
+    public float muzzleVelocity; // velocity
 
     [SerializeField]
     private float upwardForceGernades; // For gernades
@@ -183,8 +183,8 @@ public class Weapon : MonoBehaviour
         readyToShoot = false;
 
         // Instatiate bullet/projectile
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, transform.rotation);
+
         // Add force to bullet  // Can be attackPoint or transform
         currentBullet.GetComponent<Rigidbody>().velocity = attackPoint.TransformDirection(Vector3.forward * muzzleVelocity);        
 
