@@ -8,7 +8,7 @@ public class BulletBehaviour : MonoBehaviour
 
     [SerializeField]
     private float damageDealt;
-    private float timeBulletGetsDestoryed = 0.01f; // The time for the gameobject to be destoryed
+    private float timeBulletGetsDestoryed = 0f; // The time for the gameobject to be destoryed
 
     [SerializeField]
     private float addedRange; // Adds to effective range bullet if armour piercing
@@ -74,7 +74,7 @@ public class BulletBehaviour : MonoBehaviour
         if (contact.otherCollider && contact.otherCollider.gameObject.layer != 7) 
         {
             // Layer 8 is 'Wall' and Layer 9 is 'Armour' and Layer 10 is 'Enemy'
-            if (contact.otherCollider.gameObject.layer == 10)
+            if (isArmourPiercing && contact.otherCollider.gameObject.layer == 10)
             {
                 Debug.Log("Hit Enemy");
                 DoDamage();
