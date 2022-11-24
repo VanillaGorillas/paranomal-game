@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 
 public class BulletPenetration : MonoBehaviour
@@ -8,10 +9,13 @@ public class BulletPenetration : MonoBehaviour
 
     public Vector3? penetrationPoint;
     public Vector3? impactPoint;
-    
-    // Must do if penetration point is null it must destory gameobject
 
-    public void UpdatePenetration() // Working out will be done on bullet behaiour side. Just getting values
+    private void Update()
+    {
+        UpdatePenetration();
+    }
+
+    public void UpdatePenetration()
     {
         Ray ray = new Ray(transform.position, transform.forward);
  
@@ -27,7 +31,7 @@ public class BulletPenetration : MonoBehaviour
             }
             else
             {
-                penetrationPoint = null;
+                penetrationPoint = impactPoint;
             }
         }
         else

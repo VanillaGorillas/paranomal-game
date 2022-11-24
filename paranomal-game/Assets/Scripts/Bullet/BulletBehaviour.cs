@@ -71,14 +71,18 @@ public class BulletBehaviour : MonoBehaviour
         ContactPoint contact = collision.GetContact(0);
 
         // Used to check if object collidered with another object 
-        // Current detects the gun object so attackpoint might need to move in future
         if (contact.otherCollider && contact.otherCollider.gameObject.layer != 7) 
         {
-            // Layer 8 is 'Wall' and Layer 9 is 'Armour'
-            if (isArmourPiercing && collisionCount == 0 && (contact.otherCollider.gameObject.layer == 8 || contact.otherCollider.gameObject.layer == 9)) // Must still do more checks for armoured layer(make)
+            // Layer 8 is 'Wall' and Layer 9 is 'Armour' and Layer 10 is 'Enemy'
+            if (contact.otherCollider.gameObject.layer == 10)
             {
-                Penetration();
-                //Destroy(gameObject); // Must do delete and drop of bullet
+                Debug.Log("Hit Enemy");
+                DoDamage();
+                Destroy(gameObject);
+            }
+            else if (isArmourPiercing && collisionCount == 0 && (contact.otherCollider.gameObject.layer == 8 || contact.otherCollider.gameObject.layer == 9)) // Must still do more checks for armoured layer(make)
+            {
+                Penetration();             
             }
             else
             {
@@ -90,37 +94,43 @@ public class BulletBehaviour : MonoBehaviour
         }
     }
 
-    // Need to find a way to dectect that point is not pass object and then delete it
     private void Penetration()
     {
-        rightHand.GetComponentInChildren<BulletPenetration>().UpdatePenetration();
-        penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint;
-        Debug.Log(penetrationPoint + " look");
+        collisionCount++;
 
-        if (penetrationPoint != null)
+        penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint;
+
+        // Layer 10 is Enemy
+        if (rightHand.GetComponentInChildren<BulletPenetration>().impactPoint != penetrationPoint)
         {
             PentrationCheck(rightHand);
 
-            Debug.Log(penetrationPoint + " penpoint");
             // Moves GameObject to point and with forward will point it 1 infront of position
             transform.position = penetrationPoint.Value + transform.forward;
 
             // Moves GameObject Rigidbody forward with new muzzle velocity
             gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
+
+            Destroy(gameObject, randomDestoryTime); // Must do delete and drop of bullet // PLEASE TELL ME if this is something you want
         }
         else
         {
-            Destroy(gameObject, Random.Range(0.01f, 0.04f));
-            Debug.Log("Yes maybe");
+            Destroy(gameObject, Random.Range(0.1f, 0.4f));  
         }
 
     }
 
     private void PentrationCheck(GameObject rightHandGameObject)
     {
-        weaponMuzzleVelocity = (float)rightHandGameObject.GetComponentInChildren<Weapon>()?.muzzleVelocity / 100 * 40;
+        weaponMuzzleVelocity = (float)rightHandGameObject.GetComponentInChildren<Weapon>()?.muzzleVelocity
+                               / 100
+                               * 40;
         penetratedObject = true;
-        randomDestoryTime = Random.Range(0.01f, 0.09f);
-        collisionCount++;
+        randomDestoryTime = Random.Range(1f, 2f);      
+    }
+
+    private void DoDamage()
+    {
+        // For when hitting enemy
     }
 }
