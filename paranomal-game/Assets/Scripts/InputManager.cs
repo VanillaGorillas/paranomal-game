@@ -1,7 +1,19 @@
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkBehaviour
 {
+    #region Networking 
+
+    [SyncVar]
+    public string username;
+
+    [SyncVar]
+    public bool isReady;
+
+    #endregion
+
     private PlayerInput playerInput;
     public PlayerInput.OnFootActions onFoot;
 
