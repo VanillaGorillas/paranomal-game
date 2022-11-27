@@ -72,9 +72,9 @@ public class BulletBehaviour : MonoBehaviour
         ContactPoint contact = collision.GetContact(0);
 
         // Used to check if object collidered with another object 
-        if (contact.otherCollider && contact.otherCollider.gameObject.layer != 7) 
+        if (contact.otherCollider && contact.otherCollider.gameObject.layer != (int)EnumLayer.Bullet) 
         {
-            if (isArmourPiercing && contact.otherCollider.gameObject.layer == 10)
+            if (isArmourPiercing && contact.otherCollider.gameObject.layer == (int) EnumLayer.Enemy)
             {
                 DoDamage();
                 Destroy(gameObject);
