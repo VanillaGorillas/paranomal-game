@@ -1,5 +1,6 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System.Linq;
 using UnityEngine;
 
 public sealed class GameManager : NetworkBehaviour
@@ -9,6 +10,10 @@ public sealed class GameManager : NetworkBehaviour
     [SyncObject]
     public readonly SyncList<InputManager> players = new ();
 
+    [SyncVar]
+    // All players are ready
+    public bool canStart;
+
     private void Awake()
     {
         instance = this;
@@ -16,6 +21,10 @@ public sealed class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        Debug.Log(players.Count);
+        if (!IsServer) return;
+
+        canStart = players.All(player => player.isReady);
+
+        Debug.Log($"Can Start = {canStart}");
     }
 }

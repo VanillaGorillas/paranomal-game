@@ -23,7 +23,6 @@ public sealed class InputManager : NetworkBehaviour
     [SerializeField]
     private GameObject rightHand;
 
-    // Start is called before the first frame update
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -37,9 +36,15 @@ public sealed class InputManager : NetworkBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ServerRPCSetIsReady(!isReady);
+        }
+
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
             if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
@@ -66,6 +71,20 @@ public sealed class InputManager : NetworkBehaviour
         onFoot.Disable();
     }
 
+    /**
+     * Is a Remote-Procedure-Call which is sent from the client to the server. 
+     * It allows you to call code to be executed server side from the client,
+     * TODO: MOve this to a definitions file later on.
+     */
+    [ServerRpc]
+    public void ServerRPCSetIsReady(bool value)
+    {
+        isReady = value;
+    }
+    
+
+    #region Networking Ovverrides
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -79,4 +98,6 @@ public sealed class InputManager : NetworkBehaviour
 
         GameManager.instance.players.Remove(this);
     }
+
+    #endregion
 }
