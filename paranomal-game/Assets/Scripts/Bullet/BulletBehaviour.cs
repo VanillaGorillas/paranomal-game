@@ -62,7 +62,7 @@ public class BulletBehaviour : MonoBehaviour
             
             bulletBody.AddForce(projectileWeight * Vector3.down); // Will move the gameobject downwards
             
-            damageDealt -= 2.5f; // This will need to be modified with what damage bullets do and what distance it goes up to and enemy health, NEED MORE DIFFERENT CACULATIONS
+            damageDealt -= 2.5f; //TODO: This will need to be modified with what damage bullets do and what distance it goes up to and enemy health, NEED MORE DIFFERENT CACULATIONS
             damageDealt = damageDealt < 0 ? 0f : damageDealt;
         }
     }
@@ -74,10 +74,8 @@ public class BulletBehaviour : MonoBehaviour
         // Used to check if object collidered with another object 
         if (contact.otherCollider && contact.otherCollider.gameObject.layer != 7) 
         {
-            // Layer 8 is 'Wall' and Layer 9 is 'Armour' and Layer 10 is 'Enemy'
             if (isArmourPiercing && contact.otherCollider.gameObject.layer == 10)
             {
-                Debug.Log("Hit Enemy");
                 DoDamage();
                 Destroy(gameObject);
             }
@@ -90,7 +88,6 @@ public class BulletBehaviour : MonoBehaviour
                 collisionCount++;
 
                 Destroy(gameObject, collisionCount == 2 ? 0f : timeBulletGetsDestoryed);
-                Debug.Log("hit");
             }
         }
     }
@@ -99,31 +96,33 @@ public class BulletBehaviour : MonoBehaviour
     {
         collisionCount++;
 
-        penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint;
-
-        // Layer 10 is Enemy
-        if (rightHand.GetComponentInChildren<BulletPenetration>().impactPoint != penetrationPoint)
+        if (rightHand.GetComponentInChildren<BulletPenetration>() != null)
         {
-            PentrationCheck(rightHand);
+            penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint;
 
-            // Moves GameObject to point and with forward will point it 1 infront of position
-            transform.position = penetrationPoint.Value + transform.forward;
+            // Layer 10 is Enemy
+            if (rightHand.GetComponentInChildren<BulletPenetration>().impactPoint != penetrationPoint)
+            {
+                PentrationCheck(rightHand);
 
-            // Moves GameObject Rigidbody forward with new muzzle velocity
-            gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
+                // Moves GameObject to point and with forward will point it 1 infront of position
+                transform.position = penetrationPoint.Value + transform.forward;
 
-            Destroy(gameObject, randomDestoryTime); // Must do delete and drop of bullet // PLEASE TELL ME if this is something you want
+                // Moves GameObject Rigidbody forward with new muzzle velocity
+                gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
+
+                Destroy(gameObject, randomDestoryTime);
+            }
         }
         else
         {
             Destroy(gameObject, Random.Range(0.1f, 0.4f));  
         }
-
     }
 
     private void PentrationCheck(GameObject rightHandGameObject)
     {
-        weaponMuzzleVelocity = (float)rightHandGameObject.GetComponentInChildren<Weapon>()?.muzzleVelocity
+        weaponMuzzleVelocity = (float)rightHandGameObject.GetComponentInChildren<Weapon>().muzzleVelocity
                                / 100
                                * 40;
         penetratedObject = true;
@@ -132,6 +131,6 @@ public class BulletBehaviour : MonoBehaviour
 
     private void DoDamage()
     {
-        // For when hitting enemy
+        //TODO: For when hitting enemy
     }
 }
