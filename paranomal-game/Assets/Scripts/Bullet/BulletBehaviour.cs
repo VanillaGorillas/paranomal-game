@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
@@ -80,7 +81,7 @@ public class BulletBehaviour : MonoBehaviour
                 DoDamage();
                 Destroy(gameObject);
             }
-            else if (isArmourPiercing && collisionCount == 0 && (contact.otherCollider.gameObject.layer == 8 || contact.otherCollider.gameObject.layer == 9)) // Must still do more checks for armoured layer(make)
+            else if (isArmourPiercing && collisionCount == 0 && (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured)) // Must still do more checks for armoured layer(make)
             {
                 Penetration();             
             }
