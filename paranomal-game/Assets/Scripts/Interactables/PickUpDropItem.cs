@@ -48,6 +48,8 @@ public class PickUpDropItem : Interactable
         }
         else if (equipped)
         {
+            //transform.localPosition = parentGameObject.localPosition;
+            //transform.localRotation = parentGameObject.localRotation;
             rigidbody.isKinematic = true;
             collider.isTrigger = true;
             isRightHandSlotFull = isRightHandItem;
@@ -57,7 +59,7 @@ public class PickUpDropItem : Interactable
             {
                 weaponComponent.weaponSlot.GetComponent<WeaponSlot>().isSlotFull = true;
             }
-
+            // Will Look into soon
             // Sets child Component in center of parent
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.Euler(Vector3.zero);
