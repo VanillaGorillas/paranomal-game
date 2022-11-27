@@ -2,7 +2,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
 
-public class InputManager : NetworkBehaviour
+public sealed class InputManager : NetworkBehaviour
 {
     #region Networking 
 
