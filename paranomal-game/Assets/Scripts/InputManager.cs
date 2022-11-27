@@ -65,4 +65,18 @@ public sealed class InputManager : NetworkBehaviour
     {
         onFoot.Disable();
     }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        GameManager.instance.players.Add(this);
+    }
+
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+
+        GameManager.instance.players.Remove(this);
+    }
 }
