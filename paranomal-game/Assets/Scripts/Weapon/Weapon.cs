@@ -88,6 +88,8 @@ public class Weapon : MonoBehaviour
     // Reference
     public Camera fpsCamera;
     public Transform attackPoint;
+    public Vector3 aimDownSightPosition;
+    public Vector3 defaultHipAim;
 
     [Header("Weapon UI")]
     // Graphics
@@ -133,7 +135,7 @@ public class Weapon : MonoBehaviour
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
 
-        if (lineRenderer != null)
+        if (lineRenderer != null) // MAYBE MOVE THIS INTO UPDATE
         {
             WeaponMove();
         }

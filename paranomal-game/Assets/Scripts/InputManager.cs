@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 
     private SwapWeapon swapWeapon;
     private WeaponSystem weaponSystem;
+    private AimDownSight aimDownSight;
 
     [SerializeField]
     private GameObject rightHand;
@@ -19,10 +20,10 @@ public class InputManager : MonoBehaviour
 
         swapWeapon = GetComponent<SwapWeapon>();
         weaponSystem = GetComponent<WeaponSystem>();
+        aimDownSight = GetComponent<AimDownSight>();
 
         onFoot.PrimaryWeaponSwap.performed += ctx => swapWeapon.SwapToPrimary();
         onFoot.SecondaryWeaponSwap.performed += ctx => swapWeapon.SwapToSecondary();
-
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class InputManager : MonoBehaviour
     {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
-            if (rightHand.GetComponentInChildren<Weapon>().isFullAuto)
+            if (rightHand.GetComponentInChildren<Weapon>().isFullAuto) // TODO: make this not nested
             {
                 onFoot.Shoot.started += ctx => weaponSystem.FullAutoShoot();
                 onFoot.Shoot.canceled += ctx => weaponSystem.CancelShooting();
@@ -41,7 +42,14 @@ public class InputManager : MonoBehaviour
             }
             onFoot.Reload.performed += ctx => weaponSystem.Reload();
             onFoot.SelectFiringMode.performed += ctx => weaponSystem.ChangingFiringMode();
+            
         }
+    }
+
+    void LateUpdate()
+    {
+        // Weapon sway is affecting this
+        DownSight();
     }
 
     private void OnEnable()
@@ -53,4 +61,41 @@ public class InputManager : MonoBehaviour
     {
         onFoot.Disable();
     }
+
+    private void DownSight()
+    {
+        if (!aimDownSight.holdIn)
+        {
+            CheckDownSightClick();
+        }
+        else
+        {
+            onFoot.AimDownSight.started += ctx => aimDownSight.ChangeAimState("HoldAim");
+            onFoot.AimDownSight.canceled += ctx => aimDownSight.ChangeAimState("");
+            // Most likely change later
+            //onFoot.AimDownSight.performed += ctx => aimDownSight.HoldAim();
+        }
+    }
+
+    private void CheckDownSightClick()
+    {
+        if (!aimDownSight.aimPressed)
+        {
+            onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState("ClickAim");
+            //AimPressedCheck();
+            Debug.Log("HERE");
+        }
+        else
+        {
+            onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState("ClickHipAim");
+            //AimPressedCheck();
+            Debug.Log("HERE2");
+        }
+    }
+
+    //private void AimPressedCheck()
+    //{
+    //    aimDownSight.aimPressed = !aimDownSight.aimPressed;
+    //    Debug.Log("run how");
+    //}
 }

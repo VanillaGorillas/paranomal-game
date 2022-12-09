@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AimDownSight",
+                    "type": "Button",
+                    "id": "0493aae1-191b-42e9-91e1-fe1daf47308e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -199,6 +208,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectFiringMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb25a850-0a45-450d-a1c5-92963c34b63d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AimDownSight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

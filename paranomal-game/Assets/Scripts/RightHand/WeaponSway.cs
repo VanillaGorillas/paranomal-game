@@ -27,7 +27,7 @@ public class WeaponSway : MonoBehaviour
     public bool rotationY;
     public bool rotationZ;
 
-    private Vector3 initialPosition;
+    private Vector3 initialPosition; // Must probably get this for script to change then change back
     private Quaternion initialRotation;
 
     private float inputX;

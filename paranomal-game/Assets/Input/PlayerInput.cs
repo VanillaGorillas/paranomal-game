@@ -89,6 +89,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimDownSight"",
+                    ""type"": ""Button"",
+                    ""id"": ""0493aae1-191b-42e9-91e1-fe1daf47308e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -223,6 +232,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""SelectFiringMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb25a850-0a45-450d-a1c5-92963c34b63d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AimDownSight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -238,6 +258,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
         m_OnFoot_SelectFiringMode = m_OnFoot.FindAction("SelectFiringMode", throwIfNotFound: true);
+        m_OnFoot_AimDownSight = m_OnFoot.FindAction("AimDownSight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,6 +325,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Reload;
     private readonly InputAction m_OnFoot_SelectFiringMode;
+    private readonly InputAction m_OnFoot_AimDownSight;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -315,6 +337,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
         public InputAction @SelectFiringMode => m_Wrapper.m_OnFoot_SelectFiringMode;
+        public InputAction @AimDownSight => m_Wrapper.m_OnFoot_AimDownSight;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -345,6 +368,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SelectFiringMode.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSelectFiringMode;
                 @SelectFiringMode.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSelectFiringMode;
                 @SelectFiringMode.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSelectFiringMode;
+                @AimDownSight.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnAimDownSight;
+                @AimDownSight.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnAimDownSight;
+                @AimDownSight.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnAimDownSight;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -370,6 +396,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SelectFiringMode.started += instance.OnSelectFiringMode;
                 @SelectFiringMode.performed += instance.OnSelectFiringMode;
                 @SelectFiringMode.canceled += instance.OnSelectFiringMode;
+                @AimDownSight.started += instance.OnAimDownSight;
+                @AimDownSight.performed += instance.OnAimDownSight;
+                @AimDownSight.canceled += instance.OnAimDownSight;
             }
         }
     }
@@ -383,5 +412,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnSelectFiringMode(InputAction.CallbackContext context);
+        void OnAimDownSight(InputAction.CallbackContext context);
     }
 }
