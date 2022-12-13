@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using UnityEngine;
 
 public class Recoil : MonoBehaviour
@@ -23,7 +24,15 @@ public class Recoil : MonoBehaviour
     [SerializeField]
     private GameObject cameraTransform;
 
-    // Update is called once per frame
+    private float maxAngle;
+    private float cameraLocalEulerAngleX;
+    private float totalLocalEulerAngleX;
+
+    private void Awake()
+    {
+        maxAngle = playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle;
+    }
+
     void Update()
     {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
@@ -45,6 +54,9 @@ public class Recoil : MonoBehaviour
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
         
         transform.localRotation = Quaternion.Euler(currentRotation);
+
+        cameraLocalEulerAngleX = cameraTransform.transform.localEulerAngles.x;
+        totalLocalEulerAngleX = currentRotation.x + cameraLocalEulerAngleX;
     }
 
     public void RecoilFire()
@@ -57,6 +69,7 @@ public class Recoil : MonoBehaviour
             float fullAutoHorizontalRecoil = weapon.isFullAutoHorizontalRecoil > 17f ? 17f :  weapon.isFullAutoHorizontalRecoil;
 
             targetRotation += new Vector3(-CheckVerticalRecoil(weapon.isFullAutoVerticalRecoil), Random.Range(-fullAutoHorizontalRecoil, fullAutoHorizontalRecoil), 0);
+            //targetRotation += new Vector3(-Mathf.Clamp(weapon.isFullAutoVerticalRecoil, -maxAngle, maxAngle), Random.Range(-fullAutoHorizontalRecoil, fullAutoHorizontalRecoil), 0);
         }
         else
         {
@@ -68,8 +81,6 @@ public class Recoil : MonoBehaviour
     // Used for restricting the recoil from going past the max camera angle look
     private float CheckVerticalRecoil(float verticalRecoil)
     {
-        var maxAxisX = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x + UnityEditor.TransformUtils.GetInspectorRotation(cameraTransform.transform).x; // Must fix
-
-        return maxAxisX < -playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle ? 0f : verticalRecoil;
+        return totalLocalEulerAngleX > (float)EnumRecoil.FullRotation - maxAngle || totalLocalEulerAngleX > (float)EnumRecoil.StartRotation && totalLocalEulerAngleX < maxAngle + 1 ? verticalRecoil: 0f;
     }
 }
