@@ -7,59 +7,27 @@ public class AimDownSight : MonoBehaviour
     [SerializeField]
     private GameObject rightHand;
 
-    //[SerializeField]
-    //private GameObject aiming;
-
     [SerializeField]
-    private Camera camera;
+    private new Camera camera;
 
     public bool aimPressed = false;
 
     // TODO: For charcter when create one
-    private float zoomFov = 30;
-    private float zoomStepTime = 5;
-    private float fieldOfView = 60;
+    private readonly float zoomFov = 25;
+    private readonly float zoomStepTime = 5;
+    private readonly float fieldOfView = 60;
 
-    // Update is called once per frame
-    void LateUpdate()
+    private void Update()
     {
-        //if (rightHand.transform.childCount != 0)
-        //{
-        //    ChangeAimState("");
-        //    //if (!aimPressed)
-        //    //{
-        //    //    ClickAim();
-        //    //}
-        //    //else
-        //    //{
-        //    //    ClickHipAim();
-        //    //}
-        //}
+        if (aimPressed)
+        {
+            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, zoomFov, zoomStepTime * Time.deltaTime);
+        }
+        else
+        {
+            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, fieldOfView, zoomStepTime * Time.deltaTime);
+        }
     }
-
-    // FROM OTHER GAME TO USE
-    //void UpdateWeaponAiming() 
-    //{
-    //    if (m_WeaponSwitchState == WeaponSwitchState.Up)
-    //    {
-    //        WeaponController activeWeapon = GetActiveWeapon();
-    //        if (IsAiming && activeWeapon)
-    //        {
-    //            m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
-    //                AimingWeaponPosition.localPosition + activeWeapon.AimOffset,
-    //                AimingAnimationSpeed * Time.deltaTime);
-    //            SetFov(Mathf.Lerp(m_PlayerCharacterController.PlayerCamera.fieldOfView,
-    //                activeWeapon.AimZoomRatio * DefaultFov, AimingAnimationSpeed * Time.deltaTime));
-    //        }
-    //        else
-    //        {
-    //            m_WeaponMainLocalPosition = Vector3.Lerp(m_WeaponMainLocalPosition,
-    //                DefaultWeaponPosition.localPosition, AimingAnimationSpeed * Time.deltaTime);
-    //            SetFov(Mathf.Lerp(m_PlayerCharacterController.PlayerCamera.fieldOfView, DefaultFov,
-    //                AimingAnimationSpeed * Time.deltaTime));
-    //        }
-    //    }
-    //}
 
     public void ChangeAimState(string aimType)
     {
@@ -80,13 +48,6 @@ public class AimDownSight : MonoBehaviour
         }
     }
 
-    // Is used for when the user has press to aim down sight enabled
-    private void AimPressedCheck()
-    {
-        aimPressed = !aimPressed;
-        Debug.Log("run how");
-    }
-
     public void HoldAim() // Need to make it so it resets when his done holding in
     {
         Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
@@ -94,12 +55,7 @@ public class AimDownSight : MonoBehaviour
         // THIS needs to be smoothed out
         rightHand.transform.localPosition = Vector3.Lerp(weaponInHand, rightHand.transform.localPosition + weaponInHand, 3 * Time.deltaTime);
 
-        //weaponInHand.position = Vector3.Lerp(weaponInHand.position, aiming.transform.localPosition, 3 * Time.deltaTime);
-
-        //weaponInHand.transform.SetParent(aiming.transform);
-
-        // THIS not working well
-        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, zoomFov, zoomStepTime * Time.deltaTime);
+        aimPressed = true;
     }
 
     public void ReleaseAim()
@@ -108,24 +64,16 @@ public class AimDownSight : MonoBehaviour
 
         rightHand.transform.localPosition = Vector3.Lerp(weaponInHand, rightHand.transform.localPosition, 3 * Time.deltaTime);
 
-        //weaponInHand.transform.SetParent(rightHand.transform);
-
-        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, fieldOfView, zoomStepTime * Time.deltaTime);
+        aimPressed = false;
     }
     public void ClickAim()
     {
         HoldAim();
-        aimPressed = true;
-        Debug.Log(aimPressed + " true");
-        //AimPressedCheck();
     }
 
     public void ClickHipAim()
     {
         ReleaseAim();
-        aimPressed = false;
-        Debug.Log(aimPressed + " false");
-        //AimPressedCheck();
     }
 
 }

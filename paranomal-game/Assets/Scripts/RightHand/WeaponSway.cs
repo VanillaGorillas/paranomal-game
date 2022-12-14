@@ -39,14 +39,36 @@ public class WeaponSway : MonoBehaviour
     [SerializeField]
     private float swayMultiplier;
 
+    private Vector3 defaultInitialPosition;
+
+    [Header("Aiming Down Sight")]
+
+    [SerializeField]
+    private AimDownSight aimDownSight;
+
+    [SerializeField]
+    private GameObject rightHand;
+
+    // TODO: Must make the camera move with the weapon movement 
+
     private void Start()
     {
+        defaultInitialPosition = transform.localPosition;
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
     }
 
     void Update() 
     {
+        if (aimDownSight.aimPressed && rightHand.GetComponentInChildren<Weapon>() != null)
+        {
+            initialPosition = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
+        } 
+        else
+        {
+            initialPosition = defaultInitialPosition;
+        }
+
         CalculateSway();
 
         MoveSway();
@@ -69,6 +91,8 @@ public class WeaponSway : MonoBehaviour
         transform.localPosition = Vector3.Lerp(transform.localPosition, finalPosition + initialPosition, Time.deltaTime * smoothAmount);
     }
 
+    // TODO: Look at sway might be going wrong way
+    // TODO: must cut values in half
     private void TiltSway()
     {
         float tiltY = Mathf.Clamp(inputX * rotationAmount, -maxRotationAmount, maxRotationAmount);

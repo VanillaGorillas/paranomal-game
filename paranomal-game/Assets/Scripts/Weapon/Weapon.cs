@@ -135,7 +135,7 @@ public class Weapon : MonoBehaviour
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
 
-        if (lineRenderer != null) // MAYBE MOVE THIS INTO UPDATE
+        if (lineRenderer != null) // MAYBE MOVE THIS INTO UPDATE // DON'T move into update as just weird
         {
             WeaponMove();
         }
@@ -241,6 +241,7 @@ public class Weapon : MonoBehaviour
         reloading = false;
     }
 
+    // TODO: Must use aim down sight values
     private void RecoilIncrease()
     {
         if (isFullAuto && playerPrefebInputManger.GetComponent<WeaponSystem>().triggerDown && bulletsLeft != 0)

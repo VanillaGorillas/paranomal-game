@@ -48,8 +48,11 @@ public class InputManager : MonoBehaviour
 
     void LateUpdate()
     {
-        // Weapon sway is affecting this
-        DownSight();
+        if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
+        {
+            // Weapon sway is affecting this
+            DownSight();
+        }
     }
 
     private void OnEnable()
