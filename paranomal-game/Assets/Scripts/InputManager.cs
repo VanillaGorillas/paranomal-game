@@ -50,7 +50,6 @@ public class InputManager : MonoBehaviour
     {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
-            // Weapon sway is affecting this
             DownSight();
         }
     }
@@ -75,8 +74,6 @@ public class InputManager : MonoBehaviour
         {
             onFoot.AimDownSight.started += ctx => aimDownSight.ChangeAimState("HoldAim");
             onFoot.AimDownSight.canceled += ctx => aimDownSight.ChangeAimState("");
-            // Most likely change later
-            //onFoot.AimDownSight.performed += ctx => aimDownSight.HoldAim();
         }
     }
 
@@ -85,20 +82,10 @@ public class InputManager : MonoBehaviour
         if (!aimDownSight.aimPressed)
         {
             onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState("ClickAim");
-            //AimPressedCheck();
-            Debug.Log("HERE");
         }
         else
         {
             onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState("ClickHipAim");
-            //AimPressedCheck();
-            Debug.Log("HERE2");
         }
     }
-
-    //private void AimPressedCheck()
-    //{
-    //    aimDownSight.aimPressed = !aimDownSight.aimPressed;
-    //    Debug.Log("run how");
-    //}
 }

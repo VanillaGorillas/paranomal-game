@@ -13,7 +13,7 @@ public class AimDownSight : MonoBehaviour
     public bool aimPressed = false;
 
     // TODO: For charcter when create one
-    private readonly float zoomFov = 25;
+    private readonly float zoomFov = 30;
     private readonly float zoomStepTime = 5;
     private readonly float fieldOfView = 60;
 
@@ -48,11 +48,10 @@ public class AimDownSight : MonoBehaviour
         }
     }
 
-    public void HoldAim() // Need to make it so it resets when his done holding in
+    public void HoldAim()
     {
         Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
 
-        // THIS needs to be smoothed out
         rightHand.transform.localPosition = Vector3.Lerp(weaponInHand, rightHand.transform.localPosition + weaponInHand, 3 * Time.deltaTime);
 
         aimPressed = true;
