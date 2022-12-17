@@ -61,7 +61,7 @@ public class Recoil : MonoBehaviour
             if (playerPrefebInputManger.GetComponent<AimDownSight>().aimPressed)
             {
                 CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, transform);
-
+                rightHand.transform.GetChild(0).transform.localRotation = weapon.aimDownSightRotation;
                 LocalRotationChange(transform, swayPosition);
             }
             else

@@ -107,6 +107,8 @@ public class Weapon : MonoBehaviour
     public Camera fpsCamera;
     public Transform attackPoint;
     public Vector3 aimDownSightPosition;
+    [HideInInspector]
+    public Quaternion aimDownSightRotation = Quaternion.Euler(0f, 0f, 0f);
     public Vector3 defaultHipAim;
 
     [Header("Weapon UI")]

@@ -68,24 +68,12 @@ public class InputManager : MonoBehaviour
     {
         if (!aimDownSight.holdIn)
         {
-            CheckDownSightClick();
+            onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState();
         }
         else
         {
-            onFoot.AimDownSight.started += ctx => aimDownSight.ChangeAimState("HoldAim");
-            onFoot.AimDownSight.canceled += ctx => aimDownSight.ChangeAimState("");
-        }
-    }
-
-    private void CheckDownSightClick()
-    {
-        if (!aimDownSight.aimPressed)
-        {
-            onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState("ClickAim");
-        }
-        else
-        {
-            onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState("ClickHipAim");
+            onFoot.AimDownSight.started += ctx => aimDownSight.Aim();
+            onFoot.AimDownSight.canceled += ctx => aimDownSight.ReleaseAim();
         }
     }
 }

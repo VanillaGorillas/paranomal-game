@@ -29,26 +29,18 @@ public class AimDownSight : MonoBehaviour
         }
     }
 
-    public void ChangeAimState(string aimType)
+    public void ChangeAimState()
     {
-        switch (aimType)
+        if (aimPressed)
         {
-            case "HoldAim":
-                HoldAim();
-                break;
-            case "ClickAim":
-                ClickAim();
-                break;
-            case "ClickHipAim":
-                ClickHipAim();
-                break;
-            default:
-                ReleaseAim();
-                break;
+            ReleaseAim();
+        } else
+        {
+            Aim();
         }
     }
 
-    public void HoldAim()
+    public void Aim()
     {
         Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
 
@@ -65,14 +57,4 @@ public class AimDownSight : MonoBehaviour
 
         aimPressed = false;
     }
-    public void ClickAim()
-    {
-        HoldAim();
-    }
-
-    public void ClickHipAim()
-    {
-        ReleaseAim();
-    }
-
 }
