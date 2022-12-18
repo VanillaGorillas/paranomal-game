@@ -29,9 +29,9 @@ public class Recoil : MonoBehaviour
     private float totalLocalEulerAngleX;
 
     [Header("Sway Variables")]
-    // Both increase different giving the values added
-    public float swayAmountA; // Increase vertical sway
-    public float swayAmountB; // Increases horizontal sway
+    // Sway AmountA and AmountB increase how sway works
+    public float swayAmountA;
+    public float swayAmountB; 
     public float swayLerpSpeed; // This affects how far they go apart more
 
     private float swayTime;
@@ -96,7 +96,6 @@ public class Recoil : MonoBehaviour
             float fullAutoHorizontalRecoil = weapon.isFullAutoHorizontalRecoil > 17f ? 17f :  weapon.isFullAutoHorizontalRecoil;
 
             targetRotation += new Vector3(-CheckVerticalRecoil(weapon.isFullAutoVerticalRecoil), Random.Range(-fullAutoHorizontalRecoil, fullAutoHorizontalRecoil), 0);
-            //targetRotation += new Vector3(-Mathf.Clamp(weapon.isFullAutoVerticalRecoil, -maxAngle, maxAngle), Random.Range(-fullAutoHorizontalRecoil, fullAutoHorizontalRecoil), 0);
         }
         else
         {

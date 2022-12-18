@@ -155,7 +155,7 @@ public class Weapon : MonoBehaviour
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
 
-        if (lineRenderer != null) // MAYBE MOVE THIS INTO UPDATE // DON'T move into update as just weird
+        if (lineRenderer != null) //TDOD: delete later on
         {
             WeaponMove();
         }

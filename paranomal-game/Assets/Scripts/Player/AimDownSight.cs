@@ -34,7 +34,8 @@ public class AimDownSight : MonoBehaviour
         if (aimPressed)
         {
             ReleaseAim();
-        } else
+        } 
+        else
         {
             Aim();
         }
