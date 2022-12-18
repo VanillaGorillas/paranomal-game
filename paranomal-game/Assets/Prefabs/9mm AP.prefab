@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6383717692370590723}
   - component: {fileID: -162019388731680443}
   - component: {fileID: -8970378913318214431}
+  - component: {fileID: 7564322669961419886}
   m_Layer: 7
   m_Name: 9mm AP
   m_TagString: Untagged
@@ -128,12 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487c1a877d003fc45aa942f8a5c89036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealt: 110
   addedRange: 7.7
   isArmourPiercing: 1
   isSoftPoint: 0
   bulletBody: {fileID: -6383717692370590723}
-  projectileWeight: 0.0042
+  projectileWeight: 0.42
 --- !u!96 &-8970378913318214431
 TrailRenderer:
   serializedVersion: 2
@@ -242,3 +242,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &7564322669961419886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9134478513145949271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7db67542659a64e8bb0502f91b964c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 110

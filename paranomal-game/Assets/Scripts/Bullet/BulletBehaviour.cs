@@ -7,8 +7,8 @@ public class BulletBehaviour : MonoBehaviour
     private float startRangeOfBulletDrop;
     private int collisionCount = 0; // This will be use to see if ricochet hits second game object
 
-    [SerializeField]
-    private float damageDealt;
+    //[SerializeField]
+    //private float damageDealt;
     private float timeBulletGetsDestoryed = 0f; // The time for the gameobject to be destoryed
 
     [SerializeField]
@@ -35,9 +35,13 @@ public class BulletBehaviour : MonoBehaviour
     private float weaponMuzzleVelocity;
     private float randomDestoryTime = 0;
 
+    [Header("Bullet Damage")]
+    private BulletDamage bulletDamage;
+
 
     private void Awake()
     {
+        bulletDamage = GetComponent<BulletDamage>();
         rightHand = GameObject.Find("RightHand"); // Gets RightHand gameobject on every Instantiate of bullet made
         startRangeOfBulletDrop = rightHand.GetComponentInChildren<Weapon>().effectiveFiringRange; 
 
@@ -54,16 +58,17 @@ public class BulletBehaviour : MonoBehaviour
     {
         distanceTravled += Vector3.Distance(lastPosition, transform.position); // Gets the distanced covered from attack point to point on map per frame
         lastPosition = transform.position;
+    }
 
-
+    private void LateUpdate()
+    {
         if (distanceTravled > startRangeOfBulletDrop || penetratedObject)
         {
             bulletBody.useGravity = true;
-            
+
             bulletBody.AddForce(projectileWeight * Vector3.down); // Will move the gameobject downwards
-            
-            damageDealt -= 2.5f; //TODO: This will need to be modified with what damage bullets do and what distance it goes up to and enemy health, NEED MORE DIFFERENT CACULATIONS
-            damageDealt = damageDealt < 0 ? 0f : damageDealt;
+
+            bulletDamage.BulletDamageReduction(startRangeOfBulletDrop);
         }
     }
 
@@ -76,26 +81,24 @@ public class BulletBehaviour : MonoBehaviour
         {
             if (isArmourPiercing && contact.otherCollider.gameObject.layer == (int) EnumLayer.Enemy)
             {
-                DoDamage();
-                Destroy(gameObject);
+                bulletDamage.BulletDamageOnImpact(collisionCount);
+
+                Penetration();
             }
-            else if (isArmourPiercing && collisionCount == 0 && (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured)) // Must still do more checks for armoured layer(make)
+            else if (isArmourPiercing && collisionCount <= 2 && (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured)) // Must still do more checks for armoured layer(make)
             {
-                Penetration();             
+                Penetration(); // TODO: make it go through more walls             
             }
             else
             {
-                collisionCount++;
-
-                Destroy(gameObject, collisionCount == 2 ? 0f : timeBulletGetsDestoryed);
+                bulletDamage.BulletDamageOnImpact(collisionCount);
+                //Destroy(gameObject);
             }
         }
     }
 
     private void Penetration()
     {
-        collisionCount++;
-
         if (rightHand.GetComponentInChildren<BulletPenetration>() != null)
         {
             penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint;
@@ -103,6 +106,17 @@ public class BulletBehaviour : MonoBehaviour
             // Layer 10 is Enemy
             if (rightHand.GetComponentInChildren<BulletPenetration>().impactPoint != penetrationPoint)
             {
+                Ray ray = new Ray(transform.position, transform.forward);
+                
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    if (1f > hit.distance)
+                    {
+                        Debug.Log(hit.point); //TODO: fix up here 
+                    }
+                }
+                
+
                 PentrationCheck(rightHand);
 
                 // Moves GameObject to point and with forward will point it 1 infront of position
@@ -111,13 +125,17 @@ public class BulletBehaviour : MonoBehaviour
                 // Moves GameObject Rigidbody forward with new muzzle velocity
                 gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
 
-                Destroy(gameObject, randomDestoryTime);
+                bulletDamage.BulletDamageOnImpact(collisionCount);
+
+                //Destroy(gameObject, randomDestoryTime);
             }
         }
         else
         {
-            Destroy(gameObject, Random.Range(0.1f, 0.4f));  
+            //Destroy(gameObject, Random.Range(0.1f, 0.4f));  
         }
+
+        collisionCount++;
     }
 
     private void PentrationCheck(GameObject rightHandGameObject)
@@ -126,11 +144,6 @@ public class BulletBehaviour : MonoBehaviour
                                / 100
                                * 40;
         penetratedObject = true;
-        randomDestoryTime = Random.Range(1f, 2f);      
-    }
-
-    private void DoDamage()
-    {
-        //TODO: For when hitting enemy
+        randomDestoryTime = Random.Range(1f, 2f);
     }
 }
