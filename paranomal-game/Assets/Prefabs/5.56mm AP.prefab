@@ -134,6 +134,8 @@ MonoBehaviour:
   isSoftPoint: 0
   bulletBody: {fileID: -3794316438491666664}
   projectileWeight: 0.34
+  penetrationAmount: 1
+  penetrationContinuousAmount: 3
 --- !u!96 &-537775593009845427
 TrailRenderer:
   serializedVersion: 2

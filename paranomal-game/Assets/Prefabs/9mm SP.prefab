@@ -159,7 +159,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 20
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -176,7 +176,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.24555969
+        time: 0.93925476
         value: 0
         inSlope: 0
         outSlope: 0
@@ -242,6 +242,8 @@ MonoBehaviour:
   isSoftPoint: 1
   bulletBody: {fileID: 3484965901773759690}
   projectileWeight: 0.745
+  penetrationAmount: 1
+  penetrationContinuousAmount: 0
 --- !u!114 &-6781408416689383395
 MonoBehaviour:
   m_ObjectHideFlags: 0
