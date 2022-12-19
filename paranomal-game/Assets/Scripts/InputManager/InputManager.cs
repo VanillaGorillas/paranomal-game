@@ -12,7 +12,6 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameObject rightHand;
 
-    // Start is called before the first frame update
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -26,7 +25,6 @@ public class InputManager : MonoBehaviour
         onFoot.SecondaryWeaponSwap.performed += ctx => swapWeapon.SwapToSecondary();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)

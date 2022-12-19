@@ -30,10 +30,10 @@ public class BulletBehaviour : MonoBehaviour
     [Header("Bullet Penetration")]
 
     [SerializeField]
-    private float penetrationAmount;
+    private float penetrationAmount; // This is the thickness of another gameobject that the bullet can pass through
 
     [SerializeField]
-    private int penetrationContinuousAmount;
+    private int penetrationContinuousAmount; // The amount of gameobjects the bullet can pass through
     private Vector3? penetrationPoint;
     private Vector3? impactPoint;
     private bool penetratedObject = false;
@@ -47,7 +47,7 @@ public class BulletBehaviour : MonoBehaviour
     private void Awake()
     {
         bulletDamage = GetComponent<BulletDamage>();
-        rightHand = GameObject.Find("RightHand"); // Gets RightHand gameobject on every Instantiate of bullet made
+        rightHand = GameObject.Find("RightHand"); // Gets RightHand gameobject on every Creation of bullet
         startRangeOfBulletDrop = rightHand.GetComponentInChildren<Weapon>().effectiveFiringRange; 
 
         lastPosition = transform.position;
@@ -92,7 +92,8 @@ public class BulletBehaviour : MonoBehaviour
 
                 Penetration();
             }
-            else if (isArmourPiercing && collisionCount <= penetrationContinuousAmount && (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured)) // Must still do more checks for armoured layer(make)
+            else if (isArmourPiercing && collisionCount <= penetrationContinuousAmount && 
+                (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured))
             {
                 Penetration();
             }

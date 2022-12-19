@@ -26,15 +26,15 @@ public class BulletDamage : MonoBehaviour
     {
         if (collisionCount == 2)
         {
-            //Debug.Log(damage / 3);
+            //damage / 3
         }
         else if (collisionCount == 1)
         {
-            //Debug.Log(damage / 2); 
+            //damage / 2
         }
         else if (collisionCount == 0)
         {
-            //Debug.Log(damage);
+            //damage
         }
     }
 

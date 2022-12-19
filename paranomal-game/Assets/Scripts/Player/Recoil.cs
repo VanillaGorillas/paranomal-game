@@ -29,7 +29,7 @@ public class Recoil : MonoBehaviour
     private float totalLocalEulerAngleX;
 
     [Header("Sway Variables")]
-    // Sway AmountA and AmountB increase how sway works
+    // Sway AmountA and AmountB changes the directions of which way the sway goes. // Will probably change down the line for something smoother and more random
     public float swayAmountA;
     public float swayAmountB; 
     public float swayLerpSpeed; // This affects how far they go apart more
