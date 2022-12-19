@@ -27,7 +27,7 @@ public class WeaponSway : MonoBehaviour
     public bool rotationY;
     public bool rotationZ;
 
-    private Vector3 initialPosition;
+    private Vector3 initialPosition; // Must probably get this for script to change then change back
     private Quaternion initialRotation;
 
     private float inputX;
@@ -39,14 +39,36 @@ public class WeaponSway : MonoBehaviour
     [SerializeField]
     private float swayMultiplier;
 
+    private Vector3 defaultInitialPosition;
+
+    [Header("Aiming Down Sight")]
+
+    [SerializeField]
+    private AimDownSight aimDownSight;
+
+    [SerializeField]
+    private GameObject rightHand;
+
+    // TODO: Must make the camera move with the weapon movement 
+
     private void Start()
     {
+        defaultInitialPosition = transform.localPosition;
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
     }
 
     void Update() 
     {
+        if (aimDownSight.aimPressed && rightHand.GetComponentInChildren<Weapon>() != null)
+        {
+            initialPosition = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
+        } 
+        else
+        {
+            initialPosition = defaultInitialPosition;
+        }
+
         CalculateSway();
 
         MoveSway();
@@ -74,7 +96,7 @@ public class WeaponSway : MonoBehaviour
         float tiltY = Mathf.Clamp(inputX * rotationAmount, -maxRotationAmount, maxRotationAmount);
         float tiltX = Mathf.Clamp(inputY * rotationAmount, -maxRotationAmount, maxRotationAmount);
 
-        Quaternion finalRotation = Quaternion.Euler(new Vector3(rotationX ? -tiltX : 0f, rotationY ? tiltY : 0f, rotationZ ? tiltY : 0f));
+        Quaternion finalRotation = Quaternion.Euler(new Vector3(rotationX ? -tiltX : 0f, rotationY ? tiltY : 0f, rotationZ ? -tiltY : 0f));
 
         transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation * initialRotation, Time.deltaTime * smoothRotation);
     }

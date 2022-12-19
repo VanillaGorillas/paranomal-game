@@ -676,7 +676,6 @@ GameObject:
   - component: {fileID: 116100328}
   - component: {fileID: 116100327}
   - component: {fileID: 116100333}
-  - component: {fileID: 116100334}
   m_Layer: 6
   m_Name: Uzi
   m_TagString: Untagged
@@ -725,6 +724,9 @@ MonoBehaviour:
   isSemiAutomatic: 0
   recoilEnergy: 1.555
   recoilImpules: 3.299
+  grip: 0
+  vertical: 0
+  horizontal: 0
   verticalRecoil: 0.444
   horizontalRecoil: 0.222
   hipGrip: 1.037
@@ -749,6 +751,9 @@ MonoBehaviour:
   triggerPressed: 0
   fpsCamera: {fileID: 813667541}
   attackPoint: {fileID: 1599371345}
+  aimDownSightPosition: {x: 0, y: 0, z: 0}
+  aimDownSightRotation: {x: 0, y: 0, z: 0, w: 1}
+  defaultHipAim: {x: 0, y: 0, z: 0}
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
@@ -876,21 +881,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 116100327}
   switchingModes: 0
---- !u!114 &116100334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 116100325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmountA: 2
-  swayAmountB: 2
-  swayLerpSpeed: 1
 --- !u!1 &167484302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,7 +1794,6 @@ GameObject:
   - component: {fileID: 575461995}
   - component: {fileID: 575462000}
   - component: {fileID: 575462001}
-  - component: {fileID: 575462002}
   m_Layer: 6
   m_Name: Glock 17
   m_TagString: Untagged
@@ -1956,6 +1945,9 @@ MonoBehaviour:
   isSemiAutomatic: 0
   recoilEnergy: 6.737
   recoilImpules: 3.093
+  grip: 0
+  vertical: 0
+  horizontal: 0
   verticalRecoil: 9.489
   horizontalRecoil: 4.745
   hipGrip: 1.57
@@ -1980,6 +1972,9 @@ MonoBehaviour:
   triggerPressed: 0
   fpsCamera: {fileID: 813667541}
   attackPoint: {fileID: 964299907}
+  aimDownSightPosition: {x: 0, y: 0, z: 0}
+  aimDownSightRotation: {x: 0, y: 0, z: 0, w: 1}
+  defaultHipAim: {x: 0, y: 0, z: 0}
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
@@ -2004,21 +1999,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 575462000}
   switchingModes: 0
---- !u!114 &575462002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575461993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmountA: 2
-  swayAmountB: 2
-  swayLerpSpeed: 1
 --- !u!43 &623259082
 Mesh:
   m_ObjectHideFlags: 0
@@ -2713,7 +2693,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!43 &708318508
 Mesh:
@@ -3936,7 +3916,6 @@ GameObject:
   - component: {fileID: 1090366490}
   - component: {fileID: 1090366489}
   - component: {fileID: 1090366488}
-  - component: {fileID: 1090366487}
   m_Layer: 6
   m_Name: M4 Carbine
   m_TagString: Untagged
@@ -3944,21 +3923,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1090366487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090366486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmountA: 1
-  swayAmountB: 2
-  swayLerpSpeed: 4
 --- !u!114 &1090366488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3998,12 +3962,15 @@ MonoBehaviour:
   isSemiAutomatic: 0
   recoilEnergy: 8.113
   recoilImpules: 6.883
+  grip: 0
+  vertical: 0
+  horizontal: 0
   verticalRecoil: 2.778
   horizontalRecoil: 1.389
   hipGrip: 1.623
-  downSightVerticalRecoil: 0
-  downSightHorizontalRecoil: 0
-  downSightGrip: 0
+  downSightVerticalRecoil: 1
+  downSightHorizontalRecoil: 2
+  downSightGrip: 1.8
   bullet: {fileID: 8939773668328786624, guid: 8b5f865386deb6e4096d55a658b6cd0b, type: 3}
   muzzleVelocity: 910
   upwardForceGernades: 0
@@ -4022,6 +3989,9 @@ MonoBehaviour:
   triggerPressed: 0
   fpsCamera: {fileID: 813667541}
   attackPoint: {fileID: 627083091}
+  aimDownSightPosition: {x: 0, y: -0.13, z: 0.7}
+  aimDownSightRotation: {x: 0, y: 0, z: 0, w: 1}
+  defaultHipAim: {x: 0.175, y: -0.143, z: 0.606}
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
@@ -4167,7 +4137,6 @@ GameObject:
   - component: {fileID: 1102543672}
   - component: {fileID: 1102543674}
   - component: {fileID: 1102543675}
-  - component: {fileID: 1102543676}
   m_Layer: 6
   m_Name: Sig M400 VTAC AR15
   m_TagString: Untagged
@@ -4319,6 +4288,9 @@ MonoBehaviour:
   isSemiAutomatic: 0
   recoilEnergy: 7.998
   recoilImpules: 7.375
+  grip: 0
+  vertical: 0
+  horizontal: 0
   verticalRecoil: 2.352
   horizontalRecoil: 1.176
   hipGrip: 1.6
@@ -4343,6 +4315,9 @@ MonoBehaviour:
   triggerPressed: 0
   fpsCamera: {fileID: 813667541}
   attackPoint: {fileID: 186776045}
+  aimDownSightPosition: {x: 0, y: 0, z: 0}
+  aimDownSightRotation: {x: 0, y: 0, z: 0, w: 1}
+  defaultHipAim: {x: 0, y: 0, z: 0}
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
@@ -4367,21 +4342,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 1102543674}
   switchingModes: 0
---- !u!114 &1102543676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102543667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmountA: 2
-  swayAmountB: 2
-  swayLerpSpeed: 1
 --- !u!43 &1121822312
 Mesh:
   m_ObjectHideFlags: 0
@@ -5941,7 +5901,6 @@ GameObject:
   - component: {fileID: 1836168185}
   - component: {fileID: 1836168184}
   - component: {fileID: 1836168190}
-  - component: {fileID: 1836168191}
   m_Layer: 6
   m_Name: Sig Sauer P226
   m_TagString: Untagged
@@ -5990,6 +5949,9 @@ MonoBehaviour:
   isSemiAutomatic: 0
   recoilEnergy: 4.529
   recoilImpules: 2.887
+  grip: 0
+  vertical: 0
+  horizontal: 0
   verticalRecoil: 4.923
   horizontalRecoil: 2.462
   hipGrip: 1.11
@@ -6014,6 +5976,9 @@ MonoBehaviour:
   triggerPressed: 0
   fpsCamera: {fileID: 813667541}
   attackPoint: {fileID: 644882838}
+  aimDownSightPosition: {x: 0, y: 0, z: 0}
+  aimDownSightRotation: {x: 0, y: 0, z: 0, w: 1}
+  defaultHipAim: {x: 0, y: 0, z: 0}
   ammunitionDisplay: {fileID: 0}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
@@ -6141,21 +6106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 1836168184}
   switchingModes: 0
---- !u!114 &1836168191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836168182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd796bfb3cc1da4db51497d6ea3017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmountA: 2
-  swayAmountB: 2
-  swayLerpSpeed: 1
 --- !u!43 &1836424292
 Mesh:
   m_ObjectHideFlags: 0
@@ -6615,6 +6565,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875508245}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1927529388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3040472445013012732, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+  m_PrefabInstance: {fileID: 8765489994903951804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1988083788
 GameObject:
   m_ObjectHideFlags: 0
@@ -7058,7 +7013,7 @@ PrefabInstance:
       objectReference: {fileID: 841781652}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7100,10 +7055,86 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: enableZoom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: enableHeadBob
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
       objectReference: {fileID: 0}
+    - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4490234017159746761, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377569204950287601, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807432968395328182, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: Aiming
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807432968395328182, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: aiming
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807432968395328182, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 813667541}
+    - target: {fileID: 5807432968395328182, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: holdIn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807432968395328182, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 1927529388}
+    - target: {fileID: 6452794177159754286, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452794177159754286, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592070906087155488, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592070906087155488, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: swayAmountA
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592070906087155488, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: swayAmountB
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592070906087155488, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: swayLerpSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978645918321096045, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978645918321096045, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 1927529388}
+    - target: {fileID: 8978645918321096045, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: aimDownSight
+      value: 
+      objectReference: {fileID: 8765489994903951812}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!4 &8765489994903951805 stripped
@@ -7131,3 +7162,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5377569204950287601, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
   m_PrefabInstance: {fileID: 8765489994903951804}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8765489994903951812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5807432968395328182, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+  m_PrefabInstance: {fileID: 8765489994903951804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dac0ca204cc794f878ef6bd00ff39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

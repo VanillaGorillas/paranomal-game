@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using UnityEngine;
 
 public class Recoil : MonoBehaviour
@@ -23,7 +24,24 @@ public class Recoil : MonoBehaviour
     [SerializeField]
     private GameObject cameraTransform;
 
-    // Update is called once per frame
+    private float maxAngle;
+    private float cameraLocalEulerAngleX;
+    private float totalLocalEulerAngleX;
+
+    [Header("Sway Variables")]
+    // Sway AmountA and AmountB increase how sway works
+    public float swayAmountA;
+    public float swayAmountB; 
+    public float swayLerpSpeed; // This affects how far they go apart more
+
+    private float swayTime;
+    private Vector3 swayPosition;
+
+    private void Awake()
+    {
+        maxAngle = playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle;
+    }
+
     void Update()
     {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
@@ -37,14 +55,35 @@ public class Recoil : MonoBehaviour
             else
             {
                 snappiness = weapon.recoilEnergy;
-                returnSpeed = weapon.hipGrip;
+                returnSpeed = weapon.grip;
+            }
+
+            if (playerPrefebInputManger.GetComponent<AimDownSight>().aimPressed)
+            {
+                CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, transform);
+                rightHand.transform.GetChild(0).transform.localRotation = weapon.aimDownSightRotation;
+                LocalRotationChange(transform, swayPosition);
+            }
+            else
+            {
+                CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, rightHand.transform.GetChild(0).transform);
+
+                rightHand.transform.GetChild(0).transform.localRotation = Quaternion.Euler(swayPosition);
+
+                LocalRotationChange(transform, new Vector3());
             }
         }
- 
+
+        cameraLocalEulerAngleX = cameraTransform.transform.localEulerAngles.x;
+        totalLocalEulerAngleX = currentRotation.x + cameraLocalEulerAngleX;
+    }
+
+    private void LocalRotationChange(Transform form, Vector3 rotation)
+    {
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
-        
-        transform.localRotation = Quaternion.Euler(currentRotation);
+
+        form.localRotation = Quaternion.Euler(rotation + currentRotation);
     }
 
     public void RecoilFire()
@@ -61,15 +100,32 @@ public class Recoil : MonoBehaviour
         else
         {
             // This is when gun is semi-auto or shot once
-            targetRotation += new Vector3(-CheckVerticalRecoil(weapon.verticalRecoil), Random.Range(-weapon.horizontalRecoil, weapon.horizontalRecoil), 0);
+            targetRotation += new Vector3(-CheckVerticalRecoil(weapon.vertical), Random.Range(-weapon.horizontal, weapon.horizontal), 0);
         }
     }
 
     // Used for restricting the recoil from going past the max camera angle look
     private float CheckVerticalRecoil(float verticalRecoil)
     {
-        var maxAxisX = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x + UnityEditor.TransformUtils.GetInspectorRotation(cameraTransform.transform).x;
+        return totalLocalEulerAngleX > (float)EnumRecoil.FullRotation - maxAngle || totalLocalEulerAngleX > (float)EnumRecoil.StartRotation && totalLocalEulerAngleX < maxAngle + 1 ? verticalRecoil: 0f;
+    }
 
-        return maxAxisX < -playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle ? 0f : verticalRecoil;
+    // Creates the Weapon Sway
+    private Vector3 LissajousCurve(float Time, float A, float B)
+    {
+        return new Vector3(Mathf.Sin(Time), A * Mathf.Sin(B * Time + Mathf.PI));
+    }
+
+    private void CalculateWeaponSway(float time, float amountA, float amountB, Transform form)
+    {
+        Vector3 targetPosition = LissajousCurve(time, amountA, amountB);
+
+        swayPosition = Vector3.Lerp(swayPosition, targetPosition, Time.smoothDeltaTime * swayLerpSpeed);
+        swayTime += Time.deltaTime;
+
+        if (swayTime > 6.3f)
+        {
+            swayTime = 0;
+        }
     }
 }
