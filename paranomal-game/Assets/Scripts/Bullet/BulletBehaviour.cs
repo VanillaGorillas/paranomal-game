@@ -7,8 +7,6 @@ public class BulletBehaviour : MonoBehaviour
     private float startRangeOfBulletDrop;
     private int collisionCount = 0; // This will be use to see if ricochet hits second game object
 
-    [SerializeField]
-    private float damageDealt;
     private float timeBulletGetsDestoryed = 0f; // The time for the gameobject to be destoryed
 
     [SerializeField]
@@ -30,15 +28,26 @@ public class BulletBehaviour : MonoBehaviour
     private float projectileWeight; // Weight of bullet might need to be more since bullet weight is low
 
     [Header("Bullet Penetration")]
+
+    [SerializeField]
+    private float penetrationAmount; // This is the thickness of another gameobject that the bullet can pass through
+
+    [SerializeField]
+    private int penetrationContinuousAmount; // The amount of gameobjects the bullet can pass through
     private Vector3? penetrationPoint;
+    private Vector3? impactPoint;
     private bool penetratedObject = false;
     private float weaponMuzzleVelocity;
     private float randomDestoryTime = 0;
 
+    [Header("Bullet Damage")]
+    private BulletDamage bulletDamage;
+
 
     private void Awake()
     {
-        rightHand = GameObject.Find("RightHand"); // Gets RightHand gameobject on every Instantiate of bullet made
+        bulletDamage = GetComponent<BulletDamage>();
+        rightHand = GameObject.Find("RightHand"); // Gets RightHand gameobject on every Creation of bullet
         startRangeOfBulletDrop = rightHand.GetComponentInChildren<Weapon>().effectiveFiringRange; 
 
         lastPosition = transform.position;
@@ -55,15 +64,18 @@ public class BulletBehaviour : MonoBehaviour
         distanceTravled += Vector3.Distance(lastPosition, transform.position); // Gets the distanced covered from attack point to point on map per frame
         lastPosition = transform.position;
 
+        RayCastDistanceCheck();
+    }
 
+    private void LateUpdate()
+    {
         if (distanceTravled > startRangeOfBulletDrop || penetratedObject)
         {
             bulletBody.useGravity = true;
-            
+
             bulletBody.AddForce(projectileWeight * Vector3.down); // Will move the gameobject downwards
-            
-            damageDealt -= 2.5f; //TODO: This will need to be modified with what damage bullets do and what distance it goes up to and enemy health, NEED MORE DIFFERENT CACULATIONS
-            damageDealt = damageDealt < 0 ? 0f : damageDealt;
+
+            bulletDamage.BulletDamageReduction(startRangeOfBulletDrop);
         }
     }
 
@@ -76,47 +88,64 @@ public class BulletBehaviour : MonoBehaviour
         {
             if (isArmourPiercing && contact.otherCollider.gameObject.layer == (int) EnumLayer.Enemy)
             {
-                DoDamage();
-                Destroy(gameObject);
+                bulletDamage.BulletDamageOnImpact(collisionCount);
+
+                Penetration();
             }
-            else if (isArmourPiercing && collisionCount == 0 && (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured)) // Must still do more checks for armoured layer(make)
+            else if (isArmourPiercing && collisionCount <= penetrationContinuousAmount && 
+                (contact.otherCollider.gameObject.layer == (int) EnumLayer.Wall || contact.otherCollider.gameObject.layer == (int) EnumLayer.Armoured))
             {
-                Penetration();             
+                Penetration();
             }
             else
             {
-                collisionCount++;
-
-                Destroy(gameObject, collisionCount == 2 ? 0f : timeBulletGetsDestoryed);
+                bulletDamage.BulletDamageOnImpact(collisionCount);
+                Destroy(gameObject);
             }
         }
     }
 
     private void Penetration()
     {
-        collisionCount++;
-
-        if (rightHand.GetComponentInChildren<BulletPenetration>() != null)
+        if (impactPoint != penetrationPoint)
         {
-            penetrationPoint = rightHand.GetComponentInChildren<BulletPenetration>().penetrationPoint;
+            PentrationCheck(rightHand);
 
-            // Layer 10 is Enemy
-            if (rightHand.GetComponentInChildren<BulletPenetration>().impactPoint != penetrationPoint)
+            transform.position = penetrationPoint.Value + transform.forward;
+
+            gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
+
+            bulletDamage.BulletDamageOnImpact(collisionCount);
+
+            Destroy(gameObject, randomDestoryTime);
+        }
+  
+        collisionCount++;
+    }
+
+    private void RayCastDistanceCheck()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            impactPoint = hit.point;
+
+            Ray penRay = new(hit.point + ray.direction * penetrationAmount, -ray.direction);
+
+            if (hit.collider.Raycast(penRay, out RaycastHit penHit, penetrationAmount))
             {
-                PentrationCheck(rightHand);
-
-                // Moves GameObject to point and with forward will point it 1 infront of position
-                transform.position = penetrationPoint.Value + transform.forward;
-
-                // Moves GameObject Rigidbody forward with new muzzle velocity
-                gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * weaponMuzzleVelocity);
-
-                Destroy(gameObject, randomDestoryTime);
+                penetrationPoint = penHit.point;
+            }
+            else
+            {
+                penetrationPoint = impactPoint;
             }
         }
         else
         {
-            Destroy(gameObject, Random.Range(0.1f, 0.4f));  
+            penetrationPoint = null;
+            impactPoint = null;
         }
     }
 
@@ -126,11 +155,6 @@ public class BulletBehaviour : MonoBehaviour
                                / 100
                                * 40;
         penetratedObject = true;
-        randomDestoryTime = Random.Range(1f, 2f);      
-    }
-
-    private void DoDamage()
-    {
-        //TODO: For when hitting enemy
+        randomDestoryTime = Random.Range(1f, 2f);
     }
 }

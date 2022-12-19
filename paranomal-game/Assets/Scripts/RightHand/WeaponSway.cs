@@ -27,7 +27,7 @@ public class WeaponSway : MonoBehaviour
     public bool rotationY;
     public bool rotationZ;
 
-    private Vector3 initialPosition; // Must probably get this for script to change then change back
+    private Vector3 initialPosition;
     private Quaternion initialRotation;
 
     private float inputX;
@@ -39,7 +39,7 @@ public class WeaponSway : MonoBehaviour
     [SerializeField]
     private float swayMultiplier;
 
-    private Vector3 defaultInitialPosition;
+    private Vector3 defaultInitialPosition; // Used to set back position of weapon when not aiming down sight
 
     [Header("Aiming Down Sight")]
 

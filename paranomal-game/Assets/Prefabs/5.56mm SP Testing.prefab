@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7819607150756480731}
   - component: {fileID: -3321346734261303680}
   - component: {fileID: 7335993640325610588}
+  - component: {fileID: 4864551420312203945}
   m_Layer: 7
   m_Name: 5.56mm SP Testing
   m_TagString: Untagged
@@ -128,15 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487c1a877d003fc45aa942f8a5c89036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealt: 100
   addedRange: 0
   isArmourPiercing: 1
   isSoftPoint: 0
   bulletBody: {fileID: 7819607150756480731}
-  projectileWeight: 0.004
-  penetrationAmount: 4
-  endPoint: {x: 0, y: 0, z: 0}
-  startPoint: {x: 0, y: 0, z: 0}
+  projectileWeight: 0.4
+  penetrationAmount: 1
+  penetrationContinuousAmount: 3
 --- !u!96 &7335993640325610588
 TrailRenderer:
   serializedVersion: 2
@@ -245,3 +244,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &4864551420312203945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8939773668328786624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7db67542659a64e8bb0502f91b964c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
