@@ -60,16 +60,24 @@ public class Recoil : MonoBehaviour
 
             if (playerPrefebInputManger.GetComponent<AimDownSight>().aimPressed)
             {
+                // This is using the Join gameobject to make the camera sway
                 CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, transform);
+
+                // This is keeping the weapon in netural position when Joint is moving around
                 rightHand.transform.GetChild(0).transform.localRotation = weapon.aimDownSightRotation;
+
+                // This is sending the Joint and the sway position with the Joint change rotation
                 LocalRotationChange(transform, swayPosition);
             }
             else
             {
+                // This is sending the Weapon transform to change rotation of weapon
                 CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, rightHand.transform.GetChild(0).transform);
 
+                // This is setting the Weapon rotation
                 rightHand.transform.GetChild(0).transform.localRotation = Quaternion.Euler(swayPosition);
 
+                // This is sending Joint position with netural position so only the Weapon does rotation
                 LocalRotationChange(transform, new Vector3());
             }
         }

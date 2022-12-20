@@ -106,7 +106,11 @@ public class Weapon : MonoBehaviour
     // Reference
     public Camera fpsCamera;
     public Transform attackPoint;
-    public Vector3 aimDownSightPosition;
+
+    [SerializeField]
+    private Vector3 aimDownSightPosition; // Maybe adjust when there is scope on
+    [HideInInspector]
+    public Vector3 SendAimDownSightPosition;
     [HideInInspector]
     public Quaternion aimDownSightRotation = Quaternion.Euler(0f, 0f, 0f);
     public Vector3 defaultHipAim;
@@ -140,6 +144,11 @@ public class Weapon : MonoBehaviour
     [HideInInspector]
     public float isFullAutoHorizontalRecoil; // need to do more checks
 
+    [Header("Sight")]
+
+    [SerializeField]
+    private GameObject sight;
+
     [Header("For Testing Weapon")]
     [SerializeField] private LineRenderer lineRenderer; // For testing purposes
 
@@ -158,6 +167,30 @@ public class Weapon : MonoBehaviour
         if (lineRenderer != null) //TDOD: delete later on
         {
             WeaponMove();
+        }
+
+        if (sight != null)
+        {
+            // TODO: Might have to add in update later on. Will see how I do weapon attachments
+            CheckAttachmentsAdded();
+
+            if (sight.GetComponentInChildren<AttachmentSight>() != null)
+            {
+                SendDownSightValues();
+            }
+            else
+            {
+                DefaultAimDownSight();
+            }
+        }
+    }
+    
+    // TODO: Will see if I make it that they can swap attachments while playing or just before game starts
+    private void CheckAttachmentsAdded()
+    {
+        if (sight.transform.childCount == 1)
+        {
+            GetComponent<Attachment>().sight = true;
         }
     }
 
@@ -291,6 +324,24 @@ public class Weapon : MonoBehaviour
             vertical = verticalRecoil;
             horizontal = horizontalRecoil;
         }
+    }
+
+    // This is to check what position the Weapon will be in when the it is Aimed
+    private void SendDownSightValues()
+    {
+        if (GetComponentInChildren<AttachmentSight>().scope)
+        {
+            SendAimDownSightPosition = GetComponentInChildren<AttachmentSight>().weaponPositionChangeAim;
+        }
+        else
+        {
+            DefaultAimDownSight();
+        }
+    }
+
+    private void DefaultAimDownSight()
+    {
+        SendAimDownSightPosition = aimDownSightPosition;
     }
 
     private void CheckADSTrigger()

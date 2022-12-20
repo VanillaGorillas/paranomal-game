@@ -62,7 +62,7 @@ public class WeaponSway : MonoBehaviour
     {
         if (aimDownSight.aimPressed && rightHand.GetComponentInChildren<Weapon>() != null)
         {
-            initialPosition = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
+            initialPosition = rightHand.GetComponentInChildren<Weapon>().SendAimDownSightPosition;
         } 
         else
         {
