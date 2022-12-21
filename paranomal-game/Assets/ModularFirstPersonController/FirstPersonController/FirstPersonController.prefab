@@ -908,6 +908,9 @@ MonoBehaviour:
   rightHand: {fileID: 3040472445013012732}
   playerPrefebInputManger: {fileID: 675202839}
   cameraTransform: {fileID: 4459864851310106424}
+  swayAmountA: 0
+  swayAmountB: 0
+  swayLerpSpeed: 0
 --- !u!1 &4459864851551516604
 GameObject:
   m_ObjectHideFlags: 0

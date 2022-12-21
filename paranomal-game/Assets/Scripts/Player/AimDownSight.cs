@@ -13,19 +13,29 @@ public class AimDownSight : MonoBehaviour
     public bool aimPressed = false;
 
     // TODO: For charcter when create one
-    private readonly float zoomFov = 30;
     private readonly float zoomStepTime = 5;
     private readonly float fieldOfView = 60;
 
     private void Update()
     {
-        if (aimPressed)
+        if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.GetComponentInChildren<Attachment>().sight)
+        {   
+                ScopeIn();
+        }      
+    }
+
+    private void ScopeIn()
+    {
+        if (rightHand.GetComponentInChildren<AttachmentSight>().scope)
         {
-            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, zoomFov, zoomStepTime * Time.deltaTime);
-        }
-        else
-        {
-            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, fieldOfView, zoomStepTime * Time.deltaTime);
+            if (aimPressed)
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, rightHand.GetComponentInChildren<AttachmentSight>().fieldOfViewScopeLook, zoomStepTime * Time.deltaTime);
+            }
+            else
+            {
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, fieldOfView, zoomStepTime * Time.deltaTime);
+            }
         }
     }
 
@@ -43,7 +53,7 @@ public class AimDownSight : MonoBehaviour
 
     public void Aim()
     {
-        Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().aimDownSightPosition;
+        Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().sendAimDownSightPosition;
 
         rightHand.transform.localPosition = Vector3.Lerp(weaponInHand, rightHand.transform.localPosition + weaponInHand, 3 * Time.deltaTime);
 
