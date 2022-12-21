@@ -61,7 +61,7 @@ public class Recoil : MonoBehaviour
             if (playerPrefebInputManger.GetComponent<AimDownSight>().aimPressed)
             {
                 // This is using the Join gameobject to make the camera sway
-                CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, transform);
+                WeaponSwayCalculation(swayTime, swayAmountA, swayAmountB, transform);
 
                 // This is keeping the weapon in netural position when Joint is moving around
                 rightHand.transform.GetChild(0).transform.localRotation = weapon.aimDownSightRotation;
@@ -72,7 +72,7 @@ public class Recoil : MonoBehaviour
             else
             {
                 // This is sending the Weapon transform to change rotation of weapon
-                CalculateWeaponSway(swayTime, swayAmountA, swayAmountB, rightHand.transform.GetChild(0).transform);
+                WeaponSwayCalculation(swayTime, swayAmountA, swayAmountB, rightHand.transform.GetChild(0).transform);
 
                 // This is setting the Weapon rotation
                 rightHand.transform.GetChild(0).transform.localRotation = Quaternion.Euler(swayPosition);
@@ -124,7 +124,7 @@ public class Recoil : MonoBehaviour
         return new Vector3(Mathf.Sin(Time), A * Mathf.Sin(B * Time + Mathf.PI));
     }
 
-    private void CalculateWeaponSway(float time, float amountA, float amountB, Transform form)
+    private void WeaponSwayCalculation(float time, float amountA, float amountB, Transform form)
     {
         Vector3 targetPosition = LissajousCurve(time, amountA, amountB);
 

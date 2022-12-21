@@ -18,12 +18,9 @@ public class AimDownSight : MonoBehaviour
 
     private void Update()
     {
-        if (rightHand.GetComponentInChildren<Weapon>() != null)
+        if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.GetComponentInChildren<Attachment>().sight)
         {   
-            if (rightHand.GetComponentInChildren<Attachment>().sight)
-            {
                 ScopeIn();
-            }
         }      
     }
 
@@ -56,7 +53,7 @@ public class AimDownSight : MonoBehaviour
 
     public void Aim()
     {
-        Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().SendAimDownSightPosition;
+        Vector3 weaponInHand = rightHand.GetComponentInChildren<Weapon>().sendAimDownSightPosition;
 
         rightHand.transform.localPosition = Vector3.Lerp(weaponInHand, rightHand.transform.localPosition + weaponInHand, 3 * Time.deltaTime);
 

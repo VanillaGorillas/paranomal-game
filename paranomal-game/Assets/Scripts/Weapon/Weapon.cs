@@ -108,9 +108,9 @@ public class Weapon : MonoBehaviour
     public Transform attackPoint;
 
     [SerializeField]
-    private Vector3 aimDownSightPosition; // Maybe adjust when there is scope on
+    private Vector3 aimDownSightPosition;
     [HideInInspector]
-    public Vector3 SendAimDownSightPosition;
+    public Vector3 sendAimDownSightPosition;
     [HideInInspector]
     public Quaternion aimDownSightRotation = Quaternion.Euler(0f, 0f, 0f);
     public Vector3 defaultHipAim;
@@ -331,7 +331,7 @@ public class Weapon : MonoBehaviour
     {
         if (GetComponentInChildren<AttachmentSight>().scope)
         {
-            SendAimDownSightPosition = GetComponentInChildren<AttachmentSight>().weaponPositionChangeAim;
+            sendAimDownSightPosition = GetComponentInChildren<AttachmentSight>().weaponPositionChangeAim;
         }
         else
         {
@@ -341,7 +341,7 @@ public class Weapon : MonoBehaviour
 
     private void DefaultAimDownSight()
     {
-        SendAimDownSightPosition = aimDownSightPosition;
+        sendAimDownSightPosition = aimDownSightPosition;
     }
 
     private void CheckADSTrigger()
