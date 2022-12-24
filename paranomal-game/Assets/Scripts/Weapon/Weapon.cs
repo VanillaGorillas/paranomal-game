@@ -229,10 +229,11 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        // Set ammo display if it exists
+        // TODO: will do this for shotguns and snipers
         if (ammunitionDisplay != null)
         {
             ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+            ammunitionDisplay.SetText($"{bulletsLeft / bulletsPerTap} / {magazineSize / bulletsPerTap}");
         }
 
         SendRecoilValuesToSend();
