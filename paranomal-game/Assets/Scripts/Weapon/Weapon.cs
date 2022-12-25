@@ -77,9 +77,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float timeBetweenShooting;
 
-
-    [SerializeField]
-    private float reloadTime;
+    public float reloadTime;
 
     [SerializeField]
     private float timeBetweenShots;
@@ -89,8 +87,8 @@ public class Weapon : MonoBehaviour
 
     public float effectiveFiringRange;
 
-    [SerializeField]
-    private int magazineSize;
+    //[SerializeField] // Magazine Size will be of a differen game object down the line
+    public int magazineSize;
 
     public int bulletsPerTap;
 
@@ -227,13 +225,6 @@ public class Weapon : MonoBehaviour
             {
                 ResestRecoil(hipGrip, verticalRecoil, horizontalRecoil);
             }
-        }
-
-        // TODO: will do this for shotguns and snipers
-        if (ammunitionDisplay != null)
-        {
-            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-            ammunitionDisplay.SetText($"{bulletsLeft / bulletsPerTap} / {magazineSize / bulletsPerTap}");
         }
 
         SendRecoilValuesToSend();
