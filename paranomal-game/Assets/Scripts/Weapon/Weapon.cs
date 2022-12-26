@@ -233,6 +233,7 @@ public class Weapon : MonoBehaviour
     public void ShootPhysics()
     {
         recoilScript.RecoilFire();
+        playerPrefebInputManger.GetComponent<OverlayAmmo>().DisplayAmmoHub();
 
         triggerPressed = true;
         readyToShoot = false;

@@ -1,41 +1,73 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Enums;
 
 public class OverlayAmmo : MonoBehaviour
 {
-    public CanvasGroup mag;
-    public CanvasGroup ammoHub; // Might change
-    public Image magAmount;
-    //public GameObject ammoDisplay;
+    [SerializeField]
+    private CanvasGroup mag;
 
-    //[SerializeField]
-    //private Canvas canvas;
+    [SerializeField]
+    private CanvasGroup ammoHub; // Might change
+
+    [SerializeField]
+    private Image magAmount;
+
     [SerializeField]
     private TextMeshProUGUI magCount;
 
     [SerializeField]
     private GameObject rightHand;
 
-    // Might not use group for this but will see as don't want my whole image backgroud to be seen otherwise i change in photoshop
-    //private short transparent = 0;
-    //private float full = 1;
+    [Space]
+    [Header("AmmoHub Slots")]
+    [Space]
+
+    [SerializeField]
+    private CanvasGroup rightGroup;
+
+    [SerializeField]
+    private CanvasGroup leftGroup;
+
+    [Header("Slots Canvas Group")]
+    [Space]
+
+    [SerializeField]
+    private CanvasGroup slot1Group;
+
+    [SerializeField]
+    private CanvasGroup slot2Group;
+
+    [SerializeField]
+    private CanvasGroup slot3Group;
+
+    [Header("Slots Images")]
+    [Space]
+
+    [SerializeField]
+    private Image slot1Image;
+
+    [SerializeField]
+    private Image slot2Image;
+
+    [SerializeField]
+    private Image slot3Image;
+
+
     //// TODO: will be an amount I use to get off player later
     private float magazineAmout = 5;
 
     private Weapon weaponInRightHand;
 
-    // TODO: work on fade in with weapon not active
+    private void Awake()
+    {
+        HideOnAwake();
+    }
+
     void Update()
     {
-        if (rightHand.transform.childCount == 0 && ammoHub.alpha != 0 && rightHand.GetComponentInChildren<Weapon>() == null)
-        {
-            Fade();
-        }
-        else if (rightHand.transform.childCount == 1)
-        {
-            FadeIn();
-        }
+        Fade();
 
         if (rightHand.GetComponentInChildren<Weapon>())
         {
@@ -49,27 +81,60 @@ public class OverlayAmmo : MonoBehaviour
         }
     }
 
-    private void Fade()
+    private void HideOnAwake()
     {
-        ammoHub.alpha = Mathf.MoveTowards(ammoHub.alpha, 0, 0.1f * Time.fixedDeltaTime);
+        ammoHub.alpha = (float)EnumOverLay.Empty;
+        slot1Group.alpha = (float)EnumOverLay.Empty;
+        slot2Group.alpha = (float)EnumOverLay.Empty;
+        slot3Group.alpha = (float)EnumOverLay.Empty;
     }
 
-    private void FadeIn()
+    public void Fade()
     {
-        ammoHub.alpha = Mathf.MoveTowards(ammoHub.alpha, 1, 0.1f * Time.fixedDeltaTime);
+        if (ammoHub.alpha != 0)
+        {
+            ammoHub.alpha = Mathf.MoveTowards(ammoHub.alpha, (float)EnumOverLay.Empty, 0.05f * Time.fixedDeltaTime);
+        }
+
+        if (slot1Group.alpha != 0) 
+        { 
+            slot1Group.alpha = Mathf.MoveTowards(slot1Group.alpha, (float)EnumOverLay.Empty, 0.1f * Time.fixedDeltaTime);
+        }
+
+        if (slot2Group.alpha != 0) 
+        {
+            slot2Group.alpha = Mathf.MoveTowards(slot2Group.alpha, (float)EnumOverLay.Empty, 0.1f * Time.fixedDeltaTime);
+        }
+
+        if (slot3Group.alpha != 0) 
+        {
+            slot3Group.alpha = Mathf.MoveTowards(slot3Group.alpha, (float)EnumOverLay.Empty, 0.1f * Time.fixedDeltaTime);
+        }
     }
-    //TODO: create enums
+
+    public void DisplayAmmoHub()
+    {
+        ammoHub.alpha = (float)EnumOverLay.Full;
+    }
+
+    // TODO: Will need to only display slots if occupied and if switch to the items
+    public void DisplaySlot1Group()
+    {
+        // TODO: will need to do checks later on for slot groups
+        // TODO: will need to do function to add images of said weapons
+    }
+
     private void DisplayAmmo(float bulletsLeft, float magazineSize)
     {
-        mag.alpha = 1;
-        magCount.alpha = 1;
+        mag.alpha = (float)EnumOverLay.Full;
+        magCount.alpha = (float)EnumOverLay.Full;
 
         MagCapacityCalculation(bulletsLeft);
         
         if (weaponInRightHand.triggerPressed)
         {
-            float magSizeCalc = 100 / magazineSize; // For get different sizes of the weapon capcity
-            float magCapcity = magSizeCalc * (bulletsLeft / 100); // Does calculation that returns a float number that is below 1
+            float magSizeCalc = (float)EnumOverLay.MagFullPercentage / magazineSize; // For get different sizes of the weapon capcity
+            float magCapcity = magSizeCalc * (bulletsLeft / (float)EnumOverLay.MagFullPercentage); // Does calculation that returns a float number that is below 1
             magAmount.fillAmount = magCapcity;
         }
         else if (weaponInRightHand.reloading)
@@ -77,24 +142,24 @@ public class OverlayAmmo : MonoBehaviour
             Invoke(nameof(ReFillMag), weaponInRightHand.reloadTime);
         }
         
-        magCount.SetText($"x{magazineAmout}");
+        magCount.SetText($"{magazineAmout}");
     }
 
     private void ReFillMag()
     {
-        magAmount.fillAmount = 1;
+        magAmount.fillAmount = (float)EnumOverLay.Full;
     }
 
     private void NoDisplayAmmo()
     {
-        mag.alpha = 0;
-        magCount.alpha = 0;
-        magAmount.fillAmount = 1;
+        mag.alpha = (float)EnumOverLay.Empty;
+        magCount.alpha = (float)EnumOverLay.Empty;
+        magAmount.fillAmount = (float)EnumOverLay.Full;
     }
 
     private void MagCapacityCalculation(float bulletsLeft) 
     {
-        if (bulletsLeft < 4)
+        if (bulletsLeft <= 4)
         {
             magAmount.color = new Color(255f, 0f, 0f, 1f);
         }
@@ -104,5 +169,15 @@ public class OverlayAmmo : MonoBehaviour
         }
     } 
 
-    private void AmmoLow() { }
+    //TODO: Will increase alpha of canvas group that is in hand or give border white
+    private void InHandSelected()
+    {
+
+    }
+
+    // TODO: Will decrease alpha of canvas group that is not in hand or take away border white
+    private void NotInHandSelected()
+    {
+
+    }
 }
