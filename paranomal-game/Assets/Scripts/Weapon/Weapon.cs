@@ -87,7 +87,7 @@ public class Weapon : MonoBehaviour
 
     public float effectiveFiringRange;
 
-    //[SerializeField] // Magazine Size will be of a differen game object down the line
+    //TODO: Magazine Size will be of a different game object down the line
     public int magazineSize;
 
     public int bulletsPerTap;

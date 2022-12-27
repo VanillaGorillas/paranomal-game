@@ -10,7 +10,6 @@ public class WeaponSystem : MonoBehaviour
     [HideInInspector]
     public bool triggerDown = false; // Used for when holding down mouse and is full auto on weapon
 
-    // Update is called once per frame
     void Update()
     {
         if (rightHand.transform.childCount != 0)
@@ -38,7 +37,7 @@ public class WeaponSystem : MonoBehaviour
 
     public void Reload()
     {
-        if(rightHand.GetComponentInChildren<Weapon>() != null && !weaponFiringMode.switchingModes)
+        if(rightHand.GetComponentInChildren<Weapon>() != null && !weaponFiringMode.switchingModes && !rightHandWeapon.reloading)
         {
             rightHandWeapon.Reload();
         }

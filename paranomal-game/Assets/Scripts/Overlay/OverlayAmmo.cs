@@ -9,7 +9,7 @@ public class OverlayAmmo : MonoBehaviour
     private CanvasGroup mag;
 
     [SerializeField]
-    private CanvasGroup ammoHub; // Might change
+    private CanvasGroup ammoHub;
 
     [SerializeField]
     private Image magAmount;
@@ -55,7 +55,7 @@ public class OverlayAmmo : MonoBehaviour
     private Image slot3Image;
 
 
-    //// TODO: will be an amount I use to get off player later
+    // TODO: will be an amount I use to get off player later
     private float magazineAmout = 5;
 
     private Weapon weaponInRightHand;
@@ -77,44 +77,44 @@ public class OverlayAmmo : MonoBehaviour
         }
         else if (rightHand.GetComponentInChildren<Weapon>() == null)
         {
-            NoDisplayAmmo();
+            HideDisplayAmmo();
         }
     }
 
     private void HideOnAwake()
     {
-        ammoHub.alpha = (float)EnumOverLay.Empty;
-        slot1Group.alpha = (float)EnumOverLay.Empty;
-        slot2Group.alpha = (float)EnumOverLay.Empty;
-        slot3Group.alpha = (float)EnumOverLay.Empty;
+        ammoHub.alpha = (float)EnumOverlay.Empty;
+        slot1Group.alpha = (float)EnumOverlay.Empty;
+        slot2Group.alpha = (float)EnumOverlay.Empty;
+        slot3Group.alpha = (float)EnumOverlay.Empty;
     }
 
     public void Fade()
     {
         if (ammoHub.alpha != 0)
         {
-            ammoHub.alpha = Mathf.MoveTowards(ammoHub.alpha, (float)EnumOverLay.Empty, 0.05f * Time.fixedDeltaTime);
+            ammoHub.alpha = Mathf.MoveTowards(ammoHub.alpha, (float)EnumOverlay.Empty, 0.05f * Time.fixedDeltaTime);
         }
 
         if (slot1Group.alpha != 0) 
         { 
-            slot1Group.alpha = Mathf.MoveTowards(slot1Group.alpha, (float)EnumOverLay.Empty, 0.1f * Time.fixedDeltaTime);
+            slot1Group.alpha = Mathf.MoveTowards(slot1Group.alpha, (float)EnumOverlay.Empty, 0.1f * Time.fixedDeltaTime);
         }
 
         if (slot2Group.alpha != 0) 
         {
-            slot2Group.alpha = Mathf.MoveTowards(slot2Group.alpha, (float)EnumOverLay.Empty, 0.1f * Time.fixedDeltaTime);
+            slot2Group.alpha = Mathf.MoveTowards(slot2Group.alpha, (float)EnumOverlay.Empty, 0.1f * Time.fixedDeltaTime);
         }
 
         if (slot3Group.alpha != 0) 
         {
-            slot3Group.alpha = Mathf.MoveTowards(slot3Group.alpha, (float)EnumOverLay.Empty, 0.1f * Time.fixedDeltaTime);
+            slot3Group.alpha = Mathf.MoveTowards(slot3Group.alpha, (float)EnumOverlay.Empty, 0.1f * Time.fixedDeltaTime);
         }
     }
 
     public void DisplayAmmoHub()
     {
-        ammoHub.alpha = (float)EnumOverLay.Full;
+        ammoHub.alpha = (float)EnumOverlay.Full;
     }
 
     // TODO: Will need to only display slots if occupied and if switch to the items
@@ -126,15 +126,15 @@ public class OverlayAmmo : MonoBehaviour
 
     private void DisplayAmmo(float bulletsLeft, float magazineSize)
     {
-        mag.alpha = (float)EnumOverLay.Full;
-        magCount.alpha = (float)EnumOverLay.Full;
+        mag.alpha = (float)EnumOverlay.Full;
+        magCount.alpha = (float)EnumOverlay.Full;
 
-        MagCapacityCalculation(bulletsLeft);
+        MagCapacityColorChange(bulletsLeft);
         
         if (weaponInRightHand.triggerPressed)
         {
-            float magSizeCalc = (float)EnumOverLay.MagFullPercentage / magazineSize; // For get different sizes of the weapon capcity
-            float magCapcity = magSizeCalc * (bulletsLeft / (float)EnumOverLay.MagFullPercentage); // Does calculation that returns a float number that is below 1
+            float magSizeCalc = (float)EnumOverlay.MagFullPercentage / magazineSize; // For get different sizes of the weapon capcity
+            float magCapcity = magSizeCalc * (bulletsLeft / (float)EnumOverlay.MagFullPercentage); // Does calculation that returns a float number that is below 1
             magAmount.fillAmount = magCapcity;
         }
         else if (weaponInRightHand.reloading)
@@ -147,17 +147,17 @@ public class OverlayAmmo : MonoBehaviour
 
     private void ReFillMag()
     {
-        magAmount.fillAmount = (float)EnumOverLay.Full;
+        magAmount.fillAmount = (float)EnumOverlay.Full;
     }
 
-    private void NoDisplayAmmo()
+    private void HideDisplayAmmo()
     {
-        mag.alpha = (float)EnumOverLay.Empty;
-        magCount.alpha = (float)EnumOverLay.Empty;
-        magAmount.fillAmount = (float)EnumOverLay.Full;
+        mag.alpha = (float)EnumOverlay.Empty;
+        magCount.alpha = (float)EnumOverlay.Empty;
+        magAmount.fillAmount = (float)EnumOverlay.Full;
     }
 
-    private void MagCapacityCalculation(float bulletsLeft) 
+    private void MagCapacityColorChange(float bulletsLeft) 
     {
         if (bulletsLeft <= 4)
         {

@@ -1,6 +1,6 @@
 namespace Assets.Scripts.Enums
 {
-    enum EnumOverLay
+    enum EnumOverlay
     {
         MagFullPercentage = 100,
         Full = 1,
