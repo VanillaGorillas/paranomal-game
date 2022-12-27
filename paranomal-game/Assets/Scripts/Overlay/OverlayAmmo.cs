@@ -133,8 +133,8 @@ public class OverlayAmmo : MonoBehaviour
         
         if (weaponInRightHand.triggerPressed)
         {
-            float magSizeCalc = (float)EnumOverlay.MagFullPercentage / magazineSize; // For get different sizes of the weapon capcity
-            float magCapcity = magSizeCalc * (bulletsLeft / (float)EnumOverlay.MagFullPercentage); // Does calculation that returns a float number that is below 1
+            float magSizeCalc = 100 / magazineSize; // For get different sizes of the weapon capcity
+            float magCapcity = magSizeCalc * (bulletsLeft / 100); // Does calculation that returns a float number that is below 1
             magAmount.fillAmount = magCapcity;
         }
         else if (weaponInRightHand.reloading)
