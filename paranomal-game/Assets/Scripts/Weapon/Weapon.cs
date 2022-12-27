@@ -77,9 +77,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float timeBetweenShooting;
 
-
-    [SerializeField]
-    private float reloadTime;
+    public float reloadTime;
 
     [SerializeField]
     private float timeBetweenShots;
@@ -89,8 +87,8 @@ public class Weapon : MonoBehaviour
 
     public float effectiveFiringRange;
 
-    [SerializeField]
-    private int magazineSize;
+    //TODO: Magazine Size will be of a different game object down the line
+    public int magazineSize;
 
     public int bulletsPerTap;
 
@@ -229,18 +227,13 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        // Set ammo display if it exists
-        if (ammunitionDisplay != null)
-        {
-            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-        }
-
         SendRecoilValuesToSend();
     }
 
     public void ShootPhysics()
     {
         recoilScript.RecoilFire();
+        playerPrefebInputManger.GetComponent<OverlayAmmo>().DisplayAmmoHub();
 
         triggerPressed = true;
         readyToShoot = false;
