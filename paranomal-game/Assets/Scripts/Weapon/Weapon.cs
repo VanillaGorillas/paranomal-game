@@ -285,7 +285,7 @@ public class Weapon : MonoBehaviour
         if (bulletsLeft != magazineSize && !reloading)
         {
             reloading = true;
-            Invoke("ReloadFinished", reloadTime);
+            Invoke(nameof(ReloadFinished), reloadTime);
         }
     }
 

@@ -12,9 +12,15 @@ public class AimDownSight : MonoBehaviour
 
     public bool aimPressed = false;
 
+    private PlayerLook playerLook;
+
     // TODO: For charcter when create one
     private readonly float zoomStepTime = 5;
-    private readonly float fieldOfView = 60;
+
+    private void Awake()
+    {
+        playerLook = GetComponent<PlayerLook>();
+    }
 
     private void Update()
     {
@@ -34,7 +40,7 @@ public class AimDownSight : MonoBehaviour
             }
             else
             {
-                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, fieldOfView, zoomStepTime * Time.deltaTime);
+                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, playerLook.fov, zoomStepTime * Time.deltaTime);
             }
         }
     }

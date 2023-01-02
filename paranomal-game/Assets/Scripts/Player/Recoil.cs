@@ -39,7 +39,7 @@ public class Recoil : MonoBehaviour
 
     private void Awake()
     {
-        maxAngle = playerPrefebInputManger.GetComponent<FirstPersonController>().maxLookAngle;
+        maxAngle = playerPrefebInputManger.GetComponent<PlayerLook>().maxLookAngle;
     }
 
     void Update()

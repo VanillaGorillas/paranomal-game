@@ -7,8 +7,6 @@ public class BulletBehaviour : MonoBehaviour
     private float startRangeOfBulletDrop;
     private int collisionCount = 0; // This will be use to see if ricochet hits second game object
 
-    private float timeBulletGetsDestoryed = 0f; // The time for the gameobject to be destoryed
-
     [SerializeField]
     private float addedRange; // Adds to effective range bullet if armour piercing
 
@@ -54,7 +52,6 @@ public class BulletBehaviour : MonoBehaviour
 
         if (isArmourPiercing) // Gives off ricochet affect to do damage when hitting again or time is ended
         {
-            timeBulletGetsDestoryed = Random.Range(0f, 0.1f);
             startRangeOfBulletDrop += addedRange;
         }
     }
