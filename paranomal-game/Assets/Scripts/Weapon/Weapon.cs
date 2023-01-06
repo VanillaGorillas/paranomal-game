@@ -147,9 +147,6 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private GameObject sight;
 
-    [Header("For Testing Weapon")]
-    [SerializeField] private LineRenderer lineRenderer; // For testing purposes
-
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -161,11 +158,6 @@ public class Weapon : MonoBehaviour
         isFullAutoGrip = hipGrip;
         isFullAutoVerticalRecoil = verticalRecoil;
         isFullAutoHorizontalRecoil = horizontalRecoil;
-
-        if (lineRenderer != null) //TDOD: delete later on
-        {
-            WeaponMove();
-        }
 
         if (sight != null)
         {
@@ -190,27 +182,6 @@ public class Weapon : MonoBehaviour
         {
             GetComponent<Attachment>().sight = true;
         }
-    }
-
-    // For lineRenderer. Testing purpose
-    private void WeaponMove() 
-    {
-        Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));       
-
-        Vector3 endPosition;
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            endPosition = hit.point;
-        }
-        else
-        {
-            endPosition = ray.GetPoint(75);
-        }
-
-        Vector3 direction = endPosition - attackPoint.position;
-
-        lineRenderer.SetPosition(1, direction);
     }
 
     void Update()

@@ -30,15 +30,8 @@ public class InputManager : MonoBehaviour
 
         onFoot.Jump.performed += ctx => playerMovement.Jump();
 
-        if (playerMovement.holdInSprint)
-        {
-            onFoot.Sprint.started += ctx => playerMovement.Sprint();
-            onFoot.Sprint.canceled += ctx => playerMovement.Walk();
-        }
-        else
-        {
-            onFoot.Sprint.performed += ctx => playerMovement.Sprint();
-        }
+        onFoot.Sprint.started += ctx => playerMovement.Sprint();
+        onFoot.Sprint.canceled += ctx => playerMovement.Walk();
 
         if (playerMovement.holdInCrouch)
         {

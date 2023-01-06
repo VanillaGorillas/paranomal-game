@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerLook playerLook;
 
     [HideInInspector]
-    public float speed; // TODO: might make this private down the line
+    public float speed;
 
     [Space]
     [Header("Walk")]
@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sprint")]
     [Space]
-
-    public bool holdInSprint;
 
     [SerializeField]
     private bool isSprinting; // Might need to be public 
@@ -59,22 +57,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float crouchHeight;
 
+    private float originalHeight;
+    private readonly float crouchChangeSpeed = 5;
+
     public bool holdInCrouch;
-
-    [SerializeField]
-    private float crouchSpeed;
-
-    private Vector3 originalScale;
 
     [Space]
     [Header("Head Bob")]
     [Space]
 
     [SerializeField]
-    private Transform joint;
+    private bool enableHeadBob = true;
+
+    [SerializeField]
+    private Transform joint; 
 
     public float bobSpeed;
-    public Vector3 bobAmount; // new Vector3(.15f, .05f, 0f);
+
+    public float walkBobAmountX;
+    public float walkBobAmountY;
+    public float sprintBobAmountX;
+    public float sprintBobAmountY;
 
     [SerializeField]
     private Camera playerCamera;
@@ -82,32 +85,40 @@ public class PlayerMovement : MonoBehaviour
     private float sprintRemaining;
     private Vector3 jointOriginalPosition;
     private float timer = 0;
+    private bool isWalking = false;
 
-    // Start is called before the first frame update
+    //TODO: Maybe make player walk slower when aiming
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         playerLook = GetComponent<PlayerLook>();
-        originalScale = transform.localScale;
+        originalHeight = controller.height;
+        jointOriginalPosition = joint.localPosition;
+        sprintRemaining = sprintDuration;
         speed = walkSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         isGrounded = controller.isGrounded;
         
         if (isCrouching)
         {
-            transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
+            controller.height = Mathf.Lerp(controller.height, crouchHeight, crouchChangeSpeed * Time.deltaTime);
             Walk();
         }
         else if(!isCrouching)
         {
-            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+            controller.height = Mathf.Lerp(controller.height, originalHeight, crouchChangeSpeed * Time.deltaTime);
         }
 
         SprintFunction();
+
+        if (enableHeadBob)
+        {
+            HeadBob();
+        }
     }
 
     public void ProcessMove(Vector2 input)
@@ -124,6 +135,16 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f; 
+        }
+
+        if (moveDirection.x != 0 || moveDirection.z != 0 && isGrounded)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+            isSprinting = false;
         }
 
         controller.Move(playerVelocity * Time.deltaTime);
@@ -156,15 +177,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void Walk()
     {
-        speed = isCrouching ? crouchSpeed : walkSpeed;
+        speed = GetComponent<AimDownSight>().aimPressed ? walkSpeed / 2 : walkSpeed;
         isSprinting = false;
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, playerLook.fov, sprintFOVStepTime * Time.deltaTime);
     }
 
     private void SprintFunction()
     {
-        if (isSprinting)
+        if (isSprinting && sprintRemaining >= 1f)
         {
+            // Makes sure when player is moving and aim is true it calls release aim
+            if (GetComponent<AimDownSight>().aimPressed)
+            {
+                GetComponent<AimDownSight>().ReleaseAim();
+            }
+
             Stand();
 
             // Changes FOV of player wen sprinting
@@ -186,5 +213,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HeadBob() { }
+    //TODO: test later
+    //private Vector3 FootStepMotion()
+    //{
+    //    Vector3 pos = Vector3.zero;
+    //    pos.y += Mathf.Sin(Time.time * bobSpeed) * walkBobAmountX;
+    //    pos.x += Mathf.Cos(Time.time * bobSpeed / 2) * walkBobAmountX * 2;
+    //    return pos;
+    //}
+
+    private void HeadBob()
+    {
+        if (isWalking)
+        {
+            timer = timer > 30f ? 0 : timer;
+
+            if (isSprinting)
+            {
+                timer += Time.deltaTime * bobSpeed;
+
+                joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPosition.x + sprintBobAmountX * Mathf.Sin(timer), Time.deltaTime), jointOriginalPosition.y + Mathf.Sin(timer) * sprintBobAmountY, jointOriginalPosition.z);
+            }
+            else
+            {
+                joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPosition.x + walkBobAmountX * Mathf.Sin(Time.time * bobSpeed), Time.deltaTime), jointOriginalPosition.y + Mathf.Sin(Time.time * bobSpeed) * walkBobAmountY, jointOriginalPosition.z);
+            }
+        }
+        else
+        {
+            if (timer != 0)
+            {
+                timer = 0;
+            }
+
+            joint.localPosition = new Vector3(Mathf.Lerp(jointOriginalPosition.x, jointOriginalPosition.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPosition.y, Time.deltaTime * bobSpeed), jointOriginalPosition.z);
+        }
+    }
 }

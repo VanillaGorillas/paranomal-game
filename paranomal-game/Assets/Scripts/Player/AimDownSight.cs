@@ -15,7 +15,7 @@ public class AimDownSight : MonoBehaviour
     private PlayerLook playerLook;
 
     // TODO: For charcter when create one
-    private readonly float zoomStepTime = 5;
+    private readonly float zoomStepTime = 10;
 
     private void Awake()
     {
@@ -26,17 +26,18 @@ public class AimDownSight : MonoBehaviour
     {
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.GetComponentInChildren<Attachment>().sight)
         {   
-                ScopeIn();
+            ScopeIn();
         }      
     }
 
+    // Works now but still not staying on one value
     private void ScopeIn()
     {
         if (rightHand.GetComponentInChildren<AttachmentSight>().scope)
         {
             if (aimPressed)
             {
-                camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, rightHand.GetComponentInChildren<AttachmentSight>().fieldOfViewScopeLook, zoomStepTime * Time.deltaTime);
+                camera.fieldOfView = rightHand.GetComponentInChildren<AttachmentSight>().fieldOfViewScopeLook;        
             }
             else
             {

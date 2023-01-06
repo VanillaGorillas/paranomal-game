@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfViewZoom: 10
-  fieldOfViewScopeLook: 10
+  fieldOfViewScopeLook: 25
   scope: 1
   weaponPositionChangeAim: {x: 0, y: -0.16, z: 0.7}
   scopeCamera: {fileID: 4358375253677529035}
