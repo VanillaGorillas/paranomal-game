@@ -19,7 +19,6 @@ public class PlayerInteractable : MonoBehaviour
     private GameObject rightHand;
     private SwapWeapon swapWeapon;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerCamera = GetComponent<PlayerLook>().camera;
@@ -28,7 +27,6 @@ public class PlayerInteractable : MonoBehaviour
         swapWeapon = GetComponent<SwapWeapon>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         playerUI.UpdateText(string.Empty);

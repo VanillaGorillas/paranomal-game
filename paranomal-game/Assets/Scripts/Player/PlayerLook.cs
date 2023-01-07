@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
-    //[SerializeField]
     public new Camera camera;
 
     private float xRotation;
@@ -24,7 +22,6 @@ public class PlayerLook : MonoBehaviour
         camera.fieldOfView = fov;
     }
 
-    // Not moving smoothly and going bad at some point when running// Again not smooth must look more into this
     public void ProcessLook(Vector2 input)
     {
         float mouseX = input.x;

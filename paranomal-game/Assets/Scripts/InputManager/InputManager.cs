@@ -59,7 +59,7 @@ public class InputManager : MonoBehaviour
         {
             FullAutoCheck();
             onFoot.Reload.performed += ctx => weaponSystem.Reload();
-            onFoot.SelectFiringMode.performed += ctx => weaponSystem.ChangingFiringMode();         
+            onFoot.SelectFiringMode.performed += ctx => weaponSystem.ChangingFiringMode();
         }
     }
 
@@ -74,7 +74,7 @@ public class InputManager : MonoBehaviour
 
         if (rightHand.GetComponentInChildren<Weapon>() != null && rightHand.transform.childCount != 0)
         {
-            DownSight();
+            DownSight(); // TODO: Must fix. Gets called even when weapon is not in right hand. Maybe move into Update
         }
     }
 
@@ -107,7 +107,7 @@ public class InputManager : MonoBehaviour
         {
             onFoot.AimDownSight.performed += ctx => aimDownSight.ChangeAimState();
         }
-        else
+        else if (rightHand.GetComponentInChildren<Weapon>() != null)
         {
             onFoot.AimDownSight.started += ctx => aimDownSight.Aim();
             onFoot.AimDownSight.canceled += ctx => aimDownSight.ReleaseAim();

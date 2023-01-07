@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [Space]
 
     [SerializeField]
-    private bool isSprinting; // Might need to be public 
+    private bool isSprinting;
 
     [SerializeField]
     private float sprintFOV;
@@ -86,8 +86,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 jointOriginalPosition;
     private float timer = 0;
     private bool isWalking = false;
-
-    //TODO: Maybe make player walk slower when aiming
 
     void Start()
     {
@@ -212,15 +210,6 @@ public class PlayerMovement : MonoBehaviour
             Walk();
         }
     }
-
-    //TODO: test later
-    //private Vector3 FootStepMotion()
-    //{
-    //    Vector3 pos = Vector3.zero;
-    //    pos.y += Mathf.Sin(Time.time * bobSpeed) * walkBobAmountX;
-    //    pos.x += Mathf.Cos(Time.time * bobSpeed / 2) * walkBobAmountX * 2;
-    //    return pos;
-    //}
 
     private void HeadBob()
     {
